@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "strict": false,
+    "declaration": true,
+    "moduleResolution": "node",
+    "target": "ES2018",
+    "allowJs": true,
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": "./",
+    "paths": {
+      "@errors/*": ["./src/errors/*"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@repository/*": ["./src/repository/*"],
+      "@service/*": ["./src/service/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@routes": ["./src/routes"]
+    },
+    "types": ["node", "jest"]
+  },
+  "include": ["src/index.ts", "src/app.ts", "**/*.spec.ts", "**/*.test.ts"],
+  "exclude": ["node_modules", "build"]
+}
