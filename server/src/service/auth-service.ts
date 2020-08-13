@@ -6,6 +6,10 @@ declare global {
   }
 }
 
+export const socialSignIn = async (req: Request, res: Response) => {
+  res.json('');
+};
+
 export const getCurrentUser = async (req: Request, res: Response) => {
   res.json(req.user);
 };
