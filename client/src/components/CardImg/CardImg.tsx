@@ -7,13 +7,13 @@ type Props = {
 	imgSrc: string
 }
 
-const CardImg: React.FC<Props> = (props : Props) => {
+export const CardImg: React.FC<Props> = (props : Props) => {
 	const { imgSrc } = props
 	return (
 		<>
 			<S.Container >
 				<S.Img src={imgSrc}/>
-					<S.HeartIcon icon={faHeart} color="red"/>
+				<S.HeartIcon icon={faHeart} color="red"/>
 			</S.Container>
 		</>
 	)
