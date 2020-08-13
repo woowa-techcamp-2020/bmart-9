@@ -11,9 +11,8 @@ passport.use(
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL: `${baseUrl}/api/auth/github/callback`,
     },
-    async (accessToken, refreshToken, profile, cb) => {
-      console.log(profile);
-      const existedUser = await User.findOne(profile.id);
+    async (_, __, profile, cb) => {
+      const existedUser = await User.findBySocialId(profile.id);
       if (existedUser) {
         const token = await createJWT(existedUser.id);
         return cb(null, null, token);
