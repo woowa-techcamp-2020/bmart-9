@@ -3,15 +3,17 @@ import * as S from './CardStyle';
 import { CardImg } from './../CardImg'
 import { CardContent } from './../CardContent'
 
-type CardProps = {
+export type CardProps = {
 	id: number
 	imgSrc: string
-	productData: {
-		productName: string
-		productDiscountRate: number
-		productBasePrice: number
-		productPrice: number
-	}
+	productData: ProductDataProps
+}
+
+export type ProductDataProps = {
+	productName: string
+	productDiscountRate: number 
+	productBasePrice: number
+	productPrice: number
 }
 
 const Card: React.FC<CardProps>= ({id, imgSrc, productData}:CardProps) => {
