@@ -5,7 +5,7 @@ import {CartItem} from "../components/CartItem"
 	
 type Item = {
 	id:number;
-	checked:Boolean;
+	checked:boolean;
 	name:string;
 	img:string;
 	base_price:number;
@@ -25,7 +25,7 @@ const cartItem:Item[] = [
 	},
 	{
 		id:2,
-		checked:true,
+		checked:false,
 		name: "볼빵빵 참새 150g",
 		img:"https://i.imgur.com/FrBKe9W.png",
 		base_price: 50000,
@@ -45,7 +45,6 @@ const cartItem:Item[] = [
 
 const HorizontalPage = () => (
 	<>
-		{/* <HorizontalBar start={"hello"} center={5} end={<Counter/>}/> */}
 		<HorizontalBar start={["hello","50%",30000]} center={"sdfdsf"} end={"end"}/>
 		<HorizontalBar start={"start"} end={<Button text="테스트버튼"></Button>}/>
 		<HorizontalBar start={"start"} end={"end"}/>

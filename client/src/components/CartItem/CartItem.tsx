@@ -4,24 +4,16 @@ import comma from '../../utils/numberComma';
 
 type Props = {
 	id:number;
-	checked:Boolean;
+	checked:boolean | undefined;
 	name:string;
 	img:string;
 	base_price:number;
 	discount:number;
 	price:number;
 }
-// type Props = {}
 
-const CartItem: React.FC<Props> = ({id,checked,name,img,base_price,discount,price} : Props) => {
-// const CartItem: React.FC<Props> = ({} : Props) => {
-	// let checked:Boolean = true;
-	// let	name:string=  "아이폰 XS Pro";
-	// let	img:string = "https://i.imgur.com/0vGb1eJ.png";
-	// let	base_price:number = 1200000;
-	// let	discount:number = 10;
-	// let	price:number =  1180000;
-	
+const CartItem: React.FC<Props> = ({id,checked:initChecked,name,img,base_price,discount,price} : Props) => {
+	const [check, setChecked] = useState<boolean|undefined>(initChecked);
 	const [quantity, setQuantity] = useState<number>(3);
 	const [currDisc, setCurrDisc] = useState<number>(0);
 
@@ -40,14 +32,17 @@ const CartItem: React.FC<Props> = ({id,checked,name,img,base_price,discount,pric
 		console.log("삭제했다");
 	}
 	
+	const checkboxOnchageHandler = () => {
+		setChecked(!check);
+	}
 	return <S.Container>
 		<S.cartTitle>
 			{name}
 		</S.cartTitle>
 		<S.cartHeader>
 			<S.headerNameWrapper>
-				<S.checkboxWrapper htmlFor="cartCheckbox">
-					<S.headerCheckbox id="cartCheckbox" type="checkbox" {...checked && "checked"}></S.headerCheckbox>
+				<S.checkboxWrapper htmlFor= {"cartCheckbox"+id}>
+					<S.headerCheckbox id={"cartCheckbox"+id} type="checkbox" checked={check} onChange={checkboxOnchageHandler}></S.headerCheckbox>
 					<S.headerCheckboxMark></S.headerCheckboxMark>
 				</S.checkboxWrapper>
 				<S.headerName>{name}</S.headerName>
