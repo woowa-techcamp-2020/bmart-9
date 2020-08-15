@@ -20,8 +20,8 @@ const Card: React.FC<CardProps>= ({id, imgSrc, productData}:CardProps) => {
 
 		return(
 			<S.Container>
-				{/* <CardContent {...productData}/> */}
 				<CardImg imgSrc={imgSrc}/>
+				<CardContent {...productData}/>
 			</S.Container>
 	)
 };

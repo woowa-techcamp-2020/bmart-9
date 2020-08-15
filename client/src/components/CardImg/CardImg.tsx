@@ -18,8 +18,6 @@ export const CardImg: React.FC<Props> = (props : Props) => {
 				<S.HeartIcon icon={faHeart}/>
 				<S.ShoppingCartIcon icon={faShoppingCart}/>
 				<S.IQ>158</S.IQ>
-				<S.ContentTitle>리액트 뿌시기
-				</S.ContentTitle>
 			</S.Container>
 		</>
 	)

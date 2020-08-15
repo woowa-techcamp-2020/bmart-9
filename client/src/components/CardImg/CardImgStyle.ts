@@ -5,7 +5,6 @@ export const Container = styled.div`
   position: relative;
   background-color: #FFFFFFFF;
   width: 100%;
-  height: 150px;
 `
 
 export const Img = styled.img`
@@ -13,7 +12,6 @@ export const Img = styled.img`
   height:140px;
   border-radius:5px;
   box-shadow: 0.5px 0.5px 3px grey;
-  /* box-shadow: 3px black; */
 `
 
 export const ImgWrapper = styled.div`
@@ -72,21 +70,4 @@ export const IQ = styled.div`
     color: grey;
     margin-left:2px;
   }
-`
-
-export const ContentTitle = styled.div`
-  color: black;
-  background-color: white;
-  line-height: 20px;
-  border-radius: 10px;
-  font-weight: bold;
-  padding:3px 5px 3px 5px;
-  position: absolute;
-  font-size: 13px;
-  bottom: 10px;
-  right: 10px;
-  z-index: 1;
-  box-sizing: border-box;
-  text-align: right;
-  vertical-align: middle;
 `
