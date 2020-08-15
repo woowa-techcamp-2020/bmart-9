@@ -1,19 +1,16 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: #ccc;
-  /* display:inline-block; */
-  /* box-sizing:border-box; */
-  /* width: 100%; */
-  height: 40px;
-  /* height: 40px; */
-  /* height: 30%; */
+  background-color: grey;
+  line-height: 40px;
+  margin: 3px 3px 0 3px;
   position: relative;
+  border-radius: 5px;
 `
 
 export const ProductName = styled.div`
   padding: 3px 5px;
-  font-size: 13px;
+  font-size: 15px;
 `
 
 export const PriceContainer = styled.div`

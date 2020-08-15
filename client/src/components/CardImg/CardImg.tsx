@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './CardImgStyle';
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 // import "framework7-icons"
 
 type Props = {
@@ -12,8 +12,14 @@ export const CardImg: React.FC<Props> = (props : Props) => {
 	return (
 		<>
 			<S.Container >
-				<S.Img src={imgSrc}/>
-				<S.HeartIcon icon={faHeart} color="red"/>
+				<S.ImgWrapper>
+					<S.Img src={imgSrc}/>
+				</S.ImgWrapper>
+				<S.HeartIcon icon={faHeart}/>
+				<S.ShoppingCartIcon icon={faShoppingCart}/>
+				<S.IQ>158</S.IQ>
+				<S.ContentTitle>리액트 뿌시기
+				</S.ContentTitle>
 			</S.Container>
 		</>
 	)

@@ -4,6 +4,7 @@ import { CardProps } from './../Card/Card'
 import { Card } from './../Card'
 
 const HorizontalCardSet: React.FC<CardProps> = ( { data }  : CardProps) => {
+
 	return (
 	<S.Container>
 		{data.map(product => <Card key={product.id} {...product}/>)}
