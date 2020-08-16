@@ -19,12 +19,12 @@ export const ImgWrapper = styled.div`
   width: 100%;
 `
 
-interface likeProps {
-  like: boolean;
+export type likeProps = {
+  like: string;
 }
 
 export const HeartIcon = styled(FontAwesomeIcon)<likeProps>`
-  color: ${props => props.like ? 'red' : 'white'};
+  color: ${(props) => props.like};
   background-color: #d1d1d1;
   height: 24px;
   border-radius: 50%;

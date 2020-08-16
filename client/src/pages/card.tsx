@@ -1,4 +1,5 @@
 import { HorizontalCardSet } from "../components/HorizontalCardSet";
+import { Carousel } from './../components/Carousel/'
 import { CardProps } from './../components/Card/Card'
 
 const data : CardProps[] = [
@@ -14,6 +15,7 @@ const data : CardProps[] = [
 const CardPage = () => {
 		return(
 			<>
+				<Carousel/>
 				<HorizontalCardSet data={data}/>
 			</>
 		)
