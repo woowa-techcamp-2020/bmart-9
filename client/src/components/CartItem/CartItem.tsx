@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import * as S from './CartItemStyle';
 import comma from '../../utils/numberComma';
-
+import {$str} from "../../utils/localization";
+	
 type Props = {
 	id:number;
 	checked:boolean | undefined;
@@ -22,7 +23,7 @@ const CartItem: React.FC<Props> = ({id,checked:initChecked,name,img,base_price,d
 	const increaseQuantity = () => {
 		if(quantity >= 100) return;
 		setQuantity(quantity + 1);
-	};
+	}; 
 	const decreaseQuantity = () => {
 		if(quantity <= 1) return;
 		setQuantity(quantity - 1);
@@ -47,7 +48,7 @@ const CartItem: React.FC<Props> = ({id,checked:initChecked,name,img,base_price,d
 				</S.checkboxWrapper>
 				<S.headerName>{name}</S.headerName>
 			</S.headerNameWrapper>
-			<S.deleteButton onClick={() => deleteCartItem()}>삭제</S.deleteButton>
+			<S.deleteButton onClick={() => deleteCartItem()}>{$str("삭제")}</S.deleteButton>
 		</S.cartHeader>
 		<S.cartBody>
 			<S.cartImage src={img}></S.cartImage>
