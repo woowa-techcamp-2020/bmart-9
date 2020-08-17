@@ -1,21 +1,20 @@
 import styled from 'styled-components';
+import {MAIN_COLOR1,FONT_SIZE_LARGE,FONT_SIZE_MIDEUM,FONT_SIZE_SMALL} from '../../styles/GlobalStyle';
 
 
-const MAIN_COLOR = "green";
 
 
 export const Container = styled.div`
     display:grid;
     grid-template-rows: auto auto auto;
     grid-template-columns: 1fr;
-    margin:10px;
 `;
 
 export const cartTitle = styled.div`
     user-select: none;
     margin:10px;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: ${FONT_SIZE_LARGE};
     color: rgb(50,50,50);
 `;
 
@@ -27,7 +26,7 @@ export const cartHeader = styled.div`
 `;
 
 export const headerNameWrapper = styled.label`
-    margin:10px;
+    
     justify-self:start;
     align-self:center;
 `;
@@ -37,7 +36,7 @@ export const checkboxWrapper = styled.label`
 `;
 
 export const headerCheckbox = styled.input`
-    
+    margin: 10px;
 `;
 export const headerCheckboxMark = styled.span`
     
@@ -49,14 +48,16 @@ export const headerName = styled.span`
 `;
 
 export const deleteButton = styled.button`
-    outline:none;
-    color: ${MAIN_COLOR};
+    color: ${MAIN_COLOR1};
     justify-self:end;
     align-self:center;
+    border: 0px;
     margin:10px;
+    outline: none;
+    background-color: rgb(0,0,0,0);
     &:hover{
+        cursor:pointer;
         color:red;
-        cursor: pointer;
     }
 `;
 
@@ -87,18 +88,20 @@ export const cartImage = styled.img`
 export const cartDiscount = styled.span`
     color:red;
     font-weight: bold;
+    font-size: ${FONT_SIZE_MIDEUM};
 `;
 export const cartPrice = styled.span`
     color:gray;
-    font-size:1em;
+    font-size: ${FONT_SIZE_MIDEUM};
 `;
 export const cartTotalBasePrice = styled.span`
     color:gray;
     text-decoration: line-through;
-    font-size:0.9em;
+    font-size: ${FONT_SIZE_SMALL};
 `;
 export const cartTotalPrice = styled.span`
     font-weight: bold;
+    font-size: ${FONT_SIZE_MIDEUM};
 `;
 export const cartDescription = styled.div`
     justify-self: start;
@@ -113,9 +116,11 @@ export const cartQuantityMinus = styled.button`
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
     border-left: 1px solid gray;
+    border-right: none;
+    background-color: rgb(0,0,0,0);
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
-    height: 30px;
+    outline: none;
     &:hover{
         color:red;
         cursor: pointer;
@@ -130,9 +135,14 @@ export const cartQuantity = styled.span`
 export const cartQuantityPlus = styled.button`
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
+    border-left: none;
+    background-color: rgb(0,0,0,0);
+
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
-    height: 30px;
+    outline: none;
+    background-color: rgb(0,0,0,0);
     &:hover{
         color:red;
         cursor: pointer;
