@@ -5,11 +5,11 @@ type Props = {
 	open: boolean;
 }
 
-const SideMenu: React.FC<Props> = ({ open } : Props) => {
+const SideMenu: React.FC<Props> = ({ open, setOpen } : Props) => {
 
 	return (
 		<S.Container open={open}> 
-			<S.Icon>X</S.Icon>
+			<S.Icon open={open} onClick={() => setOpen(!open)}>X</S.Icon>
 		</S.Container>
 	)
 };

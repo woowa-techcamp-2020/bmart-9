@@ -3,7 +3,7 @@ import * as S from './HamburgerStyle';
 import { SideMenu } from './../SideMenu';
 
 const HamburgerIcon: React.FC = () => {
-  const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
   return (
     <>
