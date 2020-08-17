@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  text-align: right;
-  height: 50px;
+type openProps = {
+  open: boolean;
+}
+
+export const Container = styled.div<openProps>`
+  float:right;
+  display: inline-block;
 `
 
 export const Icon = styled.div`
@@ -10,8 +14,4 @@ export const Icon = styled.div`
   transform: rotate(90deg);
   font-weight: bold;
   padding: 3px;
-`
-
-export const HamburgerPage = styled.div`
-
 `

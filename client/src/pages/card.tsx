@@ -2,7 +2,7 @@ import { HorizontalCardSet } from "../components/HorizontalCardSet";
 import { Carousel } from './../components/Carousel/'
 import { CardProps } from './../components/Card/Card'
 import { PromotionImgDataProps } from './../components/Carousel/Carousel';
-import { HamburgerIcon } from './../components/HamburgerIcon'
+import { Hamburger } from '../components/Hamburger'
 
 const promotionImgData : PromotionImgDataProps[] = [
 	{id: 1, imgSrc: "https://images.unsplash.com/photo-1554774853-b3d587d95440?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3526&q=80"},
@@ -30,7 +30,7 @@ const data : CardProps[] = [
 const CardPage = () => {
 		return(
 			<>
-				<HamburgerIcon/>
+				<Hamburger/>
 				<Carousel promotionImgData={promotionImgData}/>
 				<HorizontalCardSet data={data}/>
 			</>
