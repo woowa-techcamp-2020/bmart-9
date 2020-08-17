@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
-type ContainerProps = {
-  length: number
-}
-
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.div`
   overflow-x: scroll;
   white-space: nowrap;
-`
 
+  ::-webkit-scrollbar{
+    display: none;
+  }
+`
