@@ -11,6 +11,7 @@ export const MAIN_COLOR4 = 'green';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+  
   * {
     margin: 0px;
     box-sizing: border-box;
