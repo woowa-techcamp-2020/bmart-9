@@ -3,13 +3,8 @@ import cheerio from 'cheerio';
 import { pool } from './db-connection-handler';
 import { promiseHandler } from './promise-handler';
 import { databaseErrorHandler } from './error-handler';
-
+import { Category } from '../../../shared';
 /* type은 각자 팀의 디비 형태에 맞게 설정해주면 됩니다 */
-type Category = {
-  id: number;
-  name: string;
-  subCategories?: Category[];
-};
 
 type Product = {
   id: number;
@@ -152,7 +147,7 @@ export const insertIntoSmallCategory = async (
     });
 
     await Promise.all(subCatePromise);
-    bigCate.subCategories = subCategories;
+    bigCate.subCategory = subCategories;
   });
 
   await Promise.all(createSubCategory);
@@ -160,7 +155,7 @@ export const insertIntoSmallCategory = async (
 
 export const insertIntoProduct = async (categories: Category[], conn: any) => {
   const getAllProductPromise = categories.map(async (bigCate) => {
-    const getSubCategoryPromise = bigCate.subCategories.map(async (subCate) => {
+    const getSubCategoryPromise = bigCate.subCategory.map(async (subCate) => {
       const products = await getProducts(`${subCate.id}`);
       const productsPromise = products.map(async (product) => {
         const {
