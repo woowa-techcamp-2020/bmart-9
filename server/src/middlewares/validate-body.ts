@@ -9,7 +9,7 @@ export const validateBody = <T>(keys: (keyof T)[]) => (
   const { body } = req;
 
   for (const key of keys) {
-    if (body[key]) {
+    if (body[key] !== undefined) {
       continue;
     }
 

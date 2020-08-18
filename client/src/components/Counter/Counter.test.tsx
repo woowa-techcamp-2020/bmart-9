@@ -2,7 +2,7 @@ import '../Hamburger/node_modules/@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 
-import { Counter } from './Counter';
+import Counter from './Counter';
 
 describe('<Counter />', () => {
   it('matches snapshot', () => {

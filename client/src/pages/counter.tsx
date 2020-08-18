@@ -1,9 +1,9 @@
-import { Counter } from "../components/Counter/Counter";
+import { Counter } from '../components/Counter';
 
 const CounterPage = () => (
-	<>
-		<Counter />
-	</>
+  <>
+    <Counter />
+  </>
 );
 
 export default CounterPage;
