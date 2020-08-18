@@ -2,6 +2,7 @@ import { HorizontalBar } from "../components/HorizontalBar";
 import {Counter} from '../components/Counter/Counter';
 import {Button} from '../components/Button';
 import {CartItem} from "../components/CartItem"
+import {$str} from "../utils/localization";
 	
 type Item = {
 	id:number;
@@ -12,6 +13,8 @@ type Item = {
 	discount:number;
 	price:number;
 }
+
+
 
 const cartItem:Item[] = [
 	{
@@ -45,8 +48,9 @@ const cartItem:Item[] = [
 
 const HorizontalPage = () => (
 	<>
+	
 		<HorizontalBar start={["hello","50%",30000]} center={"sdfdsf"} end={"end"}/>
-		<HorizontalBar start={"start"} end={<Button text="테스트버튼"></Button>}/>
+		<HorizontalBar start={"start"} end={<Button text={$str("뒤로가기")}></Button>}/>
 		<HorizontalBar start={"start"} end={"end"}/>
 		<br>
 		</br>

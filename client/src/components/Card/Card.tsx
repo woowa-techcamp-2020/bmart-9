@@ -18,15 +18,10 @@ export type ProductDataProps = {
 
 const Card: React.FC<CardProps>= ({id, imgSrc, productData}:CardProps) => {
 
-
-	// const data: CardProps = 
-	// 	{id: 1, imgSrc: "https://www.virtualtechgurus.com/wp-content/uploads/2016/10/square-img-300x300.png", productData: { productName: "달걀", productDiscountRate:10, productBasePrice: 1000, productPrice:800}}
-		// {id: 2, imgSrc: "https://www.virtualtechgurus.com/wp-content/uploads/2016/10/square-img-300x300.png", productName: "달걀", productDiscountRate:10, productBasePrice: 1000, productPrice:800},
-		// {id: 3, imgSrc: "https://www.virtualtechgurus.com/wp-content/uploads/2016/10/square-img-300x300.png", productName: "달걀", productDiscountRate:10, productBasePrice: 1000, productPrice:800},
 		return(
 			<S.Container>
-					<CardImg imgSrc={imgSrc}/>
-					<CardContent {...productData}/>
+				<CardImg imgSrc={imgSrc} productPrice={productData.productPrice}/>
+				<CardContent {...productData}/>
 			</S.Container>
 	)
 };

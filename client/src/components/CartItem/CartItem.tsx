@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import * as S from './CartItemStyle';
 import comma from '../../utils/numberComma';
-
+import {$str} from "../../utils/localization";
+	
 type Props = {
   id: number;
   checked: boolean | undefined;
@@ -94,6 +95,7 @@ const CartItem: React.FC<Props> = ({
       </S.cartBody>
     </S.Container>
   );
+
 };
 
 export default CartItem;

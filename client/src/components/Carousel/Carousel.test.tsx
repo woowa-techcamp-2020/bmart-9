@@ -2,16 +2,16 @@ import '../Hamburger/node_modules/@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 
-import {HorizontalBar} from './';
+import {Carousel} from './';
 
-describe('HorizontalBar comopoent', () => {
+describe('Carousel comopoent', () => {
   it('matches snapshot', () => {
-    const { container } = render(<HorizontalBar start={"hello"} center={5} end={"chanho"}/>);
+    const { container } = render(<Carousel />);
     expect(container).toMatchSnapshot();
   });
 
   it('shows the elemnts correctly', () => {
-    const utils = render(<HorizontalBar start={"hello"} center={5} end={"chanho"}/>);
+    const utils = render(<Carousel />);
     // utils.getByText('+');
 
   });
