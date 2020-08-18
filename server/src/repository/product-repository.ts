@@ -4,7 +4,9 @@ import {
   updateOrDeleteQueryExecuter,
 } from '../utils/query-executor';
 
-import {ProductDto} from "../dto/product-dto";
+import { Category, Product } from '../../../shared';
+
+import { ProductDto } from "../dto/product-dto";
 
 export type SocialSignUpBody = {
   name: string;
@@ -25,9 +27,9 @@ export type ProductType = {
   category2: string;
 };
 
-export class Product {
+export class ProductRepo {
   static async create(args: ProductDto) {
-    const { name, 
+    const { name,
       discount,
       img,
       base_price,
@@ -38,14 +40,14 @@ export class Product {
       category1_id,
       category2_id } = args;
 
-		const productCreateQuery = `
+    const productCreateQuery = `
 		INSERT INTO
       bmart.product(id, name, discount, img, base_price, price, stock, created_at, updated_at, category1_id, category2_id)
 		VALUES
 			(null, "${name}", ${discount}, "${img}", ${base_price}, ${price}, ${stock}, "${created_at}", "${updated_at}", ${category1_id}, ${category2_id});`;
-		return await insertQueryExecuter(productCreateQuery);
+    return await insertQueryExecuter(productCreateQuery);
   }
-  
+
   static async findOne(id: number): Promise<ProductType[]> {
     const findOneProductQuery = `
       select product.id id, product.name name, product.discount discount, 
@@ -60,11 +62,11 @@ export class Product {
         where product.id = ${id};
     `;
 
-    const Product:ProductType[] = await selectQueryExecuter<ProductType>(findOneProductQuery);
+    const Product: ProductType[] = await selectQueryExecuter<ProductType>(findOneProductQuery);
     return Product;
   }
 
-  static async findAll(): Promise<ProductType[]>{
+  static async findAll(): Promise<ProductType[]> {
     const findAllProductQuery = `
     select product.id id, product.name name, product.discount discount, 
           product.img img, product.base_price base_price, product.price price, product.stock stock, 
@@ -77,15 +79,15 @@ export class Product {
         on category2.category1_id = category1.id;
     `;
 
-    const ProductList:ProductType[] = await selectQueryExecuter<ProductType>(findAllProductQuery);
+    const ProductList: ProductType[] = await selectQueryExecuter<ProductType>(findAllProductQuery);
     return ProductList;
   }
 
   static async update(args: Partial<ProductDto>) {
-		const { id, ...rest } = args;
+    const { id, ...rest } = args;
 
-		const columnName = {
-			name: "name",
+    const columnName = {
+      name: "name",
       discount: "discount",
       price: "price",
       base_price: "base_price",
@@ -95,22 +97,22 @@ export class Product {
       category1_id: "category1_id",
       category2_id: "category2_id",
       img: "img",
-		};
+    };
 
-		const updateTemplate = Object.entries(rest)
-			.filter(([key, value]) => value !== undefined)
-			.map(
-				([key, value]) =>
-					`${columnName[key] || key}=${
-						typeof value === "number" ? value : `"${value}"`
-					}`
-			)
-			.join(", ");
+    const updateTemplate = Object.entries(rest)
+      .filter(([key, value]) => value !== undefined)
+      .map(
+        ([key, value]) =>
+          `${columnName[key] || key}=${
+          typeof value === "number" ? value : `"${value}"`
+          }`
+      )
+      .join(", ");
 
 
     console.log(updateTemplate);
 
-		const updateQuery = `
+    const updateQuery = `
 			UPDATE
 				bmart.product
 			SET
@@ -118,7 +120,22 @@ export class Product {
 			WHERE
 				id=${id}
 			;`;
-		return await updateOrDeleteQueryExecuter(updateQuery);
+    return await updateOrDeleteQueryExecuter(updateQuery);
   }
 
-}
+  static async selectProductByCategory2Id(id: number): Promise<Product[]> {
+    const findProductQuery = `
+      SELECT
+        id, name, discount, img as image, price, base_price as basePrice, category2_id as category2Id, stock
+      FROM
+        product
+      where
+        category2_id=${id}
+      limit 10;
+    `;
+
+    const products = await selectQueryExecuter<Product>(findProductQuery);
+    return products;
+  }
+
+} 
