@@ -1,9 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { useCategory } from '../hooks/useCategory';
 
 const IndexPage = () => {
-  useCategory(true);
   return (
     <>
       <h1> helle bmart - 9</h1>
