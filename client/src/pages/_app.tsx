@@ -4,13 +4,15 @@ import GlobalStyle from '../styles/GlobalStyle';
 import { CombineProviderApp } from '../utils/createContext';
 import { CounterProvider } from '../context/CounterContext';
 import { CategoryProvider } from '../context/CategoryContext';
+import { ProductProvider } from "../context/ProductContext";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       {CombineProviderApp(
         CounterProvider,
-        CategoryProvider
+        CategoryProvider,
+        ProductProvider,
       )(
         <>
           <GlobalStyle />
