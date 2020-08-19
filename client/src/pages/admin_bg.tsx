@@ -1,59 +1,40 @@
 import { FileUploader } from '../components/FileUploader';
 import { useCategory } from '../hooks/useCategory';
-import React, { useState, useEffect } from 'react';
 import { useProduct } from '../hooks/useProduct';
-import { CartItem } from '../components/CartItem';
+import React, { useState, useRef, useEffect } from 'react';
 
 const AdminPage = () => {
   const { category } = useCategory();
-  const { products, setProductByCategory2_id } = useProduct();
   const [index, setIndex] = useState(0);
-  const [cate2Id, setCate2Id] = useState(
-    category[index].subCategory![0].id || -1
-  );
+  const { product, getProductByCategory2Id } = useProduct();
+  const category2Ref = useRef(false);
+  const [category2Id, setCategory2Id] = useState(0);
 
-  useEffect(() => {
-    if (cate2Id !== -1) {
-      setProductByCategory2_id(cate2Id);
-    }
-  }, [cate2Id]);
-
-  useEffect(() => {
-    const currentFirstSubCategoryId = category[index].subCategory![0].id;
-    setCate2Id(currentFirstSubCategoryId);
-  }, [index]);
+  const clickHandler = () => {
+    getProductByCategory2Id(category2Ref.current.value)
+    setCategory2Id(category2Ref.current.value)
+    console.log(product)
+  }
+  
 
   return (
     <>
       <FileUploader />
-      <select name="cate1" onChange={(e) => setIndex(Number(e.target.value))}>
-        {category.map((cate, idx) => (
-          <option key={cate.id} value={idx}>
-            {cate.name}
+      <select name="category1" onChange={(e) => setIndex(Number(e.target.value))}>
+        {category.map((cat, idx) => (
+          <option key={cat.id} value={idx}>
+            {cat.name}
           </option>
         ))}
       </select>
-      <select name="cate2" onChange={(e) => setCate2Id(+e.target.value)}>
-        {category[index].subCategory?.map((cate) => (
-          <option key={cate.id} value={cate.id}>
-            {cate.name}
+      <select name="category2" ref={category2Ref}>
+        {category[index].subCategory?.map((cat) => (
+          <option key={cat.id} value={cat.id}>
+            {cat.name}
           </option>
         ))}
       </select>
-      <div>
-        {products.map((product) => (
-          <CartItem
-            key={product.id}
-            id={product.id}
-            checked={false}
-            name={product.name}
-            img={`http://${product.image}`}
-            discount={product.discount}
-            price={product.price}
-            base_price={product.basePrice}
-          ></CartItem>
-        ))}
-      </div>
+      <button onClick={() => clickHandler()}>검색</button>
     </>
   );
 };

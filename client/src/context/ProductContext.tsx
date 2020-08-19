@@ -1,20 +1,20 @@
-import React from 'react';
 import { contextCreator } from '../utils/createContext';
-import { Product } from '../../../shared/product';
+import { Product } from '../../../shared';
 
 export type ProductState = Product[];
 
-export type ProductAction =
-  | { type: 'ACTION_NAME' }
-  | { type: 'SET_PRODUCT_LIST'; productList: Product[] };
+export type ProductAction = {
+  type: 'FETCH_PRODUCT_BY_CATEGORY2_ID';
+  payload: Product[];
+};
 
 const ProductReducer = (
-  state: ProductState,
+  product: ProductState,
   action: ProductAction
 ): ProductState => {
   switch (action.type) {
-    case 'SET_PRODUCT_LIST':
-      return (state = action.productList); // new state
+    case 'FETCH_PRODUCT_BY_CATEGORY2_ID':
+      return action.payload;
     default:
       throw new Error('Unhandled action');
   }

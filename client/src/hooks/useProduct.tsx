@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useCreator } from '../utils/createContext';
-import { fetchProductByCategory2Id } from '../api';
 import { ProductContexts } from '../context/ProductContext';
+import { fetchProductByCategory2Id } from '../api';
+
 
 export const useProduct = () => {
-  const [products, dispatch] = useCreator(ProductContexts);
+  const [product, dispatch] = useCreator(ProductContexts);
 
-  const setProductByCategory2_id = async (category2Id: number) => {
-    const productList = await fetchProductByCategory2Id(category2Id);
-    dispatch({ type: 'SET_PRODUCT_LIST', productList });
+  const getProductByCategory2Id = async (category2Id: number) => {
+    const products = await fetchProductByCategory2Id(category2Id);
+    dispatch({ type: 'FETCH_PRODUCT_BY_CATEGORY2_ID', products });
   };
 
-  // or make custom action creator
-  // const doSomething = () => dispatch({type : 'DO_SOMETHING'})
-
-  return { products, setProductByCategory2_id };
+  return { product, getProductByCategory2Id };
 };

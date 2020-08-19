@@ -23,11 +23,11 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
     text-decoration: none;
   }
-  input, button {
+  /* input, button {
     background-color: transparent;
     border: none;
     outline: none;
-  }
+  } */
 `;
 
 export default GlobalStyle;

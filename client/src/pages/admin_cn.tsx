@@ -9,6 +9,7 @@ const AdminPage = () => {
   const { products, setProductByCategory2_id } = useProduct();
   const [index, setIndex] = useState(0);
   const [cate2Id, setCate2Id] = useState(0);
+  console.log(category)
 
   const setCategory = (index: number) => {
     setIndex(index);
