@@ -14,7 +14,7 @@ const ProductReducer = (
 ): ProductState => {
 	switch (action.type) {
 		case 'SET_PRODUCT_LIST':
-			return state = action.productList; // new state
+			return action.productList; // new state
 		default:
 			throw new Error('Unhandled action');
 	}
