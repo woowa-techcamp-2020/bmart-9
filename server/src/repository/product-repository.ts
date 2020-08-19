@@ -59,8 +59,8 @@ export class ProductRepo {
         where product.id = ${id};
     `;
 
-    const Product: ProductType[] = await selectQueryExecuter<ProductType>(findOneProductQuery);
-    return Product;
+    const product: ProductType[] = await selectQueryExecuter<ProductType>(findOneProductQuery);
+    return product;
   }
 
   static async findAll(): Promise<ProductType[]> {
