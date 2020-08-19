@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useCreator } from '../utils/createContext';
 import { fetchProductByCategory2Id } from '../api';
-import { ProductContexts } from '../context/ProductContext'
+import { ProductContexts } from '../context/ProductContext';
 
 export const useProduct = () => {
   const [products, dispatch] = useCreator(ProductContexts);
@@ -16,5 +16,3 @@ export const useProduct = () => {
 
   return { products, setProductByCategory2_id };
 };
-
-
