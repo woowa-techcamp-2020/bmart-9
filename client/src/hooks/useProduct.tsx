@@ -6,8 +6,8 @@ import { ProductContexts } from '../context/ProductContext'
 export const useProduct = () => {
   const [products, dispatch] = useCreator(ProductContexts);
 
-  const setProductByCategory2_id = async (category2_id: number) => {
-    const productList = await fetchProductByCategory2Id(category2_id);
+  const setProductByCategory2_id = async (category2Id: number) => {
+    const productList = await fetchProductByCategory2Id(category2Id);
     dispatch({ type: 'SET_PRODUCT_LIST', productList });
   };
 
