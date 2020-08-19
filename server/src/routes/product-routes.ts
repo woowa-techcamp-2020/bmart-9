@@ -17,6 +17,6 @@ router.put('/', updateProduct);
 router.post('/', createProduct);
 
 // get product by category2_id
-router.get('/:category2_id', getProductByCategory2Id);
+router.get('/category/:category2_id', getProductByCategory2Id);
 
 export default router;
