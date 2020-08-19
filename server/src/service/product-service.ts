@@ -18,11 +18,18 @@ export const getAllProduct = async (req: Request, res: Response) => {
 };
 
 export const getProductById = async (req: Request, res: Response) => {
-  const product = await ProductRepo.findOne(Number(req.params.id));
+  const id = Number(req.params.category2_id);
+  if (typeof id !== 'number' || id <= 0) {
+    throw new InvalidParamsError('id');
+  }
+
+  const product = await ProductRepo.findOne(id);
+
   if (product.length === 0) {
-    res.json(`id [${req.params.id}]는 존재하지 않는 상품입니다.`);
+    res.json(`id [${id}]는 존재하지 않는 상품입니다.`);
     return;
   }
+
   res.json(product);
 };
 
