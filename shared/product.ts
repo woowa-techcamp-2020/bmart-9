@@ -1,10 +1,3 @@
-export type GetProductByIdParams = {
-	id: number;
-};
-
-export type GetProductByCategory2IdParams = {
-	category2Id: number;
-};
 
 export type Product = {
 	id: number;
