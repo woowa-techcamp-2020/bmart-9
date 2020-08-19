@@ -1,3 +1,11 @@
+export type GetProductByIdParams = {
+	id: number;
+};
+
+export type GetProductByCategory2IdParams = {
+	category2Id: number;
+};
+
 export type Product = {
 	id: number;
 	name: string;
@@ -20,3 +28,4 @@ export type CreateProductBody = {
 	category2Id: number;
 	stock: number;
 };
+
