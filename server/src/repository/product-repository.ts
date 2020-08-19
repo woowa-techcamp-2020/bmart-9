@@ -3,10 +3,7 @@ import {
   selectQueryExecuter,
   updateOrDeleteQueryExecuter,
 } from '../utils/query-executor';
-
-import { Category, Product } from '../../../shared';
-
-import { ProductDto } from "../dto/product-dto";
+import { Product, CreateProductBody } from '../../../shared';
 
 export type SocialSignUpBody = {
   name: string;
@@ -27,24 +24,24 @@ export type ProductType = {
   category2: string;
 };
 
+
 export class ProductRepo {
-  static async create(args: ProductDto) {
+  static async create(args: CreateProductBody) {
     const { name,
       discount,
-      img,
-      base_price,
+      image,
+      basePrice,
       price,
       stock,
-      created_at,
-      updated_at,
-      category1_id,
-      category2_id } = args;
+      createdAt,
+      updatedAt,
+      category2Id } = args;
 
     const productCreateQuery = `
 		INSERT INTO
-      bmart.product(id, name, discount, img, base_price, price, stock, created_at, updated_at, category1_id, category2_id)
+      bmart.product(name, discount, img, base_price, price, stock, created_at, updated_at, category1_id, category2_id)
 		VALUES
-			(null, "${name}", ${discount}, "${img}", ${base_price}, ${price}, ${stock}, "${created_at}", "${updated_at}", ${category1_id}, ${category2_id});`;
+			("${name}", ${discount}, "${image}", ${basePrice}, ${price}, ${stock}, "${createdAt}", "${updatedAt}", null, ${category2Id});`;
     return await insertQueryExecuter(productCreateQuery);
   }
 
@@ -62,8 +59,8 @@ export class ProductRepo {
         where product.id = ${id};
     `;
 
-    const Product: ProductType[] = await selectQueryExecuter<ProductType>(findOneProductQuery);
-    return Product;
+    const product: ProductType[] = await selectQueryExecuter<ProductType>(findOneProductQuery);
+    return product;
   }
 
   static async findAll(): Promise<ProductType[]> {
@@ -83,20 +80,17 @@ export class ProductRepo {
     return ProductList;
   }
 
-  static async update(args: Partial<ProductDto>) {
+  static async update(args: Partial<Product>) {
     const { id, ...rest } = args;
 
     const columnName = {
       name: "name",
       discount: "discount",
       price: "price",
-      base_price: "base_price",
-      created_at: "created_at",
-      updated_at: "updated_at",
+      basePrice: "base_price",
       stock: "stock",
-      category1_id: "category1_id",
-      category2_id: "category2_id",
-      img: "img",
+      category2Id: "category2_id",
+      image: "img",
     };
 
     const updateTemplate = Object.entries(rest)
@@ -138,4 +132,4 @@ export class ProductRepo {
     return products;
   }
 
-} 
+}

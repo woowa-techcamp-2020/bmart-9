@@ -1,22 +1,21 @@
 import { Router } from 'express';
-import { getAllProduct, getProductById, updateProduct, createProduct } from '../service/product-service';
+import { getAllProduct, getProductById, createProduct, getProductByCategory2Id } from '../service/product-service';
 import { validateBody } from '../middlewares/validate-body';
-import { CreateProductBody } from '../../../shared';
-import { getProductByCategory2Id } from '../service/product-service';
+import { CreateProductBody, GetProductByCategory2IdParams, GetProductByIdParams } from '../../../shared';
 
 const router = Router();
+
 // all product
 router.get('/', getAllProduct);
 
-router.get('/:id', getProductById);
+router.get('/:id', validateBody<GetProductByIdParams>(['id']), getProductById);
 
 // Product update
-router.put('/', updateProduct);
+// router.put('/', updateProduct);
 
 // Product create
-router.post('/', createProduct);
+router.post('/', validateBody<CreateProductBody>(["name", 'discount', 'image', 'price', 'basePrice', 'stock', 'createdAt', 'updatedAt', 'category2Id']), createProduct);
 
-// get product by category2_id
-router.get('/category/:category2_id', getProductByCategory2Id);
+router.get('/category/:category2_id', validateBody<GetProductByCategory2IdParams>(['category2Id']), getProductByCategory2Id);
 
 export default router;
