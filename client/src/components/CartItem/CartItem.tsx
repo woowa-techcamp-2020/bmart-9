@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import * as S from './CartItemStyle';
 import comma from '../../utils/numberComma';
-import {$str} from "../../utils/localization";
-	
+import { $str } from "../../utils/localization";
+
 type Props = {
   id: number;
   checked: boolean | undefined;
@@ -69,16 +69,25 @@ const CartItem: React.FC<Props> = ({
       <S.cartBody>
         <S.cartImage src={img}></S.cartImage>
         <S.cartPriceWrapper>
-          <div>
-            <S.cartDiscount>{discount}%</S.cartDiscount>
-            <S.cartPrice> ({comma(price)}원)</S.cartPrice>
-          </div>
-          <div>
-            <S.cartTotalBasePrice>
-              {comma(base_price * quantity)}원
-            </S.cartTotalBasePrice>
-            <S.cartTotalPrice> {comma(price * quantity)}원</S.cartTotalPrice>
-          </div>
+          {discount > 0 ?
+            <>
+              <div>
+                <S.cartDiscount>{discount}%</S.cartDiscount>
+                <S.cartPrice> ({comma(price)}원)</S.cartPrice>
+              </div>
+              <div>
+                <S.cartTotalBasePrice>
+                  {comma(base_price * quantity)}원
+                </S.cartTotalBasePrice>
+                <S.cartTotalPrice> {comma(price * quantity)}원</S.cartTotalPrice>
+              </div>
+            </> :
+            <>
+              <div><S.cartPrice> ({comma(price)}원)</S.cartPrice></div>
+              <div><S.cartTotalPrice> {comma(price * quantity)}원</S.cartTotalPrice></div>
+            </>
+          }
+
           <S.cartDescription>{description[currDisc]}</S.cartDescription>
           <S.cartQuantityWrapper>
             <S.cartQuantityMinus onClick={() => decreaseQuantity()}>
