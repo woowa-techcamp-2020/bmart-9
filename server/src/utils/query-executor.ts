@@ -24,24 +24,28 @@ export const selectQueryExecuter = async <T>(query: string): Promise<T[]> => {
   return result as T[];
 };
 
-export const insertQueryExecuter = async (
-  query: string
-): Promise<[number, any]> => {
+export const insertQueryExecuter = async (query: string): Promise<number> => {
   const conn = await pool.getConnection();
-  const [[{ insertId }, _], error] = await promiseHandler(conn.query(query));
+  const [queryResult, error] = await promiseHandler(conn.query(query));
+
+  databaseErrorHandler(error);
+
+  const [{ insertId }, _] = queryResult;
   conn.release();
-  return [insertId, error];
+  return insertId;
 };
 
 export const updateOrDeleteQueryExecuter = async (
   query: string
-): Promise<[number, any]> => {
+): Promise<number> => {
   const conn = await pool.getConnection();
-  const [[{ affectedRows }, _], error] = await promiseHandler(
-    conn.query(query)
-  );
+  const [queryResult, error] = await promiseHandler(conn.query(query));
+
+  databaseErrorHandler(error);
+
+  const [{ affectedRows }, _] = queryResult;
   conn.release();
-  return [affectedRows, error];
+  return affectedRows;
 };
 
 export const transactionQueryExecuter = async (...queries: Promise<any>[]) => {

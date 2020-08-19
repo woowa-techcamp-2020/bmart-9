@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { getAllProduct, getProductById, updateProduct, createProduct } from '../service/product-service';
+
+import { getAllProduct, getProductById, updateProduct, createProduct, getProductByCategory2Id } from '../service/product-service';
+import { validateBody } from '../middlewares/validate-body';
+import { CreateProductBody } from '../../../shared';
+
 const router = Router();
 
 // all product
@@ -12,5 +16,7 @@ router.put('/', updateProduct);
 
 // Product create
 router.post('/', createProduct);
+
+router.get('/category/:category2_id', getProductByCategory2Id);
 
 export default router;
