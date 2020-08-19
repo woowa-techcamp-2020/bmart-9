@@ -1,6 +1,5 @@
 import { Router } from 'express';
-
-import { getAllProduct, getProductById, updateProduct, createProduct, getProductByCategory2Id } from '../service/product-service';
+import { getAllProduct, getProductById, createProduct, getProductByCategory2Id } from '../service/product-service';
 import { validateBody } from '../middlewares/validate-body';
 import { CreateProductBody } from '../../../shared';
 
@@ -12,10 +11,10 @@ router.get('/', getAllProduct);
 router.get('/:id', getProductById);
 
 // Product update
-router.put('/', updateProduct);
+// router.put('/', updateProduct);
 
 // Product create
-router.post('/', createProduct);
+router.post('/', validateBody<CreateProductBody>(["name", 'discount', 'image', 'price', 'basePrice', 'stock', 'createdAt', 'updatedAt', 'category2Id']), createProduct);
 
 router.get('/category/:category2_id', getProductByCategory2Id);
 

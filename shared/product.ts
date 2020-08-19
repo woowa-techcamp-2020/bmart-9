@@ -13,7 +13,10 @@ export type CreateProductBody = {
 	name: string;
 	image: string;
 	price: number;
+	basePrice?: number;
 	discount?: number;
+	createdAt?: string;
+	updatedAt?: string;
 	category2Id: number;
 	stock: number;
 };

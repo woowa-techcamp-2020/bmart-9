@@ -1,13 +1,9 @@
 import { Request, Response } from 'express';
-import { Product } from '../../../shared';
 import { ProductRepo } from '../repository/product-repository';
-import { ProductDto } from "../dto/product-dto";
 import { InvalidParamsError } from '../errors/invalid-params';
 
 export const createProduct = async (req: Request, res: Response) => {
-  const productDto = new ProductDto(req.body);
-
-  const newProductId = await ProductRepo.create(productDto);
+  const newProductId = await ProductRepo.create(req.body);
 
   // error 처리 해야함 
 
@@ -30,17 +26,17 @@ export const getProductById = async (req: Request, res: Response) => {
   res.json(product);
 };
 
-export const updateProduct = async (req: Request, res: Response) => {
-  const productDto = new ProductDto(req.body);
+// export const updateProduct = async (req: Request, res: Response) => {
+//   const productDto = new ProductDto(req.body);
 
-  const updatedRows = await ProductRepo.update(productDto);
+//   const updatedRows = await ProductRepo.update(productDto);
 
-  // error 처리 해야함 
+//   // error 처리 해야함 
 
-  const updatedProduct = await ProductRepo.findOne(productDto.getId());
+//   const updatedProduct = await ProductRepo.findOne(productDto.getId());
 
-  res.json(updatedProduct);
-}
+//   res.json(updatedProduct);
+// }
 
 export const getProductByCategory2Id = async (req: Request, res: Response) => {
   const id = Number(req.params.category2_id);
