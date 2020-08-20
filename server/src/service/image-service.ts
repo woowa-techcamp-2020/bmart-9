@@ -6,3 +6,9 @@ export const getBannerImage = async (req: Request, res: Response) => {
 
   res.json(allBannerImages);
 };
+
+export const getCategoryIconImage = async (req: Request, res: Response) => {
+  const allCategoryIcons = await ImageRepo.selectAllCategoryIcons();
+
+  res.json(allCategoryIcons);
+};

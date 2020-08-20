@@ -16,4 +16,21 @@ export class ImageRepo {
     );
     return allBannerImages;
   }
+
+  static async selectAllCategoryIcons() {
+    const selectAllCategoryIconsQuery = `
+      SELECT
+        *
+      FROM
+        icon
+      WHERE
+        name LIKE 'main%'
+    `;
+
+    // type generic
+    const allCategoryIcons = await selectQueryExecuter<Image>(
+      selectAllCategoryIconsQuery
+    );
+    return allCategoryIcons;
+  }
 }

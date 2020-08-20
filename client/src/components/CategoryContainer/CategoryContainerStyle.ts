@@ -13,6 +13,7 @@ type ImgProps = {
 };
 
 export const Category = styled.img<ImgProps>`
+  name: 
   display: inline-block;
   width: 20vw;
   padding: 5px;
