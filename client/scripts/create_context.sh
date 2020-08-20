@@ -59,6 +59,6 @@ const initial${FILE_NAME}: ${FILE_NAME}State = 0;
 export const {
 	ContextProvider: ${FILE_NAME}Provider,
 	Contexts: ${FILE_NAME}Contexts,
-} = contextCreator<CounterState, CounterAction>(CounterReducer, initialCounter);
+} = contextCreator<${FILE_NAME}State, ${FILE_NAME}Action>(${FILE_NAME}Reducer, initial${FILE_NAME});
 
 " > src/${CONTEXT_FOLDER}/${FILE_NAME}Context.tsx`
