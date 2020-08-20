@@ -7,10 +7,6 @@ export const Container = styled.div`
   white-space: nowrap;
 `;
 
-type LengthProps = {
-  length: number;
-};
-
 const calcSlideInterval = (frameLength: number) => {
   let keyframe = '';
   for (let i = 0; i < frameLength; i++) {
@@ -30,10 +26,15 @@ const slide = (length: number) => keyframes`
   ${calcSlideInterval(length + 1)}
 `
 
-export const Img = styled.img<LengthProps>`
+type ImgProps = {
+  length: number;
+  name: string;
+};
+
+export const Img = styled.img<ImgProps>`
   display: inline-block;
   width: 100vw;
-  height: 200px;
+  height: 30vh;
   animation: ${(props) => slide(props.length)} ${(props) => props.length * 3}s
     cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
 `;

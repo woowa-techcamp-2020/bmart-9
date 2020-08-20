@@ -1,24 +1,20 @@
 import React from 'react';
 import * as S from './CarouselStyle';
+import { Image } from './../../../../shared';
 
-export type PromotionImgDataProps = {
-  promotionImgData: {
-    id: number;
-    imgSrc: string;
-  }[];
+type ImageProps = {
+  bannerImages: Image[];
 };
 
-const Carousel: React.FC<PromotionImgDataProps> = ({
-  promotionImgData,
-}: PromotionImgDataProps) => {
-  const length: number = promotionImgData.length;
+const Carousel: React.FC<ImageProps> = ({ bannerImages }: ImageProps) => {
+  const length: number = bannerImages.length;
 
   return (
     <S.Container>
-      {promotionImgData.map((img) => (
-        <S.Img key={img.id} length={length} src={img.imgSrc} />
+      {bannerImages.map((item) => (
+        <S.Img key={item.id} length={length} src={item.img} name={item.name} />
       ))}
-      <S.Img length={length} src={promotionImgData[0].imgSrc} />
+      <S.Img length={length} src={bannerImages[0].img} name={bannerImages[0].name}/>
     </S.Container>
   );
 };
