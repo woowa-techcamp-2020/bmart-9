@@ -1,5 +1,4 @@
 import app from './app';
-import { baseUrl } from './urlConfig';
-const PORT = 3000;
+import { baseUrl, PORT } from './urlConfig';
 
-app.listen(PORT, () => console.log(`connected to ${baseUrl}:${PORT}`));
+app.listen(PORT, () => console.log(`connected to ${baseUrl}`));

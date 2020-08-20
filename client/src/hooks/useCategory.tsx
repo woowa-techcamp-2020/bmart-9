@@ -1,22 +1,24 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useCreator } from '../utils/createContext';
 import { CategoryContexts } from '../context/CategoryContext';
 import { Category } from '../../../shared';
 import API from '../api';
 
-export const useCategory = (init = false) => {
+export const useCategory = (categories?: Category[]) => {
   const [category, dispatch] = useCreator(CategoryContexts);
 
   useEffect(() => {
-    init && getCategory();
-  }, [init]);
+    if (categories) {
+      dispatch({ type: 'FETCH_CATEGORY', categories });
+    }
+  }, [categories, dispatch]);
 
   const getCategory = async () => {
     const categories = await API.Category.getAll();
     dispatch({ type: 'FETCH_CATEGORY', categories });
   };
 
-  return { category, getCategory };
+  return { category };
 
   // or make custom action creator
   // const doSomething = () => dispatch({type : 'DO_SOMETHING'})

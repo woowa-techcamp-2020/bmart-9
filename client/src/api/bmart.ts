@@ -1,7 +1,6 @@
 import Axios from 'axios';
 
-const TOKEN_KEY = 'TOKEN';
-
+export const TOKEN_KEY = 'X-Auth';
 export type MethodType = 'GET' | 'POST' | 'DELETE' | 'PATCH' | 'PUT';
 
 const devURL = 'http://localhost:3000';
@@ -16,10 +15,11 @@ export const bmart = Axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-// export const bmartAuth = Axios.create({
-//   baseURL: baseURL,
-//   headers: {
-//     'Content-Type': 'application/json',
-//     [TOKEN_KEY]: localStorage.getItem(TOKEN_KEY),
-//   },
-// });
+export const bmartAuth = (token: string) =>
+  Axios.create({
+    baseURL: baseURL,
+    headers: {
+      'Content-Type': 'application/json',
+      [TOKEN_KEY]: token,
+    },
+  });

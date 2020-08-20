@@ -1,28 +1,44 @@
 import React from 'react';
-import { AppProps } from 'next/app';
+import App, { AppProps, AppContext } from 'next/app';
 import GlobalStyle from '../styles/GlobalStyle';
-import { CombineProviderApp } from '../utils/createContext';
-import { CounterProvider } from '../context/CounterContext';
-import { CategoryProvider } from '../context/CategoryContext';
-import { ProductProvider } from "../context/ProductContext";
-import { CartProvider } from "../context/CartContext";
+import { CombinedProviders } from '../context';
+import API from '../api';
+import { Category } from '../../../shared';
+import { useCategory } from '../hooks/useCategory';
 
-const App = ({ Component, pageProps }: AppProps) => {
+type InitialProps = {
+  category: Category[];
+};
+let IS_INITIALIZED = false;
+
+const InitializeStore: React.FC<InitialProps> = ({ children, category }) => {
+  useCategory(category);
+
+  IS_INITIALIZED = true;
+  return <>{children}</>;
+};
+
+const MyApp = ({ Component, pageProps, category }: AppProps & InitialProps) => {
   return (
     <>
-      {CombineProviderApp(
-        CounterProvider,
-        CategoryProvider,
-        ProductProvider,
-        CartProvider,
-      )(
-        <>
+      {CombinedProviders(
+        <InitializeStore category={category}>
           <GlobalStyle />
           <Component {...pageProps} />
-        </>
+        </InitializeStore>
       )}
     </>
   );
 };
 
-export default App;
+MyApp.getInitialProps = async (appContext: AppContext) => {
+  const appProps = await App.getInitialProps(appContext);
+  if (IS_INITIALIZED) {
+    return { ...appProps };
+  }
+
+  const category = await API.Category.getAll();
+  return { ...appProps, category };
+};
+
+export default MyApp;

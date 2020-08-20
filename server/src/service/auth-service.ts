@@ -7,7 +7,7 @@ declare global {
 }
 
 export const socialSignIn = async (req: Request, res: Response) => {
-  res.json('');
+  res.redirect(`/auth/${req.authInfo}`);
 };
 
 export const getCurrentUser = async (req: Request, res: Response) => {

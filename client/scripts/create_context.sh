@@ -48,9 +48,9 @@ const ${FILE_NAME}Reducer = (
 ): ${FILE_NAME}State => {
 	switch (action.type) {
 		case 'ACTION_NAME':
-			return state; // new state
+			return state;
 		default:
-			throw new Error('Unhandled action');
+			throw new Error('존재하지 않는 액션입니다.');
 	}
 };
 

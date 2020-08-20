@@ -2,9 +2,13 @@
 import Category from './category';
 import Product from './product';
 import Cart from './cart';
+import User from './user';
+import Image from './image';
 
 export default {
     Category,
     Product,
-    Cart
+    Cart,
+    User,
+    Image
 }

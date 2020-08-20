@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
 
 import bodyParser from 'body-parser';
 import path from 'path';
@@ -29,9 +29,12 @@ app.use(router);
 
 app.use(errorHandler);
 
+app.get('/auth/:token', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/auth/[token].html'));
+});
+
 app.get('/*', (req, res) => {
-  res.send('');
-  // res.sendFile(path.join(__dirname, '../public/index.html'));
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 export default app;

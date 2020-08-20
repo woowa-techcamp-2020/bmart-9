@@ -1,38 +1,32 @@
 import React from 'react';
 import Link from 'next/link';
-import { useCategory } from '../hooks/useCategory';
+import { InferGetServerSidePropsType } from 'next';
+import API from '../api';
+import { Carousel } from '../components/Carousel';
 
-const IndexPage = () => {
-  useCategory(true);
+const IndexPage = ({
+  bannerImages,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
-      <h1> helle bmart - 9</h1>
-      <Link href="/counter">
-        <a>go to counter</a>
-      </Link>
-      <br />
-      <Link href="/card">
-        <a>go to card</a>
-      </Link>
-      <br />
-      <Link href="/admin_cn">
-        <a>go to 이찬호</a>
-      </Link>
-      <br />
-      <Link href="/admin_bg">
-        <a>go to admin bongeun</a>
-      </Link>
-      <br />
-      <Link href="/admin_andy">
-        <a>go to admin andy</a>
-      </Link>
-      <br />
-      <br />
-      <Link href="/cartPage">
-        <a>장백우니</a>
-      </Link>
+      <img src={bannerImages[0].img} />
+      {/* <Carousel images={bannerImages}/> */}
+      {/* <CategoryContainer image={categoryIamges}/> */}
     </>
   );
+};
+
+export const getServerSideProps = async () => {
+  const bannerImages = await API.Image.getBannersImage();
+  // const categoryIamges = await getCategoryImage();
+  // const res = await fetch('https://.../data');
+  // const data: Data = await res.json();
+  return {
+    props: {
+      bannerImages,
+      // categoryIamges
+    },
+  };
 };
 
 export default IndexPage;
