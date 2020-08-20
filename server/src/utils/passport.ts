@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github';
-import { User } from '../repository/user-repository';
+import { UserRepo } from '../repository/user-repository';
 import { createJWT } from './jwt';
 import { baseUrl } from '../urlConfig';
 
@@ -12,13 +12,13 @@ passport.use(
       callbackURL: `${baseUrl}/api/auth/github/callback`,
     },
     async (_, __, profile, cb) => {
-      const existedUser = await User.findBySocialId(profile.id);
+      const existedUser = await UserRepo.findBySocialId(profile.id);
       if (existedUser) {
         const token = await createJWT(existedUser.id);
-        return cb(null, null, token);
+        return cb(null, token, token);
       }
 
-      const [createUserId, error] = await User.createWithSocial({
+      const createUserId = await UserRepo.createWithSocial({
         socialId: profile.id,
         name: profile.displayName,
       });

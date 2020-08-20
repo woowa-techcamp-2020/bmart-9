@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import App, { AppProps, AppContext } from 'next/app';
 import GlobalStyle from '../styles/GlobalStyle';
 import { CombinedProviders } from '../context';
@@ -12,11 +12,9 @@ type InitialProps = {
 let IS_INITIALIZED = false;
 
 const InitializeStore: React.FC<InitialProps> = ({ children, category }) => {
-  if (!IS_INITIALIZED) {
-    useCategory(category);
+  useCategory(category);
 
-    IS_INITIALIZED = true;
-  }
+  IS_INITIALIZED = true;
   return <>{children}</>;
 };
 

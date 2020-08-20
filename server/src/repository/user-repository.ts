@@ -2,18 +2,14 @@ import {
   insertQueryExecuter,
   selectQueryExecuter,
 } from '../utils/query-executor';
+import { User } from '../../../shared';
 
 export type SocialSignUpBody = {
   name: string;
   socialId: string;
 };
 
-export type UserType = {
-  id: number;
-  name: string;
-};
-
-export class User {
+export class UserRepo {
   static async createWithSocial({ socialId, name }: SocialSignUpBody) {
     const createNewUserQuery = `
       INSERT INTO
@@ -25,7 +21,7 @@ export class User {
     return await insertQueryExecuter(createNewUserQuery);
   }
 
-  static async findOne(id: number): Promise<UserType> {
+  static async findOne(id: number): Promise<User> {
     const findOneUserQuery = `
       SELECT
         id, name
@@ -35,11 +31,11 @@ export class User {
         id=${id}
     `;
 
-    const [user, _] = await selectQueryExecuter<UserType>(findOneUserQuery);
+    const [user, _] = await selectQueryExecuter<User>(findOneUserQuery);
     return user;
   }
 
-  static async findBySocialId(socialId: number): Promise<UserType> {
+  static async findBySocialId(socialId: number): Promise<User> {
     const findOneUserQuery = `
       SELECT
         id, name
@@ -49,7 +45,7 @@ export class User {
         social_id=${socialId}
     `;
 
-    const [user, _] = await selectQueryExecuter<UserType>(findOneUserQuery);
+    const [user, _] = await selectQueryExecuter<User>(findOneUserQuery);
     return user;
   }
 }
