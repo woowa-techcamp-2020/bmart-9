@@ -83,11 +83,11 @@ const CartItem: React.FC<Cart> = ({
 
           <S.cartDescription>{description[currDisc]}</S.cartDescription>
           <S.cartQuantityWrapper>
-            <S.cartQuantityMinus onClick={() => setTempQuantity(tempQuantity - 1)}>
+            <S.cartQuantityMinus onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
               {' '}-{' '}
             </S.cartQuantityMinus>
             <S.cartQuantity>{tempQuantity}</S.cartQuantity>
-            <S.cartQuantityPlus onClick={() => setTempQuantity(tempQuantity + 1)}>
+            <S.cartQuantityPlus onClick={() => tempQuantity < 100 && setTempQuantity(tempQuantity + 1)}>
               {' '}+{' '}
             </S.cartQuantityPlus>
           </S.cartQuantityWrapper>
