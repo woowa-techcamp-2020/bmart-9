@@ -12,7 +12,7 @@ export const useCategory = (init = false) => {
   }, [init]);
 
   const getCategory = async () => {
-    const categories = await API.Category().getAll();
+    const categories = await API.Category.getAll();
     dispatch({ type: 'FETCH_CATEGORY', categories });
   };
 
