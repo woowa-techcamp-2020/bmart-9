@@ -2,7 +2,7 @@ import React from 'react';
 import { contextCreator } from '../utils/createContext';
 import { Category } from '../../../shared';
 
-export type CategoryState = Category[];
+export type CategoryState = Category[] | null;
 
 export type CategoryAction = { type: 'FETCH_CATEGORY'; categories: Category[] };
 
@@ -12,13 +12,13 @@ const CategoryReducer = (
 ): CategoryState => {
   switch (action.type) {
     case 'FETCH_CATEGORY':
-      return [...state, ...action.categories];
+      return [...action.categories];
     default:
       throw new Error('Unhandled action');
   }
 };
 
-const initialCategory: CategoryState = [];
+const initialCategory: CategoryState = null;
 
 export const {
   ContextProvider: CategoryProvider,
