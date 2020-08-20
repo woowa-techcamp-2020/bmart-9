@@ -1,6 +1,10 @@
-import React from 'react';
 import { contextCreator } from '../utils/createContext';
-import { Category } from '../../../shared';
+// import { Category } from '../../../shared';
+export type Category = {
+  id: number;
+  name: string;
+  subCategory?: Category[];
+};
 
 export type CategoryState = Category[] | null;
 
