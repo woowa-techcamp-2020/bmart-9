@@ -1,4 +1,6 @@
-<img src="https://user-images.githubusercontent.com/34447105/90772301-6ecb3280-e32f-11ea-9d8c-76317b32ccaa.jpeg">
+<p align="center">
+  <img width="400" src="https://user-images.githubusercontent.com/34447105/90772561-b2be3780-e32f-11ea-9ae3-04bd46ea2144.png" />
+</p>
 
 ### 👨‍👨‍👦 멤바
 - **[남현우](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EC%A0%80%EA%B8%80%EB%A7%81)**  
