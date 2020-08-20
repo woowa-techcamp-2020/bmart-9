@@ -3,28 +3,24 @@ import Link from 'next/link';
 import { InferGetServerSidePropsType } from 'next';
 import { getBannersImage } from '../api';
 import { Carousel } from '../components/Carousel';
+import { HorizontalBar } from '../components/HorizontalBar';
 
 const IndexPage = ({
   bannerImages,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
-      <img src={bannerImages[0].img} />
-      {/* <Carousel images={bannerImages}/> */}
-      {/* <CategoryContainer image={categoryIamges}/> */}
+      <HorizontalBar start='아이콘' center='로고' end='아이콘'/>
+      <Carousel bannerImages={bannerImages}/>
     </>
   );
 };
 
 export const getServerSideProps = async () => {
   const bannerImages = await getBannersImage();
-  // const categoryIamges = await getCategoryImage();
-  // const res = await fetch('https://.../data');
-  // const data: Data = await res.json();
   return {
     props: {
       bannerImages,
-      // categoryIamges
     },
   };
 };

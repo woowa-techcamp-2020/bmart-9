@@ -9,16 +9,16 @@ export type PromotionImgDataProps = {
 };
 
 const Carousel: React.FC<PromotionImgDataProps> = ({
-  promotionImgData,
+  bannerImages,
 }: PromotionImgDataProps) => {
-  const length: number = promotionImgData.length;
+  const length: number = bannerImages.length;
 
   return (
     <S.Container>
-      {promotionImgData.map((img) => (
-        <S.Img key={img.id} length={length} src={img.imgSrc} />
+      {bannerImages.map((item) => (
+        <S.Img key={item.id} length={length} src={item.img} />
       ))}
-      <S.Img length={length} src={promotionImgData[0].imgSrc} />
+      <S.Img length={length} src={bannerImages[0].img} />
     </S.Container>
   );
 };
