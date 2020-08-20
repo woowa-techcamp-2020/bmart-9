@@ -4,6 +4,7 @@ import { InferGetServerSidePropsType } from 'next';
 import { getBannersImage } from '../api';
 import { Carousel } from '../components/Carousel';
 import { HorizontalBar } from '../components/HorizontalBar';
+import { CategoryContainer } from '../components/CategoryContainer';
 
 const IndexPage = ({
   bannerImages,
@@ -12,6 +13,7 @@ const IndexPage = ({
     <>
       <HorizontalBar start='아이콘' center='로고' end='아이콘'/>
       <Carousel bannerImages={bannerImages}/>
+      <CategoryContainer/>
     </>
   );
 };
