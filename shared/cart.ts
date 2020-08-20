@@ -2,7 +2,7 @@ export type Cart = {
 	id: number;
 	userId: number;
 	quantity: number;
-	checked: number;
+	isCheck: number;
 	createdAt: string;
 	updatedAt: string;
 	productId: number;
@@ -13,3 +13,17 @@ export type Cart = {
 	price: number;
 	stock: number;
 };
+
+export type CartQuantity = {
+	id: number;
+	quantity: number;
+}
+
+export type CreateCartBody ={
+	userId: number;
+	productId:number;
+	quantity: number;
+	isCheck: number;
+	createdAt: string;
+	updatedAt: string;
+}
