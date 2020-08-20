@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100vw;
   height: 30vh;
-  background-color: grey;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `
 
 type ImgProps = {
@@ -13,6 +15,5 @@ type ImgProps = {
 export const Category = styled.img<ImgProps>`
   display: inline-block;
   width: 20vw;
-  height: 14vh;
-  margin-top: 5px;
+  padding: 5px;
 `;
