@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import API from '../api';
 import { InferGetStaticPropsType } from 'next';
 import { getBannersImage } from '../api';
 import { getCategoryIcons } from '../api';
@@ -19,6 +20,7 @@ const IndexPage = ({
     </>
   );
 };
+
 
 export const getStaticProps = async () => {
   const bannerImages = await getBannersImage();
