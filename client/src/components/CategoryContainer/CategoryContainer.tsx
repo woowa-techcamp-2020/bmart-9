@@ -3,14 +3,16 @@ import * as S from './CategoryContainerStyle';
 import { Image } from './../../../../shared';
 
 type CategoryProps = {
-	iconImages: Image[];
+	categoryIcons: Image[];
 }
 
-const CategoryContainer: React.FC<CategoryProps> = ({ iconImages } : CategoryProps) => {
+const CategoryContainer: React.FC<CategoryProps> = ({ categoryIcons } : CategoryProps) => {
 
 	return (
 		<S.Container>
-			<S.Category src={iconImages[0].img}/>
+			{categoryIcons.map((item) => (
+        <S.Category key={item.id} src={item.img} name={item.name} />
+      ))}
 		</S.Container>
 	)
 };

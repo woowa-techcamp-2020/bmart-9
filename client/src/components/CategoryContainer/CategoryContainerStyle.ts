@@ -6,7 +6,13 @@ export const Container = styled.div`
   background-color: grey;
 `
 
-export const Category = styled.img`
-  width: 100%;
-  height: 100%;
-`
+type ImgProps = {
+  name: string;
+};
+
+export const Category = styled.img<ImgProps>`
+  display: inline-block;
+  width: 20vw;
+  height: 14vh;
+  margin-top: 5px;
+`;

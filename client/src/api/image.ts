@@ -6,7 +6,7 @@ export const getBannersImage = async () => {
   return data;
 };
 
-export const getIconsImage = async () => {
-  const { data } = await bmart.get<Image[]>('/image/icon');
+export const getCategoryIcons = async () => {
+  const { data } = await bmart.get<Image[]>('/image/category-icon');
   return data;
 };
