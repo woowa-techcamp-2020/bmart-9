@@ -5,6 +5,7 @@ import { CombinedProviders } from '../context';
 import API from '../api';
 import { Category, Product } from '../../../shared';
 import { useCategory } from '../hooks/useCategory';
+import { useProduct } from '../hooks/useProduct';
 
 type InitialProps = {
   category: Category[];
@@ -17,6 +18,7 @@ const InitializeStore: React.FC<InitialProps> = ({
   products,
 }) => {
   useCategory(category);
+  useProduct(products);
   return <>{children}</>;
 };
 
@@ -42,7 +44,8 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext);
 
   const category = await API.Category.getAll();
-  return { ...appProps, category };
+  const products = await API.Product.getAllProduct();
+  return { ...appProps, category, products };
 };
 
 export default MyApp;

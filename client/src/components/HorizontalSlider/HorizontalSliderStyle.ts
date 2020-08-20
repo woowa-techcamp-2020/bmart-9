@@ -4,7 +4,8 @@ export const Container = styled.div`
   overflow-x: scroll;
   white-space: nowrap;
 
-  ::-webkit-scrollbar{
+  margin-bottom: 10px;
+  ::-webkit-scrollbar {
     display: none;
   }
-`
+`;

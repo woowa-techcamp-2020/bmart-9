@@ -14,7 +14,7 @@ export type ProductType = {
   id: number;
   name: string;
   discount: number;
-  img: string;
+  image: string;
   base_price: number;
   price: number;
   stock: number;
@@ -24,10 +24,10 @@ export type ProductType = {
   category2: string;
 };
 
-
 export class ProductRepo {
   static async create(args: CreateProductBody) {
-    const { name,
+    const {
+      name,
       discount,
       image,
       basePrice,
@@ -35,7 +35,8 @@ export class ProductRepo {
       stock,
       createdAt,
       updatedAt,
-      category2Id } = args;
+      category2Id,
+    } = args;
 
     const productCreateQuery = `
 		INSERT INTO
@@ -59,24 +60,29 @@ export class ProductRepo {
         where product.id = ${id};
     `;
 
-    const product: ProductType[] = await selectQueryExecuter<ProductType>(findOneProductQuery);
+    const product: ProductType[] = await selectQueryExecuter<ProductType>(
+      findOneProductQuery
+    );
     return product;
   }
 
   static async findAll(): Promise<ProductType[]> {
     const findAllProductQuery = `
     select product.id id, product.name name, product.discount discount, 
-          product.img img, product.base_price base_price, product.price price, product.stock stock, 
+          product.img image, product.base_price base_price, product.price price, product.stock stock, 
           product.created_at created_at, product.updated_at updated_at, 
           category1.name category1, category2.name category2
     from product
       left join category2
         on product.category2_id = category2.id
       left join category1
-        on category2.category1_id = category1.id;
+        on category2.category1_id = category1.id
+      limit 300;
     `;
 
-    const ProductList: ProductType[] = await selectQueryExecuter<ProductType>(findAllProductQuery);
+    const ProductList: ProductType[] = await selectQueryExecuter<ProductType>(
+      findAllProductQuery
+    );
     return ProductList;
   }
 
@@ -84,13 +90,13 @@ export class ProductRepo {
     const { id, ...rest } = args;
 
     const columnName = {
-      name: "name",
-      discount: "discount",
-      price: "price",
-      basePrice: "base_price",
-      stock: "stock",
-      category2Id: "category2_id",
-      image: "img",
+      name: 'name',
+      discount: 'discount',
+      price: 'price',
+      basePrice: 'base_price',
+      stock: 'stock',
+      category2Id: 'category2_id',
+      image: 'img',
     };
 
     const updateTemplate = Object.entries(rest)
@@ -98,11 +104,10 @@ export class ProductRepo {
       .map(
         ([key, value]) =>
           `${columnName[key] || key}=${
-          typeof value === "number" ? value : `"${value}"`
+            typeof value === 'number' ? value : `"${value}"`
           }`
       )
-      .join(", ");
-
+      .join(', ');
 
     console.log(updateTemplate);
 
@@ -131,5 +136,4 @@ export class ProductRepo {
     const products = await selectQueryExecuter<Product>(findProductQuery);
     return products;
   }
-
 }

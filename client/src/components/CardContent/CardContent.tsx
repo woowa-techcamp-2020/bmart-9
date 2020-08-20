@@ -1,16 +1,15 @@
 import React from 'react';
 import * as S from './CardContentStyle';
-import { ProductDataProps } from './../Card/Card'
+import { Product } from '../../../../shared';
 
-export const CardContent: React.FC<ProductDataProps> = ( {productName} : ProductDataProps) => {
-	return (
-		<>
-			<S.Container>
-				<S.ProductName>{productName}</S.ProductName>
-			</S.Container>
-		 </>
-	)
+export const CardContent: React.FC<Product> = ({ name }: Product) => {
+  return (
+    <>
+      <S.Container>
+        <S.ProductName>{name}</S.ProductName>
+      </S.Container>
+    </>
+  );
 };
 
 export default CardContent;
-

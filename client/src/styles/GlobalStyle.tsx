@@ -9,6 +9,11 @@ export const MAIN_COLOR2 = 'green';
 export const MAIN_COLOR3 = 'green';
 export const MAIN_COLOR4 = 'green';
 
+export const GRAY_001 = '#fafafa';
+export const GRAY_002 = '#ececec';
+export const GRAY_003 = '#DEDEDE';
+export const GRAY_004 = '#D4d4d4';
+
 const GlobalStyle = createGlobalStyle`
   ${reset}
   

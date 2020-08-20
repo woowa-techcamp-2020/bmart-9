@@ -5,7 +5,7 @@ import {
 } from '../utils/query-executor';
 import { Cart, CreateCartBody, CartQuantity } from '../../../shared';
 
-import { carmelToSnakeTemplate } from '../utils/carmel-to-snake-template';
+// import { carmelToSnakeTemplate } from '../utils/carmel-to-snake-template';
 import { format } from 'path';
 
 export class CartRepo {
@@ -42,10 +42,8 @@ export class CartRepo {
   }
 
   static async delete(id: number) {
-
     const deleteQuery = `DELETE FROM bmart.cart WHERE id=${id};`;
     return await updateOrDeleteQueryExecuter(deleteQuery);
-
   }
 
   static async createTestCart(id: number) {
@@ -55,41 +53,42 @@ export class CartRepo {
       `insert INTO cart VALUES (NULL, 3, 4, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',${id});`,
       `insert INTO cart VALUES (NULL, 3, 111217721, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',${id});`,
       `insert INTO cart VALUES (NULL, 3, 50777145, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',${id});`,
-      `insert INTO cart VALUES (NULL, 3, 111215659, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',${id});`
+      `insert INTO cart VALUES (NULL, 3, 111215659, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',${id});`,
     ];
 
-    await updateOrDeleteQueryExecuter(`delete from cart where user_id = ${id};`);
+    await updateOrDeleteQueryExecuter(
+      `delete from cart where user_id = ${id};`
+    );
     createTestQuery.map(async (query) => {
       await insertQueryExecuter(query);
-    })
+    });
 
-    return "succeed"
+    return 'succeed';
   }
-
 
   //// 아래는 작업 안됩.
 
-  static async create(cartParams: CreateCartBody) {
+  // static async create(cartParams: CreateCartBody) {
 
-    const columnName: object = {
-      userId: "user_id",
-      productId: "product_id",
-      quantity: "quantity",
-      isCheck: 'is_check',
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
-    };
+  //   const columnName: object = {
+  //     userId: "user_id",
+  //     productId: "product_id",
+  //     quantity: "quantity",
+  //     isCheck: 'is_check',
+  //     createdAt: 'created_at',
+  //     updatedAt: 'updated_at',
+  //   };
 
-    const template = carmelToSnakeTemplate(cartParams, columnName);
+  //   const template = carmelToSnakeTemplate(cartParams, columnName);
 
-    const cartCreateQuery = `
-		INSERT INTO
-      bmart.cart(userId, productId, quantity, isCheck, created_at, updated_at)
-    VALUES
-      ${ template}
-        `;
-    return await insertQueryExecuter(cartCreateQuery);
-  }
+  //   const cartCreateQuery = `
+  // 	INSERT INTO
+  //     bmart.cart(userId, productId, quantity, isCheck, created_at, updated_at)
+  //   VALUES
+  //     ${ template}
+  //       `;
+  //   return await insertQueryExecuter(cartCreateQuery);
+  // }
 
   static async findOne(id: number): Promise<Cart[]> {
     const findOneCartQuery = `
@@ -103,26 +102,24 @@ export class CartRepo {
             on product.category2_id = category2.id
           left join category1
             on category2.category1_id = category1.id
-          where cart.id = ${ id};
+          where cart.id = ${id};
     `;
 
     const cart: Cart[] = await selectQueryExecuter<Cart>(findOneCartQuery);
     return cart;
   }
 
-
-
   static async update(args: Partial<Cart>) {
     const { id, ...rest } = args;
 
     const columnName = {
-      name: "name",
-      discount: "discount",
-      price: "price",
-      basePrice: "base_price",
-      stock: "stock",
-      category2Id: "category2_id",
-      image: "img",
+      name: 'name',
+      discount: 'discount',
+      price: 'price',
+      basePrice: 'base_price',
+      stock: 'stock',
+      category2Id: 'category2_id',
+      image: 'img',
     };
 
     const updateTemplate = Object.entries(rest)
@@ -130,11 +127,10 @@ export class CartRepo {
       .map(
         ([key, value]) =>
           `${columnName[key] || key}=${
-          typeof value === "number" ? value : `"${value}"`
+            typeof value === 'number' ? value : `"${value}"`
           } `
       )
-      .join(", ");
-
+      .join(', ');
 
     console.log(updateTemplate);
 
@@ -142,9 +138,9 @@ export class CartRepo {
     UPDATE
     bmart.cart
     SET
-    ${ updateTemplate}
+    ${updateTemplate}
     WHERE
-    id = ${ id}
+    id = ${id}
     ; `;
     return await updateOrDeleteQueryExecuter(updateQuery);
   }
@@ -156,12 +152,11 @@ export class CartRepo {
     FROM
     cart
     where
-    category2_id = ${ id}
+    category2_id = ${id}
     limit 10;
     `;
 
     const carts = await selectQueryExecuter<Cart>(findCartQuery);
     return carts;
   }
-
 }

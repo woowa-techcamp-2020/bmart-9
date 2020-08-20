@@ -1,12 +1,12 @@
 import { useCreator } from '../utils/createContext';
 import { UserContexts } from '../context/UserContext';
-import { TOKEN_KEY, getCurrentUser } from '../api';
+import API, { TOKEN_KEY } from '../api';
 
 export const useUser = () => {
   const [user, dispatch] = useCreator(UserContexts);
 
   const signIn = async (token: string) => {
-    const user = await getCurrentUser(token);
+    const user = await API.User.getCurrentUser(token);
     dispatch({ type: 'SET_USER', user });
   };
 
