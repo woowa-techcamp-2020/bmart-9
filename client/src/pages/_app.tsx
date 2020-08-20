@@ -2,7 +2,7 @@ import React from 'react';
 import App, { AppProps, AppContext } from 'next/app';
 import GlobalStyle from '../styles/GlobalStyle';
 import { CombinedProviders } from '../context';
-import { fetchCategory } from '../api';
+import API from '../api';
 import { Category } from '../../../shared';
 import { useCategory } from '../hooks/useCategory';
 
@@ -37,7 +37,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
     return { ...appProps };
   }
 
-  const category = await fetchCategory();
+  const category = await API.Category.getAll();
   return { ...appProps, category };
 };
 
