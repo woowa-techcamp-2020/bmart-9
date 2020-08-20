@@ -1,5 +1,14 @@
-export * from './bmart';
-export * from './user';
-export * from './category';
-export * from './product';
-export * from './image';
+//export * from './user';
+import Category from './category';
+import Product from './product';
+import Cart from './cart';
+import User from './user';
+import Image from './image';
+
+export default {
+    Category,
+    Product,
+    Cart,
+    User,
+    Image
+}

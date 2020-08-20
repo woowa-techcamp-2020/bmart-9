@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useCreator } from '../utils/createContext';
 import { CategoryContexts } from '../context/CategoryContext';
 import { Category } from '../../../shared';
+import API from '../api';
 
 export const useCategory = (categories?: Category[]) => {
   const [category, dispatch] = useCreator(CategoryContexts);
@@ -12,9 +13,10 @@ export const useCategory = (categories?: Category[]) => {
     }
   }, [categories, dispatch]);
 
-  // const setCategory = async (categories: Category[]) => {
-  //   dispatch({ type: 'FETCH_CATEGORY', categories });
-  // };
+  const getCategory = async () => {
+    const categories = await API.Category.getAll();
+    dispatch({ type: 'FETCH_CATEGORY', categories });
+  };
 
   return { category };
 

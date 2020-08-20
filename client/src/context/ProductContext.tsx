@@ -2,7 +2,7 @@ import React from 'react';
 import { contextCreator } from '../utils/createContext';
 import { Product } from '../../../shared/product';
 
-export type ProductState = Product[];
+export type ProductState = Product[] | null;
 
 export type ProductAction =
   | { type: 'ACTION_NAME' }
@@ -14,13 +14,13 @@ const ProductReducer = (
 ): ProductState => {
   switch (action.type) {
     case 'SET_PRODUCT_LIST':
-      return (state = action.productList); // new state
+      return [...action.productList]; // new state
     default:
       throw new Error('Unhandled action');
   }
 };
 
-const initialProduct: ProductState = [];
+const initialProduct: ProductState = null;
 
 export const {
   ContextProvider: ProductProvider,

@@ -2,7 +2,7 @@ import React from 'react';
 import App, { AppProps, AppContext } from 'next/app';
 import GlobalStyle from '../styles/GlobalStyle';
 import { CombinedProviders } from '../context';
-import { fetchCategory, getAllProduct } from '../api';
+import API from '../api';
 import { Category, Product } from '../../../shared';
 import { useCategory } from '../hooks/useCategory';
 
@@ -41,9 +41,8 @@ const MyApp = ({
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext);
 
-  const category = await fetchCategory();
-  const products = await getAllProduct();
-  return { ...appProps, category, products };
+  const category = await API.Category.getAll();
+  return { ...appProps, category };
 };
 
 export default MyApp;
