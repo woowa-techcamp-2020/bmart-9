@@ -10,18 +10,17 @@ const AdminPage = () => {
   const [index, setIndex] = useState(0);
   const [cate2Id, setCate2Id] = useState(0);
 
-
   const setCategory = (index: number) => {
     setIndex(index);
     setCate2Id(category[index].subCategory![0].id);
     setProduct(cate2Id);
-  }
+  };
 
   const setProduct = async (category2_id: string | number) => {
     setCate2Id(+category2_id);
-    console.log("curr category2_id=", cate2Id);
+    console.log('curr category2_id=', cate2Id);
     if (cate2Id === 0) {
-      console.log("초기데이터 필요없어", cate2Id);
+      console.log('초기데이터 필요없어', cate2Id);
       return;
     }
     await setProductByCategory2_id(cate2Id);
@@ -30,7 +29,10 @@ const AdminPage = () => {
   return (
     <>
       <FileUploader />
-      <select name="cate1" onChange={(e) => setCategory(Number(e.target.value))}>
+      <select
+        name="cate1"
+        onChange={(e) => setCategory(Number(e.target.value))}
+      >
         {category.map((cate, idx) => (
           <option key={cate.id} value={idx}>
             {cate.name}
@@ -46,7 +48,16 @@ const AdminPage = () => {
       </select>
       <div>
         {products.map((product) => (
-          <CartItem key={product.id} id={product.id} checked={false} name={product.name} img={`http://${product.image}`} discount={product.discount} price={product.price} base_price={product.basePrice}></CartItem>
+          <CartItem
+            key={product.id}
+            id={product.id}
+            checked={false}
+            name={product.name}
+            img={`http://${product.image}`}
+            discount={product.discount}
+            price={product.price}
+            base_price={product.basePrice}
+          ></CartItem>
         ))}
       </div>
     </>

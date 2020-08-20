@@ -15,8 +15,14 @@ const IndexPage = () => {
         <a>go to card</a>
       </Link>
       <br />
-      <Link href="/admin">
-        <a>go to admin</a>
+      <Link href="/admin_chano">
+        <a>go to cnAdmin</a>
+      </Link>
+      <Link href="/admin_bg">
+        <a>go to admin bongeun</a>
+      </Link>
+      <Link href="/admin_andy">
+        <a>go to admin andy</a>
       </Link>
     </>
   );
