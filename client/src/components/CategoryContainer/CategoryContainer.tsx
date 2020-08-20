@@ -1,11 +1,18 @@
 import React from 'react';
 import * as S from './CategoryContainerStyle';
+import { Image } from './../../../../shared';
 
-type Props = {}
+type CategoryProps = {
+	iconImages: Image[];
+}
 
-const CategoryContainer: React.FC<Props> = ({} : Props) => {
+const CategoryContainer: React.FC<CategoryProps> = ({ iconImages } : CategoryProps) => {
 
-	return <S.Container>CategoryContainer</S.Container>;
+	return (
+		<S.Container>
+			<S.Category src={iconImages[0].img}/>
+		</S.Container>
+	)
 };
 
 export default CategoryContainer;
