@@ -1,3 +1,16 @@
 //export * from './user';
-export * from './category';
-export * from './product';
+import categoryAPI from './category';
+import productAPI from './product';
+import cartAPI from './cart';
+
+export default {
+    Product() {
+        return productAPI;
+    },
+    Category() {
+        return categoryAPI;
+    },
+    Cart() {
+        return cartAPI;
+    }
+}

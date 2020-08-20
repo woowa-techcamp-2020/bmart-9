@@ -1,8 +1,12 @@
 import { bmart } from './bmart';
 import { Product } from '../../../shared';
 
-export const fetchProductByCategory2Id = async (category2_id: number) => {
-    const { data } = await bmart.get<Product[]>(`/product/category/${category2_id}`);
+const getByCategory2Id = async (category2Id: number) => {
+    const { data } = await bmart.get<Product[]>(`/product/category/${category2Id}`);
 
     return data;
 };
+
+export default {
+    getByCategory2Id
+}
