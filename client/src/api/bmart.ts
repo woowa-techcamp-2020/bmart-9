@@ -5,7 +5,7 @@ export type MethodType = 'GET' | 'POST' | 'DELETE' | 'PATCH' | 'PUT';
 
 const devURL = 'http://localhost:3000';
 // TODO
-const prodURL = 'http://localhost:3000';
+const prodURL = 'http://3.35.51.159:3000';
 export const baseURL =
   (process.env.NODE_MODE === 'production' ? prodURL : devURL) + '/api';
 
