@@ -6,7 +6,7 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 5;
   height: 100%;
   background: white;
   padding-bottom: 4px;
@@ -24,6 +24,10 @@ export const InputWrapper = styled.div`
   border-radius: 6px;
   padding: 0 10px;
   border: 0.1px solid ${GRAY_002};
+`;
+
+export const Image = styled.img`
+  height: 30px;
 `;
 
 export const Icon = styled.span`
