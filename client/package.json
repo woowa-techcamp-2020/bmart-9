@@ -19,7 +19,7 @@
     "dev": "next -p 9000",
     "start": "next start -p 9000",
     "build": "next build ",
-    "postbuild": "next export && rm -rf ../server/public && mv out ../server/public",
+    "postbuild": "next export && rm -rf ../server/dist/server/public && mv out ../server/dist/server/public",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

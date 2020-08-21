@@ -8,4 +8,5 @@ export const Container = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+  padding-bottom: 10px;
 `;

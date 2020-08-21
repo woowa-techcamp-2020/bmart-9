@@ -47,18 +47,19 @@ const AdminPage = () => {
           ))}
       </select>
       <div>
-        {products.map((product) => (
-          <CartItem
-            key={product.id}
-            id={product.id}
-            checked={false}
-            name={product.name}
-            img={`http://${product.image}`}
-            discount={product.discount}
-            price={product.price}
-            base_price={product.basePrice}
-          ></CartItem>
-        ))}
+        {/* {products &&
+          products.map((product) => (
+            <CartItem
+              key={product.id}
+              id={product.id}
+              // checked={false}
+              name={product.name}
+              image={`http://${product.image}`}
+              discount={product.discount}
+              price={product.price}
+              basePrice={product.basePrice}
+            ></CartItem>
+          ))} */}
       </div>
     </>
   );

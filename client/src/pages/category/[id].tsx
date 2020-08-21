@@ -23,7 +23,7 @@ export const getStaticPaths = async () => {
     paths: [{ params: { id: '464911' } }, { params: { id: '2' } }],
     // Enable statically generating additional pages
     // For example: `/posts/3`
-    fallback: true,
+    fallback: false,
   };
 };
 
@@ -37,3 +37,21 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 export default CategoryDetailPage;
+`
+select
+  *
+from
+  product p1
+where
+  (select
+    count(*)
+  from
+    product p2
+  where
+    p1.category2_id=p2.category2_id
+    and
+    p1.id <= p2.id
+  ) <=10
+order by
+  category2_id;
+`;
