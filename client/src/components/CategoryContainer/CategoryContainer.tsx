@@ -4,6 +4,7 @@ import { Image } from './../../../../shared';
 import { MainContainer } from '../MainContainer';
 import { useRouter } from 'next/router';
 import { useCategory } from '../../hooks/useCategory';
+import Link from 'next/link';
 
 type CategoryProps = {
   categoryIcons: Image[];
@@ -41,17 +42,17 @@ const categoryRouting = [
 const CategoryContainer: React.FC<CategoryProps> = ({
   categoryIcons,
 }: CategoryProps) => {
-  const { push } = useRouter();
-
   return (
     <MainContainer>
       <S.Container>
         {categoryIcons.map((item, idx) => (
-          <S.Category
+          <Link
             key={item.id}
-            src={item.img}
-            onClick={() => push(`/category/${categoryRouting[idx]}`)}
-          />
+            href="/category/[id]"
+            as={`/category/${categoryRouting[idx]}`}
+          >
+            <S.Category src={item.img} />
+          </Link>
         ))}
       </S.Container>
     </MainContainer>
