@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import * as S from './HeaderStyle';
 import { HorizontalBar } from '../HorizontalBar';
 import { useRouter } from 'next/router';
-import { Hamburger } from '../Hamburger';
 import { SideMenu } from '../SideMenu';
 import { useUser } from '../../hooks/useUser';
 import Link from 'next/link';
@@ -14,7 +13,7 @@ const Header: React.FC<Props> = ({}: Props) => {
   const { push } = useRouter();
   const { isLoggedIn, signOut } = useUser();
   const [open, setOpen] = useState(false);
-  
+
   return (
     <S.Container>
 			<SideMenu open={open} setOpen={setOpen}/>

@@ -18,5 +18,5 @@ export const Icon = styled.div`
   float:right;
   display: inline-block;
   font-weight: bold;
-  padding: 6px;
+  padding: 15px;
 `
