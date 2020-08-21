@@ -4,25 +4,12 @@ import { CardImg } from './../CardImg';
 import { CardContent } from './../CardContent';
 import { Product } from '../../../../shared';
 
-// export type CardProps = {
-// 	id: number
-// 	imgSrc: string
-// 	productData: ProductDataProps
-// }
-
-// export type ProductDataProps = {
-// 	productName: string
-// 	productDiscountRate: number
-// 	productBasePrice: number
-// 	productPrice: number
-// }
-
 const Card: React.FC<Product> = (product: Product) => {
-  const { image, price } = product;
+  const { img, price } = product;
 
   return (
     <S.Container>
-      <CardImg imgSrc={image} productPrice={price} />
+      <CardImg imgSrc={img} productPrice={price} />
       <CardContent {...product} />
     </S.Container>
   );
