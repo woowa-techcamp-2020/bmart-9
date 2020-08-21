@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as S from './HamburgerStyle';
 import { SideMenu } from './../SideMenu';
 
-const HamburgerIcon: React.FC = () => {
+const Hamburger: React.FC = () => {
 	const [open, setOpen] = useState(false);
 
   return (
@@ -15,4 +15,4 @@ const HamburgerIcon: React.FC = () => {
   );
 };
 
-export default HamburgerIcon;
+export default Hamburger;
