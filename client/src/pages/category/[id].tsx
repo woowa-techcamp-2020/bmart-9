@@ -4,7 +4,6 @@ import API from '../../api';
 import { useCategory } from '../../hooks/useCategory';
 import { useProduct } from '../../hooks/useProduct';
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
-import * as S from '../../styles/categoryDetailStyle';
 import { BoxCategory } from '../../components/BoxCategory';
 import { HorizontalBar } from '../../components/HorizontalBar';
 import { HorizontalSlider } from '../../components/HorizontalSlider';
