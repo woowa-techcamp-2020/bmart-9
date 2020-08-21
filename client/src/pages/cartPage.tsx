@@ -5,12 +5,15 @@ import { useCart } from '../hooks/useCart';
 import { CartItem } from '../components/CartItem';
 import { HorizontalBar } from '../components/HorizontalBar';
 import comma from '../utils/numberComma';
+import { useRouter } from 'next/router';
 
 const CartPage = () => {
   const { cartList, setCartList, createTestCart } = useCart();
   const [allCheck, setAllCheck] = useState(true);
   const [totalCost, setTotalCost] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
+  const { push } = useRouter();
+
 
   useEffect(() => {
     setCartList();
@@ -50,7 +53,11 @@ const CartPage = () => {
             {cartList.map((item: Cart) => {
               return <CartItem key={item.id} {...item}></CartItem>;
             })}
-            <HorizontalBar center="+ 더 담으러 가기"></HorizontalBar>
+            <HorizontalBar center={
+              <S.TextButton onClick={() => push(`/`)}>
+                + 더 담으러 가기
+              </S.TextButton>}>
+            </HorizontalBar>
           </div>
           <div className="totalWrapper">
             <HorizontalBar
@@ -67,13 +74,13 @@ const CartPage = () => {
           ></HorizontalBar>
         </>
       ) : (
-        <S.Container>
-          <S.Img src="https://i.imgur.com/t0Lantl.png"></S.Img>
-          <S.Button onClick={() => createTestCart(3)}>
-            테스트 장바구니 추가
+          <S.Container>
+            <S.Img src="https://i.imgur.com/t0Lantl.png"></S.Img>
+            <S.Button onClick={() => createTestCart(3)}>
+              테스트 장바구니 추가
           </S.Button>
-        </S.Container>
-      )}
+          </S.Container>
+        )}
     </>
   );
 };
