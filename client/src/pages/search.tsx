@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
-import { CartItem } from '../components/CartItem';
+import React, { useState, useEffect } from 'react';
+import { Search } from '../components/Search';
+import { Header } from '../components/Header';
+
+
 
 const SearchPage = () => {
-  return <></>;
+  return (
+  <>
+    <Header />
+    <Search />
+  </>
+  )
 };
 
 export default SearchPage;

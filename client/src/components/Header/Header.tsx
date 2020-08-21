@@ -6,6 +6,7 @@ import { Hamburger } from '../Hamburger';
 import { useUser } from '../../hooks/useUser';
 import Link from 'next/link';
 
+
 type Props = {};
 
 const Header: React.FC<Props> = ({}: Props) => {
