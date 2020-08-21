@@ -4,6 +4,7 @@ import Product from './product';
 import Cart from './cart';
 import User from './user';
 import Image from './image';
+import Search from './search';
 
 export * from './bmart';
 
@@ -13,4 +14,5 @@ export default {
   Cart,
   User,
   Image,
+  Search,
 };
