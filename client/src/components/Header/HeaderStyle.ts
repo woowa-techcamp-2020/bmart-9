@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { GRAY_001, GRAY_002 } from '../../styles/GlobalStyle';
+// import { Hamburger } from '../Hamburger';
 
 export const Container = styled.div`
   position: sticky;
@@ -16,4 +17,15 @@ export const Container = styled.div`
 
 export const Image = styled.img`
   height: 30px;
+`;
+
+type openProps = {
+  open: boolean;
+};
+
+export const Hamburger = styled.div<openProps>`
+  display: inline-block;
+  transform: rotate(90deg);
+  font-weight: bold;
+  padding: 3px;
 `;

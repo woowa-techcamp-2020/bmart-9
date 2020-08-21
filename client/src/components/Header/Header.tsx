@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import * as S from './HeaderStyle';
 import { HorizontalBar } from '../HorizontalBar';
 import { useRouter } from 'next/router';
-import { Hamburger } from '../Hamburger';
+import { SideMenu } from '../SideMenu';
 import { useUser } from '../../hooks/useUser';
 import { SearchBar } from '../SearchBar';
 
@@ -13,9 +13,11 @@ const Header: React.FC<Props> = ({}: Props) => {
   const { pathname } = useRouter();
   const { isLoggedIn, signOut } = useUser();
   const inputVisiblePath = ['/', '/search'];
+  const [open, setOpen] = useState(false);
 
   return (
     <S.Container>
+      <SideMenu open={open} setOpen={setOpen} />
       <HorizontalBar
         start={
           isLoggedIn ? (
@@ -36,7 +38,11 @@ const Header: React.FC<Props> = ({}: Props) => {
             />
           </Link>
         }
-        end={<Hamburger />}
+        end={
+          <S.Hamburger open={open} onClick={() => setOpen(!open)}>
+            |||
+          </S.Hamburger>
+        }
       />
       {inputVisiblePath.includes(pathname) && <SearchBar />}
     </S.Container>
