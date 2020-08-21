@@ -9,10 +9,8 @@ const getByCategory2Id = async (category2Id: number) => {
   return data;
 };
 
-const getByCategory1Id = async (category1Id: number) => {
-  const { data } = await bmart.get<Product[]>(
-    `/product/category/${category1Id}`
-  );
+const getByCategory = async () => {
+  const { data } = await bmart.get<Product[]>(`/product/category`);
 
   return data;
 };
@@ -26,4 +24,5 @@ const getAllProduct = async () => {
 export default {
   getByCategory2Id,
   getAllProduct,
+  getByCategory,
 };

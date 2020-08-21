@@ -86,6 +86,30 @@ export class ProductRepo {
     return ProductList;
   }
 
+  static async find10ProductByCategory2(): Promise<ProductType[]> {
+    const find10ProductByCategory2Query = `
+      select
+        *
+      from
+        product p1
+      where
+        (select
+          count(*)
+        from
+          product p2
+        where
+          p1.category2_id=p2.category2_id and p1.id <= p2.id
+        ) <=10
+      order by
+        category2_id;
+    `;
+
+    const ProductList: ProductType[] = await selectQueryExecuter<ProductType>(
+      find10ProductByCategory2Query
+    );
+    return ProductList;
+  }
+
   static async update(args: Partial<Product>) {
     const { id, ...rest } = args;
 

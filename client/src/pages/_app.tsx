@@ -44,7 +44,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext);
 
   const category = await API.Category.getAll();
-  const products = await API.Product.getAllProduct();
+  const products = await API.Product.getByCategory();
   return { ...appProps, category, products };
 };
 

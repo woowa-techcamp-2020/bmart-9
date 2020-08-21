@@ -5,7 +5,7 @@ import { InvalidParamsError } from '../errors/invalid-params';
 export const createProduct = async (req: Request, res: Response) => {
   const newProductId = await ProductRepo.create(req.body);
 
-  // error 처리 해야함 
+  // error 처리 해야함
 
   const newProduct = await ProductRepo.findOne(newProductId);
 
@@ -14,6 +14,11 @@ export const createProduct = async (req: Request, res: Response) => {
 
 export const getAllProduct = async (req: Request, res: Response) => {
   const productList = await ProductRepo.findAll();
+  res.json(productList);
+};
+
+export const getProductsByCategory = async (req: Request, res: Response) => {
+  const productList = await ProductRepo.find10ProductByCategory2();
   res.json(productList);
 };
 
@@ -38,7 +43,7 @@ export const getProductById = async (req: Request, res: Response) => {
 
 //   const updatedRows = await ProductRepo.update(productDto);
 
-//   // error 처리 해야함 
+//   // error 처리 해야함
 
 //   const updatedProduct = await ProductRepo.findOne(productDto.getId());
 
