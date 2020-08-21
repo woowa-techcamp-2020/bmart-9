@@ -10,6 +10,7 @@ import { CategoryContainer } from '../components/CategoryContainer';
 import { MainContainer } from '../components/MainContainer';
 import { HorizontalSlider } from '../components/HorizontalSlider';
 import { useProduct } from '../hooks/useProduct';
+import { CartButton } from '../components/CartButton';
 
 const IndexPage = ({
   bannerImages,
@@ -44,6 +45,7 @@ const IndexPage = ({
           </>
         )}
       </div>
+      <CartButton />
     </>
   );
 };
