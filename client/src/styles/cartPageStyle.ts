@@ -37,3 +37,16 @@ export const Button = styled.button`
     cursor: pointer;
   }
 `;
+
+export const TextButton = styled.button`
+  background-color: rgba(0,0,0,0);
+  color: green;
+  font-weight: bold;
+  height: 40px;
+  width: 120%;
+  &:hover {
+    border: 1px solid blue;
+    background-color: white;
+    cursor: pointer;
+  }
+`;
