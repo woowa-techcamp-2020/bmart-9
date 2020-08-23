@@ -7,12 +7,11 @@ type barProps = {
 };
 
 export const Container = styled.div<barProps>`
-  background: white;
   border: none;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: ${(props) => props.isStart} ${(props) =>
-      props.isCenter} ${(props) => props.isEnd};
+    props.isCenter} ${(props) => props.isEnd};
 `;
 
 export const Start = styled.div`
