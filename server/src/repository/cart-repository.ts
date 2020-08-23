@@ -3,7 +3,7 @@ import {
   selectQueryExecuter,
   updateOrDeleteQueryExecuter,
 } from '../utils/query-executor';
-import { Cart, CreateCartBody, CartQuantity } from '../../../shared';
+import { Cart, CreateCartBody, CartQuantity, CartCheck } from '../../../shared';
 
 // import { carmelToSnakeTemplate } from '../utils/carmel-to-snake-template';
 import { format } from 'path';
@@ -41,19 +41,50 @@ export class CartRepo {
     return await updateOrDeleteQueryExecuter(updateQuery);
   }
 
+  static async updateCheck(cartParams: CartCheck) {
+    const { id, isCheck } = cartParams;
+    const updateQuery = `
+			UPDATE
+				bmart.cart
+			SET
+        is_check = ${isCheck}
+			WHERE
+				id=${id}
+			;`;
+    return await updateOrDeleteQueryExecuter(updateQuery);
+  }
+
+  static async setCheckAll(cartParams: CartCheck) {
+    const { id, isCheck } = cartParams;
+    const updateQuery = `
+			UPDATE
+				bmart.cart
+			SET
+        is_check = ${isCheck}
+			WHERE
+				user_id = ${id}
+			;`;
+    return await updateOrDeleteQueryExecuter(updateQuery);
+  }
+
   static async delete(id: number) {
     const deleteQuery = `DELETE FROM bmart.cart WHERE id=${id};`;
     return await updateOrDeleteQueryExecuter(deleteQuery);
   }
 
+  static async deleteAllChecked(userId: number) {
+    const deleteQuery = `DELETE FROM bmart.cart WHERE user_id = ${userId} and is_check=1;`;
+    return await updateOrDeleteQueryExecuter(deleteQuery);
+  }
+
   static async createTestCart(id: number) {
     const createTestQuery = [
-      `insert INTO cart VALUES (NULL, 3, 1, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',${id});`,
-      `insert INTO cart VALUES (NULL, 3, 2, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',${id});`,
-      `insert INTO cart VALUES (NULL, 3, 4, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',${id});`,
-      `insert INTO cart VALUES (NULL, 3, 111217721, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',${id});`,
-      `insert INTO cart VALUES (NULL, 3, 50777145, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',${id});`,
-      `insert INTO cart VALUES (NULL, 3, 111215659, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',${id});`,
+      `insert INTO cart VALUES (NULL, ${id}, 1, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
+      `insert INTO cart VALUES (NULL, ${id}, 2, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
+      `insert INTO cart VALUES (NULL, ${id}, 3, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
+      `insert INTO cart VALUES (NULL, ${id}, 5, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
+      `insert INTO cart VALUES (NULL, ${id}, 6, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
+      `insert INTO cart VALUES (NULL, ${id}, 7, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
     ];
 
     await updateOrDeleteQueryExecuter(
@@ -127,7 +158,7 @@ export class CartRepo {
       .map(
         ([key, value]) =>
           `${columnName[key] || key}=${
-            typeof value === 'number' ? value : `"${value}"`
+          typeof value === 'number' ? value : `"${value}"`
           } `
       )
       .join(', ');
