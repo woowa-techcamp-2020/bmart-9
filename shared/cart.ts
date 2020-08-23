@@ -19,6 +19,11 @@ export type CartQuantity = {
   quantity: number;
 };
 
+export type CartCheck = {
+  id: number;
+  isCheck: number;
+};
+
 export type CreateCartBody = {
   userId: number;
   productId: number;
