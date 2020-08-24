@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useCreator } from '../utils/createContext';
 import API from '../api';
 import { CartContexts } from '../context/CartContext'
-import { CartQuantity, ClientCart } from '../../../shared';
+import { CartQuantity, ClientCart, Cart } from '../../../shared';
 import { useSnackbar } from './useSnackbar'
 const TRUE = 1;
 const FALSE = 0;
@@ -12,20 +12,18 @@ export const useCart = () => {
   const { openSnackbar } = useSnackbar();
 
   const allCheckValue = (): number => {
-    let value = 1;
-    cartList.forEach((cart: ClientCart) => {
-      if (cart.check === 0) {
-        value = 0;
-      }
-    })
-    return value;
+    const falseCart = cartList.find((cart) => cart.check === FALSE);
+    if (falseCart === undefined)
+      return TRUE;
+    else
+      return FALSE;
   }
 
   const cartCount = (from: string) => {
     let tempCount = 0;
     if (cartList.length > 0) {
       cartList.forEach((item: ClientCart) => {
-        if (item.check === 1) {
+        if (item.check === TRUE) {
           tempCount += item.quantity;
         }
       });
@@ -41,7 +39,7 @@ export const useCart = () => {
     let tempCost = 0;
     if (cartList.length > 0) {
       cartList.forEach((item: ClientCart) => {
-        if (item.check === 1) {
+        if (item.check === TRUE) {
           tempCost += item.price * item.quantity;
         }
       });
@@ -57,7 +55,7 @@ export const useCart = () => {
   const updateCartQuantity = async (id: number, quantity: number) => {
     const cartParams: CartQuantity = { id, quantity };
     const payloadCart = await API.Cart.updateQuantity(cartParams);
-    dispatch({ type: 'UPDATE_CART_ITEM', udpatedCart: { ...payloadCart, check: 1 } });
+    dispatch({ type: 'UPDATE_CART_ITEM', udpatedCart: { ...payloadCart, check: TRUE } });
   };
 
   const createTestCart = async (id: number) => {
@@ -71,25 +69,28 @@ export const useCart = () => {
   }
 
   const deleteAllCheck = async () => {
-    let count = 0;
     const newCartList: ClientCart[] = [];
+    const promiseList: Promise<Cart>[] = [];
+
     cartList.forEach(async (cart) => {
       if (cart.check === TRUE) {
-        count++;
-        await API.Cart.deleteCart(cart.id);
+        promiseList.push(API.Cart.deleteCart(cart.id));
       } else {
         cart.check = TRUE;
         newCartList.push(cart);
       }
-    })
-    openSnackbar("success", `선택된 상품 ${count}개를 삭제했습니다.`);
+    });
+    const result = await Promise.all(promiseList);
+
+    openSnackbar("success", `선택된 상품 ${promiseList.length}개를 삭제했습니다.`);
     dispatch({ type: 'SET_CLIENT_CART_LIST', cartList: newCartList });
   }
 
   const updateCartCheck = async (id: number, check: number) => {
-    const cart = cartList.filter((cart) => cart.id === id);
-    cart[0].check = check;
-    dispatch({ type: 'UPDATE_CART_ITEM', udpatedCart: cart[0] });
+    let cart = cartList.find((cart) => cart.id === id);
+    if (cart === undefined) return;
+    cart.check = check;
+    dispatch({ type: 'UPDATE_CART_ITEM', udpatedCart: cart });
   }
 
   const updateAllCheck = async (check: number) => {
