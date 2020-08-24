@@ -6,11 +6,16 @@ import { $str } from "../../utils/localization";
 import { useCart } from "../../hooks/useCart";
 import { constants } from 'os';
 
+import { Checkbox } from '../Checkbox';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+
+
 const CartItem: React.FC<Cart> = ({
   id,
   userId,
   quantity: initQuantity,
-  isCheck,
+  isCheck: initCheck,
   name,
   image,
   discount,
@@ -24,9 +29,9 @@ const CartItem: React.FC<Cart> = ({
 
   const [currDisc, setCurrDisc] = useState<number>(0);
   const [tempQuantity, setTempQuantity] = useState<number>(initQuantity);
-  const [tempCheck, setTempCheck] = useState<number>(isCheck);
+  const [tempCheck, setTempCheck] = useState<number>(initCheck);
 
-  const { updateCartQuantity, deleteCart } = useCart();
+  const { updateCartQuantity, deleteCart, updateCartCheck } = useCart();
   let description: string[] = [
     '',
     '1개 이하로 선택할 수 없습니다.',
@@ -37,26 +42,15 @@ const CartItem: React.FC<Cart> = ({
     updateCartQuantity(id, tempQuantity);
   }, [tempQuantity])
 
-  const checkboxOnchageHandler = () => {
-    // setChecked(!check);
-  };
+  useEffect(() => {
+    updateCartCheck(id, tempCheck);
+  }, [tempCheck])
 
   return (
     <S.Container>
-      <S.cartTitle>{name}</S.cartTitle>
+      {/* <S.cartTitle>{name}</S.cartTitle> */}
       <S.cartHeader>
-        <S.headerNameWrapper>
-          <S.checkboxWrapper htmlFor={'cartCheckbox' + id}>
-            <S.headerCheckbox
-              id={'cartCheckbox' + id}
-              type="checkbox"
-              checked={isCheck === 1}
-              onChange={checkboxOnchageHandler}
-            ></S.headerCheckbox>
-            <S.headerCheckboxMark></S.headerCheckboxMark>
-          </S.checkboxWrapper>
-          <S.headerName>{name}</S.headerName>
-        </S.headerNameWrapper>
+        <Checkbox checkboxId={id} isCheck={initCheck} contents={name}></Checkbox>
         <S.deleteButton onClick={() => deleteCart(id)}>삭제</S.deleteButton>
       </S.cartHeader>
       <S.cartBody>
@@ -64,31 +58,35 @@ const CartItem: React.FC<Cart> = ({
         <S.cartPriceWrapper>
           {discount > 0 ?
             <>
-              <div>
+              <S.cartPriceFristLine>
                 <S.cartDiscount>{discount}%</S.cartDiscount>
                 <S.cartPrice> ({comma(price)}원)</S.cartPrice>
-              </div>
-              <div>
+              </S.cartPriceFristLine>
+              <S.cartPriceSecondLine>
                 <S.cartTotalBasePrice>
                   {comma(basePrice * tempQuantity)}원
                 </S.cartTotalBasePrice>
                 <S.cartTotalPrice> {comma(price * tempQuantity)}원</S.cartTotalPrice>
-              </div>
+              </S.cartPriceSecondLine>
             </> :
             <>
-              <div><S.cartPrice> ({comma(price)}원)</S.cartPrice></div>
-              <div><S.cartTotalPrice> {comma(price * tempQuantity)}원</S.cartTotalPrice></div>
+              <S.cartPriceFristLine>
+                <S.cartPrice> ({comma(price)}원)</S.cartPrice>
+              </S.cartPriceFristLine>
+              <S.cartPriceSecondLine>
+                <S.cartTotalPrice> {comma(price * tempQuantity)}원</S.cartTotalPrice>
+              </S.cartPriceSecondLine>
             </>
           }
 
           <S.cartDescription>{description[currDisc]}</S.cartDescription>
           <S.cartQuantityWrapper>
             <S.cartQuantityMinus onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
-              {' '}-{' '}
+              <FontAwesomeIcon icon={faMinus} />
             </S.cartQuantityMinus>
             <S.cartQuantity>{tempQuantity}</S.cartQuantity>
             <S.cartQuantityPlus onClick={() => tempQuantity < 100 && setTempQuantity(tempQuantity + 1)}>
-              {' '}+{' '}
+              <FontAwesomeIcon icon={faPlus} />
             </S.cartQuantityPlus>
           </S.cartQuantityWrapper>
         </S.cartPriceWrapper>

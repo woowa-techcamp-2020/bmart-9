@@ -1,39 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import * as S from './CartButtonStyle';
 import { useCart } from "../../hooks/useCart";
-import { Cart } from '../../../../shared';
-import { useRouter } from 'next/router';
+import Link from "next/link"
+import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {}
 
 const CartButton: React.FC<Props> = ({ }: Props) => {
-
-	const { cartList, setCartList } = useCart();
-	const [totalCount, setTotalCount] = useState(0);
-	const { push } = useRouter();
+	const { cartCount, setCartList, setCheckAll } = useCart();
 
 	useEffect(() => {
 		setCartList();
 	}, []);
 
-	useEffect(() => {
-		getTotalCost();
-	}, [cartList]);
-
-	const getTotalCost = () => {
-		let tempCost = 0;
-		let tempCount = 0;
-		cartList?.map((item: Cart) => {
-			tempCost += item.price * item.quantity;
-			tempCount += item.quantity;
-		});
-		setTotalCount(tempCount);
-	};
-
 	return <S.Container>
-		<S.Button onClick={() => push(`/cartPage`)}>
-			{totalCount}
-		</S.Button>
+		<Link href="/cartPage">
+			<S.Button onClick={() => setCheckAll(3, 1)}>
+				<FontAwesomeIcon icon={faShoppingBag}></FontAwesomeIcon>
+				<S.CartCount>{cartCount("cartButton")}</S.CartCount>
+			</S.Button>
+		</Link>
 	</S.Container>;
 };
 

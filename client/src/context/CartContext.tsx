@@ -1,8 +1,9 @@
 import React from 'react';
 import { contextCreator } from '../utils/createContext';
 import { Cart } from '../../../shared'
+import cart from '../api/cart';
 
-export type CartState = Cart[] | null;
+export type CartState = Cart[];
 
 export type CartAction =
 	| { type: 'SET_CART_LIST'; cartList: Cart[] }
@@ -17,15 +18,15 @@ const CartReducer = (
 		case 'SET_CART_LIST':
 			return [...action.cartList]; // new state
 		case 'UPDATE_CART_ITEM':
-			return state!.map((cart) => cart.id === action.udpatedCart.id ? action.udpatedCart : cart);
+			return state.map((cart) => cart.id === action.udpatedCart.id ? action.udpatedCart : cart);
 		case 'DELETE_CART_ITEM':
-			return state!.filter((cart) => cart.id !== action.id);
+			return state.filter((cart) => cart.id !== action.id);
 		default:
 			throw new Error('Unhandled action');
 	}
 };
 
-const initialCart: CartState = null;
+const initialCart: CartState = [];
 
 export const {
 	ContextProvider: CartProvider,
