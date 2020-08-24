@@ -2,9 +2,10 @@ import { contextCreator } from '../utils/createContext';
 
 import { User } from '../../../shared';
 
-export type UserState = User | null;
+export type Auth = User & { token: string };
+export type UserState = Auth | null;
 
-export type UserAction = { type: 'SET_USER'; user: User | null };
+export type UserAction = { type: 'SET_USER'; user: Auth | null };
 
 const UserReducer = (state: UserState, action: UserAction): UserState => {
   switch (action.type) {

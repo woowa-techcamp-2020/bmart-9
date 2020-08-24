@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import App, { AppProps, AppContext } from 'next/app';
 import GlobalStyle from '../styles/GlobalStyle';
 import { CombinedProviders } from '../context';
-import API from '../api';
+import API, { TOKEN_KEY } from '../api';
 import { Category, Product } from '../../../shared';
 import { useCategory } from '../hooks/useCategory';
 import { useProduct } from '../hooks/useProduct';
 import { useSnackbar } from '../hooks/useSnackbar';
 import { Snackbar } from '../components/Snackbar';
+import { useUser } from '../hooks/useUser';
 
 type InitialProps = {
   category: Category[];
@@ -19,9 +20,18 @@ const InitializeStore: React.FC<InitialProps> = ({
   category,
   products
 }) => {
+  const { signIn } = useUser();
   useCategory(category);
   useProduct(products);
   useSnackbar();
+
+  useEffect(() => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token) {
+      signIn(token);
+    }
+  }, []);
+
   return <>{children}</>;
 };
 

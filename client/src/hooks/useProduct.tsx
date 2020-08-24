@@ -18,6 +18,21 @@ export const useProduct = (initialData?: Product[]) => {
     dispatch({ type: 'SET_PRODUCT_LIST', productList });
   };
 
+  const getFilteredProductByCategory = (
+    categoryId: number,
+    isSubCategory: boolean
+  ) => {
+    if (!products) {
+      return [];
+    }
+
+    const filterKey: keyof Product = isSubCategory
+      ? 'category2_id'
+      : 'category1_id';
+
+    return products.filter((product) => product[filterKey] === categoryId);
+  };
+
   // const fetchAllProducts = async () => {
   //   const products  = await API.Product.getAllProduct();
   //   dispatch({ type: 'SET_PRODUCT_LIST', productList });
@@ -27,5 +42,5 @@ export const useProduct = (initialData?: Product[]) => {
   // or make custom action creator
   // const doSomething = () => dispatch({type : 'DO_SOMETHING'})
 
-  return { products, setProductByCategory2_id };
+  return { products, setProductByCategory2_id, getFilteredProductByCategory };
 };

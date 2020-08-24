@@ -15,46 +15,17 @@ export const Container = styled.div`
   /* box-shadow: 0 2px 1.5px -1px black; */
 `;
 
-export const InputWrapper = styled.div`
-  display: flex;
-  width: 90%;
-  height: 40px;
-  margin: 0 auto 0 auto;
-  align-items: center;
-  background: ${GRAY_001};
-  border-radius: 6px;
-  padding: 0 10px;
-  border: 0.1px solid ${GRAY_002};
-`;
-
 export const Image = styled.img`
   height: 30px;
 `;
 
-export const Icon = styled.span`
-  width: 10%;
-
-  text-align: center;
-`;
-
-export const Input = styled.input`
-  color: black;
-  padding-left: 20px;
-  font-size: 14px;
-  font-weight: 200;
-
-  background: transparent;
-  outline: none;
-  width: 100%;
-`;
-
 type openProps = {
   open: boolean;
-}
+};
 
 export const Hamburger = styled.div<openProps>`
   display: inline-block;
   transform: rotate(90deg);
   font-weight: bold;
   padding: 3px;
-`
+`;

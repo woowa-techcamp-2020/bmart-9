@@ -22,6 +22,13 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
   res.json(productList);
 };
 
+export const getProductsByKeyword = async (req: Request, res: Response) => {
+  const { keyword } = req.params;
+  const productList = await ProductRepo.findByKeyword(keyword);
+
+  res.json(productList);
+};
+
 export const getProductById = async (req: Request, res: Response) => {
   const id = Number(req.params.category2_id);
   if (typeof id !== 'number' || id <= 0) {
