@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import * as S from './HeaderStyle';
 import { HorizontalBar } from '../HorizontalBar';
 import { useRouter } from 'next/router';
 import { SideMenu } from '../SideMenu';
 import { useUser } from '../../hooks/useUser';
-import Link from 'next/link';
-
+import { SearchBar } from '../SearchBar';
 
 type Props = {};
 
 const Header: React.FC<Props> = ({}: Props) => {
-  const { push } = useRouter();
+  const { pathname } = useRouter();
   const { isLoggedIn, signOut } = useUser();
+  const inputVisiblePath = ['/', '/search'];
   const [open, setOpen] = useState(false);
 
   return (
     <S.Container>
-			<SideMenu open={open} setOpen={setOpen}/>
+      <SideMenu open={open} setOpen={setOpen} />
       <HorizontalBar
         start={
           isLoggedIn ? (
@@ -30,18 +31,20 @@ const Header: React.FC<Props> = ({}: Props) => {
           )
         }
         center={
-          <S.Image
-            onClick={() => push('/')}
-            height="30px"
-            src="https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/bmart-logo.png"
-          />
+          <Link href="/">
+            <S.Image
+              height="30px"
+              src="https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/bmart-logo.png"
+            />
+          </Link>
         }
-        end={<S.Hamburger open={open} onClick={() => setOpen(!open)}>|||</S.Hamburger>}
+        end={
+          <S.Hamburger open={open} onClick={() => setOpen(!open)}>
+            |||
+          </S.Hamburger>
+        }
       />
-      <S.InputWrapper onClick={() => push('/search')}>
-        🔍
-        <S.Input placeholder="B마트 상품을 검색해보세요!" />
-      </S.InputWrapper>
+      {inputVisiblePath.includes(pathname) && <SearchBar />}
     </S.Container>
   );
 };

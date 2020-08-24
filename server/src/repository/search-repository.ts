@@ -9,9 +9,9 @@ export class SearchRepo {
   static async createSearch({ keyword, userId }: CreateSearch) {
     const createNewCategoryQuery = `
       INSERT INTO
-        search(user_id, keyword)
+        search(user_id, keyword, created_at)
       VALUES
-        ("${userId}", "${keyword}");
+        ("${userId}", "${keyword}", NOW());
     `;
     return await insertQueryExecuter(createNewCategoryQuery);
   }
@@ -21,10 +21,11 @@ export class SearchRepo {
       SELECT
         id, keyword
       FROM
-        saerch
+        search
       WHERE
         user_id=${userId}
-      limit 10;
+      ORDER BY
+        created_at DESC
     `;
     const recentSearch = await selectQueryExecuter<Search>(
       selectRecentSearchQuery

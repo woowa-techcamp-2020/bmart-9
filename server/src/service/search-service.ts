@@ -8,7 +8,6 @@ export const getRecentSearch = async (req: Request, res: Response) => {
   const { id } = req.user as User;
 
   const recentSearch = await SearchRepo.selectRecentSearch(id);
-
   res.json(recentSearch);
 };
 
@@ -26,4 +25,17 @@ export const removeSearchHistory = async (req: Request, res: Response) => {
   }
 
   throw new DatabaseError('Fail to remove data');
+};
+
+export const createSearchHistory = async (req: Request, res: Response) => {
+  const { keyword } = req.body;
+  const { id } = req.user as User;
+
+  const newSearchId = await SearchRepo.createSearch({
+    keyword,
+    userId: id,
+  });
+
+  const result = { id: newSearchId, keyword };
+  res.json(result);
 };

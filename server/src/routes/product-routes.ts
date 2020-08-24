@@ -5,6 +5,7 @@ import {
   createProduct,
   getProductByCategory2Id,
   getProductsByCategory,
+  getProductsByKeyword,
 } from '../service/product-service';
 import { validateBody } from '../middlewares/validate-body';
 import { CreateProductBody } from '../../../shared';
@@ -18,8 +19,7 @@ router.get('/category', getProductsByCategory);
 
 router.get('/:id', getProductById);
 
-// Product update
-// router.put('/', updateProduct);
+router.get('/keyword/:keyword', getProductsByKeyword);
 
 // Product create
 router.post(

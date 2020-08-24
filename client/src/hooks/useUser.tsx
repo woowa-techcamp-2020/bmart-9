@@ -7,7 +7,7 @@ export const useUser = () => {
 
   const signIn = async (token: string) => {
     const user = await API.User.getCurrentUser(token);
-    dispatch({ type: 'SET_USER', user });
+    dispatch({ type: 'SET_USER', user: { ...user, token } });
   };
 
   const signOut = () => {
