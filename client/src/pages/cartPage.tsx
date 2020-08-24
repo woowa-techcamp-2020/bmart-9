@@ -4,7 +4,6 @@ import { Cart, ClientCart } from '../../../shared';
 import { useCart } from '../hooks/useCart';
 
 import { CartItem } from '../components/CartItem';
-import { Checkbox } from '../components/Checkbox';
 import { HorizontalBar } from '../components/HorizontalBar';
 import { Images } from '../images';
 import comma from '../utils/numberComma';
