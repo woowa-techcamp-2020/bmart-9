@@ -2,14 +2,14 @@ import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github';
 import { UserRepo } from '../repository/user-repository';
 import { createJWT } from './jwt';
-import { baseUrl } from '../urlConfig';
+import { baseUrl, PORT } from '../urlConfig';
 
 passport.use(
   new GitHubStrategy(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: `${baseUrl}/api/auth/github/callback`,
+      callbackURL: `${baseUrl}${PORT}/api/auth/github/callback`,
     },
     async (_, __, profile, cb) => {
       const existedUser = await UserRepo.findBySocialId(profile.id);
