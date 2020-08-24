@@ -14,7 +14,9 @@ export const GRAY_002 = '#ececec';
 export const GRAY_003 = '#DEDEDE';
 export const GRAY_004 = '#D4d4d4';
 
-export const MAIN_RED = 'rgb(212, 108, 108)';
+export const MAIN_RED = '#ff5252';
+export const MAIN_GREEN = '#4caf50';
+export const MAIN_ORANGE = '#fb8c00';
 
 export const TRANS_TIME = '0.1s';
 
