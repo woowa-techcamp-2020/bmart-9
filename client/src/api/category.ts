@@ -7,6 +7,13 @@ const getAll = async () => {
   return data;
 };
 
+const getOneByCategory2Id = async (category2Id: number) => {
+  const { data } = await bmart.get<Category>(`/category/${category2Id}`);
+
+  return data;
+};
+
 export default {
   getAll,
+  getOneByCategory2Id,
 };
