@@ -21,8 +21,15 @@ const getAllProduct = async () => {
   return data;
 };
 
+const getByKeyword = async (keyword: string) => {
+  const { data } = await bmart.get<Product[]>(`/product/keyword/${keyword}`);
+
+  return data;
+};
+
 export default {
   getByCategory2Id,
   getAllProduct,
   getByCategory,
+  getByKeyword,
 };

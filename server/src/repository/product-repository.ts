@@ -110,6 +110,27 @@ export class ProductRepo {
     return ProductList;
   }
 
+  static async findByKeyword(keyword: string): Promise<ProductType[]> {
+    const findByKeywordQuery = `
+      select 
+       product.id id, product.name name, product.discount discount,
+           product.img img, product.base_price base_price, product.price price, product.stock stock,
+           product.created_at created_at, product.updated_at updated_at,
+           category1.name category1, category2.name category2
+      from product
+        left join category2
+        on product.category2_id = category2.id
+      left join category1
+        on category2.category1_id = category1.id
+      where product.name like '% ${keyword} %';
+    `;
+
+    const ProductList: ProductType[] = await selectQueryExecuter<ProductType>(
+      findByKeywordQuery
+    );
+    return ProductList;
+  }
+
   static async update(args: Partial<Product>) {
     const { id, ...rest } = args;
 
@@ -132,8 +153,6 @@ export class ProductRepo {
           }`
       )
       .join(', ');
-
-    console.log(updateTemplate);
 
     const updateQuery = `
 			UPDATE
