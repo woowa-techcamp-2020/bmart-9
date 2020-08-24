@@ -6,7 +6,7 @@ export type Category = {
   subCategory?: Category[];
 };
 
-export type CategoryState = Category[] | null;
+export type CategoryState = Category[];
 
 export type CategoryAction = { type: 'FETCH_CATEGORY'; categories: Category[] };
 
@@ -22,7 +22,7 @@ const CategoryReducer = (
   }
 };
 
-const initialCategory: CategoryState = null;
+const initialCategory: CategoryState = [];
 
 export const {
   ContextProvider: CategoryProvider,

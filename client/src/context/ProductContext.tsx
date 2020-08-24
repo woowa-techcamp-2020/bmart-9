@@ -2,7 +2,7 @@ import React from 'react';
 import { contextCreator } from '../utils/createContext';
 import { Product } from '../../../shared/product';
 
-export type ProductState = Product[] | null;
+export type ProductState = Product[];
 
 export type ProductAction =
   | { type: 'ACTION_NAME' }
@@ -20,7 +20,7 @@ const ProductReducer = (
   }
 };
 
-const initialProduct: ProductState = null;
+const initialProduct: ProductState = [];
 
 export const {
   ContextProvider: ProductProvider,
