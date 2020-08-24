@@ -8,7 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 type Props = {}
 
 const CartButton: React.FC<Props> = ({ }: Props) => {
-	const { cartCount } = useCart();
+	const { cartCount, setCartList } = useCart();
+
+	useEffect(() => {
+		setCartList();
+	}, []);
 
 	return <S.Container>
 		<Link href="/cartPage">
