@@ -8,6 +8,9 @@ type Props = {
 	contents: string;
 }
 
+const TRUE = 1;
+const FALSE = 0;
+
 const Checkbox: React.FC<Props> = ({ checkboxId, isCheck, contents }: Props) => {
 
 	const [tempCheck, setTempCheck] = useState<number>(isCheck);
@@ -21,8 +24,8 @@ const Checkbox: React.FC<Props> = ({ checkboxId, isCheck, contents }: Props) => 
 		<S.Checkbox
 			id={'cartCheckbox' + checkboxId}
 			type="checkbox"
-			checked={isCheck === 1}
-			onChange={() => tempCheck === 1 ? setTempCheck(0) : setTempCheck(1)}
+			checked={isCheck === TRUE}
+			onChange={() => tempCheck === TRUE ? setTempCheck(FALSE) : setTempCheck(TRUE)}
 		></S.Checkbox>
 		<S.CheckboxMark></S.CheckboxMark>
 		<S.CheckboxContents>{contents}</S.CheckboxContents>

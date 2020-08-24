@@ -43,7 +43,7 @@ export const TitleWrapper = styled.div`
 
 export const Title = styled.div`
   margin:15px;
-  font-size:calc(2vh + 2vw);
+  font-size:calc(2vh);
   font-weight:bold;
 `
 export const TitlePaint = styled.div`
@@ -90,11 +90,11 @@ type buttonProps = {
   color: string;
 }
 export const DeleteAllButton = styled.button<buttonProps>`
-  justify-self:end;
-  align-self:center;
+  justify-self: end;
+  align-self: center;
   color: ${(props) => props.color === '#ddd' ? props.color : MAIN_COLOR1};
-  transition:0.1s;
-  font-size: calc(1.5vh + 1.5vw);
+  transition: 0.1s;
+  font-size: calc(2vh);
 `
 
 export const EmptyContainer = styled.div`
@@ -112,7 +112,7 @@ export const EmptyWrapper = styled.div`
 export const Img = styled.img`
   width: 150px;
   margin-bottom: 20px;
-`;
+`
 
 export const OrderButton = styled.button`
   position: fixed;
@@ -150,7 +150,7 @@ export const EmptyButton = styled.button`
   width: 96vw;
   height: 6vh;
   z-index: 10;
-  font-size: calc(1.4vh + 1.4vw);
+  font-size: calc(1.4vh + 1vw);
   font-weight: bold;
   color: white;
   background-color: #ddd;
@@ -180,7 +180,7 @@ export const OrderButtonText = styled.span`
   color: white;
 `
 export const OrderButtonCount = styled.span`
-  font-size: calc(1.4vh + 1.4vw);
+  font-size: calc(1.4vh + 1vw);
   transition: 0.1s;
   font-weight: bold;
   background-color: white;
@@ -220,8 +220,8 @@ export const TextButton = styled.button`
   color: ${MAIN_COLOR1};
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: calc(1.3vh + 1.3vw);
+  font-size: calc(1.3vh + 1vw);
   &:active{
-    font-size: calc(1.5vh + 1.5vw);
+    font-size: calc(1.5vh + 1vw);
   }
 `;
