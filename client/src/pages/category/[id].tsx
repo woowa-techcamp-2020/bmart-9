@@ -13,15 +13,17 @@ const CategoryDetailPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { query } = useRouter();
   const { category } = useCategory();
+  const { getFilteredProductByCategory } = useProduct();
+
+  // TODO subcategory의 경우를 해결해야함
   const currentCategory = category
     ? category.find(({ id }) => query.id === id.toString())
     : null;
-  const { products } = useProduct();
-  const filteredProducts = products
-    ? products!.filter(
-        (product) => product.category1_id.toString() === (query.id as string)
-      )
-    : null;
+  const isSubCategory = currentCategory === null;
+  const filteredProducts = getFilteredProductByCategory(
+    +query.id,
+    isSubCategory
+  );
 
   if (!currentCategory || !filteredProducts) {
     return <div>loading...</div>;
@@ -30,7 +32,9 @@ const CategoryDetailPage = ({
   return (
     <>
       <HorizontalBar center={currentCategory.name} start={'<'} end={'🔍'} />
-      <BoxCategory categories={currentCategory.subCategory} />
+      {currentCategory.subCategory && (
+        <BoxCategory categories={currentCategory.subCategory} />
+      )}
       {filteredProducts && (
         <>
           <HorizontalSlider
@@ -66,13 +70,13 @@ export const getStaticPaths = async () => {
       { params: { id: '420186' } },
       { params: { id: '464911' } },
     ],
-    fallback: false,
+    fallback: true,
   };
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const products = await API.Product.getByCategory2Id(+(params!.id as string));
-  console.log(products);
+  console.log('serverside: ', products);
   return {
     props: { greet: 'hello' },
   };
