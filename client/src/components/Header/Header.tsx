@@ -6,36 +6,36 @@ import { useRouter } from 'next/router';
 import { SideMenu } from '../SideMenu';
 import { useUser } from '../../hooks/useUser';
 import { SearchBar } from '../SearchBar';
+import { Images } from '../../images';
 
 type Props = {};
 
 const Header: React.FC<Props> = ({}: Props) => {
   const { pathname } = useRouter();
-  const { isLoggedIn, signOut } = useUser();
+  const { isLoggedIn, signOut, authHandler } = useUser();
   const inputVisiblePath = ['/', '/search'];
   const [open, setOpen] = useState(false);
+
+  const renderAuthenticationHandler = () => {
+    return isLoggedIn ? (
+      <button onClick={signOut}>
+        <S.Image src={Images.LOG_OUT} />
+      </button>
+    ) : (
+      <button onClick={authHandler}>
+        <S.Image src={Images.GITHUB} />
+      </button>
+    );
+  };
 
   return (
     <S.Container>
       <SideMenu open={open} setOpen={setOpen} />
       <HorizontalBar
-        start={
-          isLoggedIn ? (
-            <button onClick={signOut}>
-              <S.Image src="https://cdn1.iconfinder.com/data/icons/essentials-pack/96/logout_close_sign_out_exit_access-512.png" />
-            </button>
-          ) : (
-            <Link href="/api/auth/github">
-              <S.Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1024px-Octicons-mark-github.svg.png" />
-            </Link>
-          )
-        }
+        start={renderAuthenticationHandler()}
         center={
           <Link href="/">
-            <S.Image
-              height="30px"
-              src="https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/bmart-logo.png"
-            />
+            <S.Image height="30px" src={Images.MAIN_LOGO} />
           </Link>
         }
         end={
