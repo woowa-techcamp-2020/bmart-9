@@ -3,7 +3,7 @@ import {
   selectQueryExecuter,
   updateOrDeleteQueryExecuter,
 } from '../utils/query-executor';
-import { Cart, CreateCartBody, CartQuantity, CartCheck } from '../../../shared';
+import { Cart, CreateCartBody, CartQuantity } from '../../../shared';
 
 // import { carmelToSnakeTemplate } from '../utils/carmel-to-snake-template';
 import { format } from 'path';
@@ -11,7 +11,7 @@ import { format } from 'path';
 export class CartRepo {
   static async findAll(): Promise<Cart[]> {
     const findAllCartQuery = `
-      select cart.id id, cart.user_id userId, cart.quantity quantity, cart.is_check isCheck, cart.created_at createdAt, cart.updated_at updatedAt, 
+      select cart.id id, cart.user_id userId, cart.quantity quantity, cart.created_at createdAt, cart.updated_at updatedAt, 
           cart.product_id productId,product.name name, product.img image, product.base_price basePrice, product.discount discount, product.price price, product.stock stock
         from 
           cart
@@ -41,50 +41,19 @@ export class CartRepo {
     return await updateOrDeleteQueryExecuter(updateQuery);
   }
 
-  static async updateCheck(cartParams: CartCheck) {
-    const { id, isCheck } = cartParams;
-    const updateQuery = `
-			UPDATE
-				bmart.cart
-			SET
-        is_check = ${isCheck}
-			WHERE
-				id=${id}
-			;`;
-    return await updateOrDeleteQueryExecuter(updateQuery);
-  }
-
-  static async setCheckAll(cartParams: CartCheck) {
-    const { id, isCheck } = cartParams;
-    const updateQuery = `
-			UPDATE
-				bmart.cart
-			SET
-        is_check = ${isCheck}
-			WHERE
-				user_id = ${id}
-			;`;
-    return await updateOrDeleteQueryExecuter(updateQuery);
-  }
-
   static async delete(id: number) {
     const deleteQuery = `DELETE FROM bmart.cart WHERE id=${id};`;
     return await updateOrDeleteQueryExecuter(deleteQuery);
   }
 
-  static async deleteAllChecked(userId: number) {
-    const deleteQuery = `DELETE FROM bmart.cart WHERE user_id = ${userId} and is_check=1;`;
-    return await updateOrDeleteQueryExecuter(deleteQuery);
-  }
-
   static async createTestCart(id: number) {
     const createTestQuery = [
-      `insert INTO cart VALUES (NULL, ${id}, 1, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
-      `insert INTO cart VALUES (NULL, ${id}, 2, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
-      `insert INTO cart VALUES (NULL, ${id}, 3, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
-      `insert INTO cart VALUES (NULL, ${id}, 5, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
-      `insert INTO cart VALUES (NULL, ${id}, 6, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
-      `insert INTO cart VALUES (NULL, ${id}, 7, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000',1);`,
+      `insert INTO cart VALUES (NULL, ${id}, 1, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000');`,
+      `insert INTO cart VALUES (NULL, ${id}, 2, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000');`,
+      `insert INTO cart VALUES (NULL, ${id}, 3, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000');`,
+      `insert INTO cart VALUES (NULL, ${id}, 5, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000');`,
+      `insert INTO cart VALUES (NULL, ${id}, 6, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000');`,
+      `insert INTO cart VALUES (NULL, ${id}, 7, 10, '2020-08-31 12:00:00.000000','2020-08-31 12:00:00.000000');`,
     ];
 
     await updateOrDeleteQueryExecuter(
@@ -123,7 +92,7 @@ export class CartRepo {
 
   static async findOne(id: number): Promise<Cart[]> {
     const findOneCartQuery = `
-        select cart.id id, cart.user_id userId, cart.quantity quantity, cart.is_check isCheck, cart.created_at createdAt, cart.updated_at updatedAt,
+        select cart.id id, cart.user_id userId, cart.quantity quantity, cart.created_at createdAt, cart.updated_at updatedAt,
       cart.product_id productId, product.name name, product.img image, product.base_price basePrice, product.discount discount, product.price price, product.stock stock
           from 
             cart

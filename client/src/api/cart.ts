@@ -1,5 +1,5 @@
 import { bmart } from './bmart';
-import { Cart, CartQuantity, CartCheck } from '../../../shared';
+import { Cart, CartQuantity } from '../../../shared';
 
 const getAll = async () => {
     const { data } = await bmart.get<Cart[]>(`/cart`);
@@ -22,24 +22,9 @@ const updateQuantity = async (params: CartQuantity) => {
     return data;
 }
 
-const setCheckAll = async (params: CartCheck) => {
-    const { data } = await bmart.put<Cart[]>(`/cart/checkAll`, params);
-    return data;
-}
-
-const updateCheck = async (params: CartCheck) => {
-    const { data } = await bmart.put<Cart>(`/cart/check`, params);
-    return data;
-}
-
-
 const deleteCart = async (id: number) => {
     const { data } = await bmart.delete<Cart>(`/cart/${id}`);
 
-    return data;
-}
-const deleteAllChecked = async (userId: number) => {
-    const { data } = await bmart.delete<Cart>(`/cart/CheckAll/${userId}`);
     return data;
 }
 
@@ -53,10 +38,7 @@ export default {
     getAll,
     update,
     deleteCart,
-    deleteAllChecked,
     create,
     updateQuantity,
-    updateCheck,
     createTestCart,
-    setCheckAll,
 }

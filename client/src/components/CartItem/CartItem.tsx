@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as S from './CartItemStyle';
 import comma from '../../utils/numberComma';
-import { Cart } from '../../../../shared'
+import { ClientCart } from '../../../../shared'
 import { $str } from "../../utils/localization";
 import { useCart } from "../../hooks/useCart";
 import { constants } from 'os';
@@ -11,11 +11,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 
-const CartItem: React.FC<Cart> = ({
+const CartItem: React.FC<ClientCart> = ({
   id,
   userId,
   quantity: initQuantity,
-  isCheck: initCheck,
+  check,
   name,
   image,
   discount,
@@ -24,12 +24,10 @@ const CartItem: React.FC<Cart> = ({
   stock,
   createdAt,
   updatedAt,
-}: Cart) => {
-
+}: ClientCart) => {
 
   const [currDisc, setCurrDisc] = useState<number>(0);
   const [tempQuantity, setTempQuantity] = useState<number>(initQuantity);
-  const [tempCheck, setTempCheck] = useState<number>(initCheck);
 
   const { updateCartQuantity, deleteCart, updateCartCheck } = useCart();
   let description: string[] = [
@@ -42,15 +40,10 @@ const CartItem: React.FC<Cart> = ({
     updateCartQuantity(id, tempQuantity);
   }, [tempQuantity])
 
-  useEffect(() => {
-    updateCartCheck(id, tempCheck);
-  }, [tempCheck])
-
   return (
     <S.Container>
-      {/* <S.cartTitle>{name}</S.cartTitle> */}
       <S.cartHeader>
-        <Checkbox checkboxId={id} isCheck={initCheck} contents={name}></Checkbox>
+        <Checkbox checkboxId={id} isCheck={check} contents={name}></Checkbox>
         <S.deleteButton onClick={() => deleteCart(id)}>삭제</S.deleteButton>
       </S.cartHeader>
       <S.cartBody>
