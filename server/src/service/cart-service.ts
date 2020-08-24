@@ -13,18 +13,6 @@ export const updateQuantity = async (req: Request, res: Response) => {
   res.json(updatedCart[0]);
 };
 
-export const updateCheck = async (req: Request, res: Response) => {
-  const updatedRows = await CartRepo.updateCheck(req.body);
-  const updatedCart = await CartRepo.findOne(req.body.id);
-  res.json(updatedCart[0]);
-};
-
-export const setCheckAll = async (req: Request, res: Response) => {
-  const updatedRows = await CartRepo.setCheckAll(req.body);
-  const CartList = await CartRepo.findAll();
-  res.json(CartList);
-};
-
 export const deleteCart = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   if (typeof id !== 'number' || id <= 0) {
@@ -38,19 +26,6 @@ export const deleteCart = async (req: Request, res: Response) => {
   }
 
   res.json(id);
-};
-export const deleteAllChecked = async (req: Request, res: Response) => {
-  const id = Number(req.params.userId);
-  if (typeof id !== 'number' || id <= 0) {
-    throw new InvalidParamsError('id');
-  }
-  const removedRows = await CartRepo.deleteAllChecked(id);
-  if (removedRows === 0) {
-    res.json("삭제된거 없음");
-    return;
-  }
-
-  res.json(removedRows);
 };
 
 export const createTestCart = async (req: Request, res: Response) => {
