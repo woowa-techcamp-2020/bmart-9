@@ -11,8 +11,8 @@ type Props = {
 const TRUE = 1;
 const FALSE = 0;
 
-const Checkbox: React.FC<Props> = ({ checkboxId, isCheck, contents }: Props) => {
-
+const Checkbox: React.FC<Props> = (args: Props) => {
+	const { checkboxId, isCheck, contents } = args;
 	const [tempCheck, setTempCheck] = useState<number>(isCheck);
 	const { updateCartCheck } = useCart();
 

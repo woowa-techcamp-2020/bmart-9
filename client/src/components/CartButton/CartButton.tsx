@@ -8,15 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 type Props = {}
 
 const CartButton: React.FC<Props> = ({ }: Props) => {
-	const { cartCount, setCartList, setCheckAll } = useCart();
-
-	useEffect(() => {
-		setCartList();
-	}, []);
+	const { cartCount } = useCart();
 
 	return <S.Container>
 		<Link href="/cartPage">
-			<S.Button onClick={() => setCheckAll(3, 1)}>
+			<S.Button>
 				<FontAwesomeIcon icon={faShoppingBag}></FontAwesomeIcon>
 				<S.CartCount>{cartCount("cartButton")}</S.CartCount>
 			</S.Button>
