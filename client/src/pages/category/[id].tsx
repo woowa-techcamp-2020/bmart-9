@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Router from 'next/router';
 import API from '../../api';
 import { useCategory } from '../../hooks/useCategory';
 import { useProduct } from '../../hooks/useProduct';
@@ -7,19 +8,21 @@ import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
 import { BoxCategory } from '../../components/BoxCategory';
 import { HorizontalBar } from '../../components/HorizontalBar';
 import { HorizontalSlider } from '../../components/HorizontalSlider';
+import category from '../../api/category';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const CategoryDetailPage = ({
-  greet,
+  categoryInfo,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { query } = useRouter();
   const { category } = useCategory();
   const { getFilteredProductByCategory } = useProduct();
 
-  // TODO subcategory의 경우를 해결해야함
-  const currentCategory = category
-    ? category.find(({ id }) => query.id === id.toString())
-    : null;
-  const isSubCategory = currentCategory === null;
+  const currentCategory =
+    categoryInfo || category.find(({ id }) => query.id === id.toString());
+
+  const isSubCategory = categoryInfo ? true : false;
   const filteredProducts = getFilteredProductByCategory(
     +query.id,
     isSubCategory
@@ -31,10 +34,17 @@ const CategoryDetailPage = ({
 
   return (
     <>
-      <HorizontalBar center={currentCategory.name} start={'<'} end={'🔍'} />
-      {currentCategory.subCategory && (
-        <BoxCategory categories={currentCategory.subCategory} />
-      )}
+      <HorizontalBar
+        center={currentCategory.name}
+        start={
+          <FontAwesomeIcon
+            icon={faArrowLeft}
+            onClick={() => Router.back()}
+          ></FontAwesomeIcon>
+        }
+        end={'🔍'}
+      />
+      <BoxCategory categories={currentCategory.subCategory} />
       {filteredProducts && (
         <>
           <HorizontalSlider
@@ -58,28 +68,31 @@ const CategoryDetailPage = ({
 
 export const getStaticPaths = async () => {
   return {
-    paths: [
-      { params: { id: '420234' } },
-      { params: { id: '420376' } },
-      { params: { id: '435072' } },
-      { params: { id: '435052' } },
-      { params: { id: '464913' } },
-      { params: { id: '420388' } },
-      { params: { id: '420337' } },
-      { params: { id: '435052' } },
-      { params: { id: '420186' } },
-      { params: { id: '464911' } },
-    ],
+    paths: [],
     fallback: true,
   };
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const products = await API.Product.getByCategory2Id(+(params!.id as string));
-  console.log('serverside: ', products);
+  const categoryInfo = await API.Category.getOneByCategory2Id(
+    Number(params!.id)
+  );
+
+  const res = Object.keys(categoryInfo).length === 0 ? null : categoryInfo;
   return {
-    props: { greet: 'hello' },
+    props: { categoryInfo: res },
   };
 };
 
 export default CategoryDetailPage;
+
+// { params: { id: '420234' } },
+// { params: { id: '420376' } },
+// { params: { id: '435072' } },
+// { params: { id: '435052' } },
+// { params: { id: '464913' } },
+// { params: { id: '420388' } },
+// { params: { id: '420337' } },
+// { params: { id: '435052' } },
+// { params: { id: '420186' } },
+// { params: { id: '464911' } },
