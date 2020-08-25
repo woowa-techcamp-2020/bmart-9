@@ -30,10 +30,14 @@ const IndexPage = ({
               start={'고객님이 좋아할 베스트 아이템'}
               products={products.slice(0, 10)}
             />
-            <FourCardsContainer />
+            <FourCardsContainer
+              start={'지금사면 ⚡️ 번쩍할인'}
+              end={'더보기 〉'}
+              products={products.slice(40, 44)}
+            />
             <HorizontalSlider
               start={'특별 모음전'}
-              end={'더보기 >'}
+              end={'더보기 〉'}
               products={products.slice(10, 20)}
             />
             <HorizontalSlider

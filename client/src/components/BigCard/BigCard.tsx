@@ -1,7 +1,7 @@
 import React from 'react';
-import * as S from './CardStyle';
-import { CardImg } from './../CardImg';
-import { CardContent } from './../CardContent';
+import * as S from './BigCardStyle';
+import { BigCardImg } from '../BigCardImg';
+import { BigCardContent } from '../BigCardContent';
 import { Product } from '../../../../shared';
 
 const Card: React.FC<Product> = (product: Product) => {
@@ -9,8 +9,8 @@ const Card: React.FC<Product> = (product: Product) => {
 
   return (
     <S.Container>
-      <CardImg imgSrc={img} />
-      <CardContent {...product} />
+      <BigCardImg imgSrc={img} />
+      <BigCardContent {...product} />
     </S.Container>
   );
 };

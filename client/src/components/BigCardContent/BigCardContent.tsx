@@ -1,11 +1,11 @@
 import React from 'react';
-import * as S from './CardContentStyle';
+import * as S from './BigCardContentStyle';
 import { Product } from '../../../../shared';
 import numberComma from '../../utils/numberComma';
 
 // id baseprice discount name price
 
-export const CardContent: React.FC<Product> = ({
+export const BigCardContent: React.FC<Product> = ({
   id,
   base_price,
   name,
@@ -25,4 +25,4 @@ export const CardContent: React.FC<Product> = ({
   );
 };
 
-export default CardContent;
+export default BigCardContent;
