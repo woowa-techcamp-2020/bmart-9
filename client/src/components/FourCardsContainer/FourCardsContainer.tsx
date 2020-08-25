@@ -18,10 +18,6 @@ const FourCardsContainer: React.FC<FourCardsContainerProps> = ({
 }: FourCardsContainerProps) => {
   const [card, setCard] = useState(products[0]);
 
-  const setBorder = () => {
-    console.log(1)
-  }
-
   const selectCard = (card:Product) => {
     setCard(card);
   }; 

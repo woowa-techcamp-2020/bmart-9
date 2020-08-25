@@ -21,7 +21,7 @@ export const BigCardImg: React.FC<Props> = (props: Props) => {
         <S.ImgWrapper>
           <S.Img src={imgSrc} />
         </S.ImgWrapper>
-        <S.HeartIcon onClick={() => toggleLike()} icon={faHeart} like={like ? 'red' : 'white'}/>
+        <S.HeartIcon onClick={toggleLike} icon={faHeart} like={like ? 'red' : 'white'}/>
       </S.Container>
     </>
   );

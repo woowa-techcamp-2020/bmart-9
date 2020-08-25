@@ -4,7 +4,7 @@ import { BigCardImg } from '../BigCardImg';
 import { BigCardContent } from '../BigCardContent';
 import { Product } from '../../../../shared';
 
-const Card: React.FC<Product> = (product: Product) => {
+const BigCard: React.FC<Product> = (product: Product) => {
   const { img } = product;
 
   return (
@@ -15,4 +15,4 @@ const Card: React.FC<Product> = (product: Product) => {
   );
 };
 
-export default Card;
+export default BigCard;
