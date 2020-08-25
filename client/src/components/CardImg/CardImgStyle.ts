@@ -13,12 +13,11 @@ export type ImgProps = {
 
 export const Img = styled.img<ImgProps>`
   width: 100%;
-  height: ${props => `${props.width}vw`};
+  height: calc(${props => props.width}vw - 10px);
 `;
 
 export const ImgWrapper = styled.div`
   padding: 5px;
-  width: 100%;
 `;
 
 export type likeProps = {

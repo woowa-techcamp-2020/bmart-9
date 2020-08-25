@@ -11,7 +11,7 @@ type HorizontalSliderProps = {
   products: Product[];
 };
 
-const HORIZONTAL_CARD_WIDTH = 40;
+const HORIZONTAL_CARD_VIEWPORT_WIDTH = 40;
 
 const HorizontalSlider: React.FC<HorizontalSliderProps> = ({
   start,
@@ -27,7 +27,7 @@ const HorizontalSlider: React.FC<HorizontalSliderProps> = ({
             <Card
               key={product.id}
               product={product}
-              width={HORIZONTAL_CARD_WIDTH}
+              width={HORIZONTAL_CARD_VIEWPORT_WIDTH}
             />
           ))}
       </S.Container>
