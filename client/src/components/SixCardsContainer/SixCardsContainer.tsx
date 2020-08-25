@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './SixCardsContainerStyle';
 import { MainContainer } from '../MainContainer';
 import { HorizontalBar } from '../HorizontalBar';
@@ -11,20 +11,29 @@ type SixCardsContainerProps = {
   products: Product[];
 };
 
-const SIXCARDSCONTAINER_CARD_VIEWPORT_WIDTH = 31;
+const SIXCARDSCONTAINER_CARD_VIEWPORT_WIDTH = 32;
 
 const SixCardsContainer: React.FC<SixCardsContainerProps> = ({
   start,
   end,
   products,
 }: SixCardsContainerProps) => {
+  const [firstProduct, setFirstProduct] = useState(0);
+  const selectedProducts = products.slice(firstProduct, firstProduct + 6);
+
+  const displayNextProducts = () => {
+    firstProduct === 18
+      ? setFirstProduct(0)
+      : setFirstProduct(firstProduct + 6);
+  };
+
   return (
     <>
       <MainContainer>
         {(start || end) && <HorizontalBar start={start} end={end} />}
         <S.Container>
-          {products &&
-            products.map((product) => (
+          {selectedProducts &&
+            selectedProducts.map((product) => (
               <Card
                 key={product.id}
                 product={product}
@@ -32,6 +41,10 @@ const SixCardsContainer: React.FC<SixCardsContainerProps> = ({
               />
             ))}
         </S.Container>
+        <HorizontalBar
+          displayNextProducts={displayNextProducts}
+          center="↻ 지금 뭐 먹지? 다른 상품 보기"
+        />
       </MainContainer>
     </>
   );
