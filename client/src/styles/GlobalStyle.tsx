@@ -13,6 +13,7 @@ export const GRAY_001 = '#fafafa';
 export const GRAY_002 = '#ececec';
 export const GRAY_003 = '#DEDEDE';
 export const GRAY_004 = '#D4d4d4';
+export const GRAY_005 = '#b5b5b5';
 
 export const MAIN_RED = '#ff5252';
 export const MAIN_GREEN = '#4caf50';

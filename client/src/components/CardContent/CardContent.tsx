@@ -1,6 +1,7 @@
 import React from 'react';
 import * as S from './CardContentStyle';
 import { Product } from '../../../../shared';
+import numberComma from '../../utils/numberComma';
 
 // id baseprice discount name price
 
@@ -15,10 +16,10 @@ export const CardContent: React.FC<Product> = ({
   return (
     <>
       <S.Container>
-        <S.ProductName>{name.substring(0,29)}</S.ProductName>
-        <S.ProductDiscount>{discount}</S.ProductDiscount>
-        <S.ProductBasePrice>{base_price}</S.ProductBasePrice>
-        <S.ProductPrice>{price}</S.ProductPrice>
+        <S.ProductName>{name.substring(0,33)}</S.ProductName>
+          {discount ? <S.ProductDiscount>{discount}%</S.ProductDiscount> : ''}
+          {base_price ? <S.ProductBasePrice>{numberComma(base_price)}원</S.ProductBasePrice> : ''}
+          <S.ProductPrice>{numberComma(price)}원</S.ProductPrice>
       </S.Container>
     </>
   );
