@@ -33,22 +33,19 @@ export const HeartIcon = styled(FontAwesomeIcon)<likeProps>`
   font-size: 25px;
   top: 10px;
   left: 10px;
-  z-index: 1;
   opacity:0.8;
 `
 
-export const ShoppingCartIcon = styled(FontAwesomeIcon)`
+export const ShoppingBagIcon = styled(FontAwesomeIcon)`
   color: grey;
   background-color: #FFFFFFFF;
-  width: 20px;
-  height: 28px;
+  height: 25px;
   border-radius: 50%;
   padding:5px;
   position: absolute;
-  font-size: 25px;
+  font-size: 29px;
   bottom: 10px;
   left: 10px;
-  z-index: 1;
   opacity: 0.8;
 `
 
