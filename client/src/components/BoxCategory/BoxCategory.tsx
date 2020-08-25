@@ -6,9 +6,13 @@ import Link from 'next/link';
 
 type Props = {
   categories?: Category[];
+  onClickHandlder?: boolean;
 };
 
-const BoxCategory: React.FC<Props> = ({ categories }: Props) => {
+const BoxCategory: React.FC<Props> = ({
+  categories,
+  onClickHandlder,
+}: Props) => {
   return (
     <MainContainer>
       <S.Container>
