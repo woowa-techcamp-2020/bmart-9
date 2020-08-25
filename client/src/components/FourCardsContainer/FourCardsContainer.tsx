@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './FourCardsContainerStyle';
 import { BigCard } from '../BigCard';
 import { Product } from '../../../../shared';
@@ -16,7 +16,17 @@ const FourCardsContainer: React.FC<FourCardsContainerProps> = ({
   end,
   products,
 }: FourCardsContainerProps) => {
-  console.log(products[0])
+  const [card, setCard] = useState(products[0]);
+
+  const setBorder = () => {
+    console.log(1)
+  }
+
+  const selectCard = (card:Product) => {
+    setCard(card);
+  }; 
+
+
   return (
     <>
       <MainContainer>
@@ -25,12 +35,13 @@ const FourCardsContainer: React.FC<FourCardsContainerProps> = ({
           {products &&
             products.map((product) => (
               <S.Img
-                onClick={() => console.log(1)}
+                onClick={() => selectCard(product)}
+                select={card ? (product === card && true) : product === products[0] && true}
                 key={product.id}
                 src={product.img}
               />
             ))}
-            <BigCard {...products[0]}/>
+          {card ? <BigCard {...card}/> : <BigCard {...products[0]}/>}
         </S.Container>
       </MainContainer>
     </>
