@@ -35,8 +35,7 @@ const SixCardsContainer: React.FC<SixCardsContainerProps> = ({
         <S.Container>
           {selectedProducts &&
             selectedProducts.map((product) => (
-              <S.CardWrapper><Card
-                key={product.id}
+              <S.CardWrapper key={product.id}><Card
                 product={product}
                 width={SIXCARDSCONTAINER_CARD_VIEWPORT_WIDTH}
               /></S.CardWrapper>
