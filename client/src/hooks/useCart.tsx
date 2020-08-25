@@ -58,6 +58,11 @@ export const useCart = () => {
     dispatch({ type: 'UPDATE_CART_ITEM', udpatedCart: { ...payloadCart, check: TRUE } });
   };
 
+  const createCart = async (cartParams: Cart) => {
+    const result = await API.Cart.create(cartParams);
+    setCartList();
+  };
+
   const createTestCart = async (id: number) => {
     const result = await API.Cart.createTestCart(id);
     setCartList();
@@ -101,7 +106,7 @@ export const useCart = () => {
     dispatch({ type: 'SET_CLIENT_CART_LIST', cartList: newCartList });
   }
 
-  return { cartList, allCheckValue, deleteAllCheck, updateAllCheck, updateCartCheck, cartCount, cartCost, setCartList, updateCartQuantity, deleteCart, createTestCart };
+  return { cartList, createCart, allCheckValue, deleteAllCheck, updateAllCheck, updateCartCheck, cartCount, cartCost, setCartList, updateCartQuantity, deleteCart, createTestCart };
 };
 
 

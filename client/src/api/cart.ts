@@ -28,9 +28,8 @@ const deleteCart = async (id: number) => {
     return data;
 }
 
-const create = async () => {
-    const { data } = await bmart.post<Cart[]>(`/cart`);
-
+const create = async (cart: Cart) => {
+    const { data } = await bmart.post<Cart>(`/cart`);
     return data;
 }
 
