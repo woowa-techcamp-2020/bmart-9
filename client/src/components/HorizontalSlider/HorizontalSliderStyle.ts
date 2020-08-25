@@ -7,5 +7,6 @@ export const Container = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-  margin-bottom: 10px;
+  margin: 0 0 10px 2vw;
+  padding-bottom: 3px;
 `;

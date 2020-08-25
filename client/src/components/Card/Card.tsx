@@ -5,11 +5,11 @@ import { CardContent } from './../CardContent';
 import { Product } from '../../../../shared';
 
 const Card: React.FC<Product> = (product: Product) => {
-  const { img, price } = product;
+  const { img } = product;
 
   return (
     <S.Container>
-      <CardImg imgSrc={img} productPrice={price} />
+      <CardImg imgSrc={img} />
       <CardContent {...product} />
     </S.Container>
   );
