@@ -29,3 +29,9 @@ export const Hamburger = styled.div<openProps>`
   font-weight: bold;
   padding: 3px;
 `;
+
+export const Title = styled.p`
+  font-weight: 500;
+  font-size: 1.1rem;
+  text-align: center;
+`;
