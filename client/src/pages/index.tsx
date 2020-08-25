@@ -12,6 +12,7 @@ import { HorizontalSlider } from '../components/HorizontalSlider';
 import { FourCardsContainer } from '../components/FourCardsContainer';
 import { useProduct } from '../hooks/useProduct';
 import { CartButton } from '../components/CartButton';
+import { SixCardsContainer } from '../components/SixCardsContainer';
 
 const IndexPage = ({
   bannerImages,
@@ -35,6 +36,7 @@ const IndexPage = ({
               end={'더보기 〉'}
               products={products.slice(40, 44)}
             />
+            <SixCardsContainer start={'지금 뭐 먹지?'} products={products.slice(44, 68)}/>
             <HorizontalSlider
               start={'특별 모음전'}
               end={'더보기 〉'}
