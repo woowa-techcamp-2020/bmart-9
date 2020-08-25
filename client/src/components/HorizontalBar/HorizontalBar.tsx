@@ -5,9 +5,10 @@ type Props = {
   start?: any;
   center?: any;
   end?: any;
+  displayNextProducts?: () => void;
 };
 
-const HorizontalBar: React.FC<Props> = ({ start, center, end }: Props) => {
+const HorizontalBar: React.FC<Props> = ({ start, center, end, displayNextProducts }: Props) => {
   return (
     <S.Container
       isStart={start ? '1fr' : ''}
@@ -15,7 +16,7 @@ const HorizontalBar: React.FC<Props> = ({ start, center, end }: Props) => {
       isEnd={end ? '1fr' : ''}
     >
       {start !== undefined && <S.Start>{start}</S.Start>}
-      {center !== undefined && <S.Center>{center}</S.Center>}
+      {center !== undefined && <S.Center onClick={displayNextProducts}>{center}</S.Center>}
       {end !== undefined && <S.End>{end}</S.End>}
     </S.Container>
   );

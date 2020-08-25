@@ -20,6 +20,7 @@ const SixCardsContainer: React.FC<SixCardsContainerProps> = ({
 }: SixCardsContainerProps) => {
   const [firstProduct, setFirstProduct] = useState(0);
   const selectedProducts = products.slice(firstProduct, firstProduct + 6);
+  const pageCount = (firstProduct / 6) + 1;
 
   const displayNextProducts = () => {
     firstProduct === 18
@@ -43,7 +44,7 @@ const SixCardsContainer: React.FC<SixCardsContainerProps> = ({
         </S.Container>
         <HorizontalBar
           displayNextProducts={displayNextProducts}
-          center="↻ 지금 뭐 먹지? 다른 상품 보기"
+            center={`↻ 지금 뭐 먹지? 다른 상품 보기 ${pageCount}/4`}
         />
       </MainContainer>
     </>
