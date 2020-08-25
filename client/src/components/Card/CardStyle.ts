@@ -4,5 +4,6 @@ export const Container = styled.div`
   display: inline-block;
   width: 150px;
   /* height: 150px; */
+  vertical-align:top;
 `
 

@@ -8,5 +8,4 @@ export const Container = styled.div`
     display: none;
   }
   margin-bottom: 10px;
-  padding-bottom: 10px;
 `;

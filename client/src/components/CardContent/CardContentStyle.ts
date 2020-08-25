@@ -8,11 +8,10 @@ export const Container = styled.div`
 
 export const ProductName = styled.div`
   color: #454545;
-  height: 20px;
   text-align: left;
   font-size: 70%;
   white-space: normal;
-
+  vertical-align: middle;
 `;
 
 export const ProductDiscount = styled.div`
@@ -37,6 +36,7 @@ export const ProductPrice = styled.div`
   color: #454545;
   font-size: 70%;
   font-weight: bold;
-  display: inline-block;
+  display: block;
   text-align: start;
+  margin-top: 3px;
 `;
