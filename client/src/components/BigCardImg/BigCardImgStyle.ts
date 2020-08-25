@@ -14,7 +14,7 @@ export const Img = styled.img`
 `
 
 export const ImgWrapper = styled.div`
-  width: 98vw;
+  width: 94vw;
   height: 80vw;
   margin: auto 1vw;
   position: relative;
