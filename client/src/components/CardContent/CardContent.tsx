@@ -15,7 +15,7 @@ export const CardContent: React.FC<Product> = ({
   return (
     <>
       <S.Container>
-        <S.ProductName>{name}</S.ProductName>
+        <S.ProductName>{name.substring(0,29)}</S.ProductName>
         <S.ProductDiscount>{discount}</S.ProductDiscount>
         <S.ProductBasePrice>{base_price}</S.ProductBasePrice>
         <S.ProductPrice>{price}</S.ProductPrice>
