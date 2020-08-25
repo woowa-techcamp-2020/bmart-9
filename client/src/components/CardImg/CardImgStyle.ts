@@ -10,8 +10,8 @@ export const Container = styled.div`
 export const Img = styled.img`
   width:140px;
   height:140px;
-  border-radius:5px;
-  box-shadow: 0.5px 0.5px 3px grey;
+  /* border-radius:5px; */
+  /* box-shadow: 0.5px 0.5px 3px grey; */
 `
 
 export const ImgWrapper = styled.div`
@@ -33,22 +33,19 @@ export const HeartIcon = styled(FontAwesomeIcon)<likeProps>`
   font-size: 25px;
   top: 10px;
   left: 10px;
-  z-index: 1;
   opacity:0.8;
 `
 
-export const ShoppingCartIcon = styled(FontAwesomeIcon)`
+export const ShoppingBagIcon = styled(FontAwesomeIcon)`
   color: grey;
   background-color: #FFFFFFFF;
-  width: 20px;
-  height: 28px;
+  height: 25px;
   border-radius: 50%;
   padding:5px;
   position: absolute;
-  font-size: 25px;
+  font-size: 29px;
   bottom: 10px;
   left: 10px;
-  z-index: 1;
   opacity: 0.8;
 `
 

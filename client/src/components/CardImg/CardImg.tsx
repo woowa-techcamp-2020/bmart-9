@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as S from './CardImgStyle';
-import { faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 // import "framework7-icons"
 
 type Props = {
@@ -24,8 +24,7 @@ export const CardImg: React.FC<Props> = (props: Props) => {
           <S.Img src={imgSrc} />
         </S.ImgWrapper>
         <S.HeartIcon onClick={() => toggleLike()} icon={faHeart} like={like ? 'red' : 'white'}/>
-        <S.ShoppingCartIcon icon={faShoppingCart} />
-        <S.IQ>{productPrice}</S.IQ>
+        <S.ShoppingBagIcon icon={faShoppingBag} />
       </S.Container>
     </>
   );
