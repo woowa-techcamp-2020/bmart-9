@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './CategoryNavBarStyle';
 import { Category } from '../../../../shared/';
+import { HashLink } from 'react-router-hash-link';
 
 type CategoryNavBarProps = {
   categories: Category[];
@@ -10,12 +11,10 @@ const CategoryNavBar: React.FC<CategoryNavBarProps> = ({
   categories,
 }: CategoryNavBarProps) => {
 
-  const [categoryTab, setCategoryTab] = useState(0);
-  // const selectCard = (card: Product) => {
-  //   setCard(card);
-  // };
-  const categoryClickHandler = (cat) => {
-    setCategoryTab(cat)
+  const [categoryTab, setCategoryTab] = useState();
+
+  const categoryClickHandler = (cat:any) => {
+    setCategoryTab(cat);
   };
 
   return (
@@ -25,14 +24,11 @@ const CategoryNavBar: React.FC<CategoryNavBarProps> = ({
           .sort((a, b) => a.id - b.id)
           .map((category) => (
             <S.CategoryContainer
+              // id={}
               key={category.id}
               data-category-id={category.id}
               onClick={() => categoryClickHandler(category)}
-              select={
-                category
-                  ? categoryTab === category && true
-                  : categoryTab === category[0] && true
-              }
+              select={categoryTab === category && true}
             >
               {category.name}
             </S.CategoryContainer>

@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { GRAY_006, MAIN_COLOR2 } from '../../styles/GlobalStyle';
 
 export const Container = styled.div`
-  /* margin: 0 2vw; */
   border-bottom: 0.4vw solid #ececec;
   overflow-x: scroll;
   white-space: nowrap;
@@ -18,7 +17,7 @@ type CategoryContainerProps = {
 
 export const CategoryContainer = styled.div<CategoryContainerProps>`
   background-color: ${(props) => props.select && GRAY_006};
-  color: ${(props) => props.select && MAIN_COLOR2};
+  color: ${(props) => props.select ? MAIN_COLOR2 : GRAY_006};
   display: inline-block;
   border-radius: 5vw;
   padding: 3vw;
