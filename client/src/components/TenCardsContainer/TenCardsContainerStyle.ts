@@ -5,5 +5,4 @@ export const Container = styled.div`
 `
 export const CardWrapper = styled.div`
   display:inline-block;
-  height: 48vw;
 `
