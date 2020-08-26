@@ -3,15 +3,25 @@ import * as S from './BigCardStyle';
 import { BigCardImg } from '../BigCardImg';
 import { BigCardContent } from '../BigCardContent';
 import { Product } from '../../../../shared';
+import Link from 'next/link';
 
-const BigCard: React.FC<Product> = (product: Product) => {
-  const { img } = product;
+type ProductProps = {
+  product: Product;
+};
+
+const BigCard: React.FC<ProductProps> = ({ product }: ProductProps) => {
+  if (!product) {
+    return null;
+  }
+  const { img, id } = product;
 
   return (
-    <S.Container>
-      <BigCardImg imgSrc={img} />
-      <BigCardContent {...product} />
-    </S.Container>
+    <Link key={id} href="/product/[id]" as={`/product/${id}`}>
+      <S.Container>
+        <BigCardImg imgSrc={img} />
+        <BigCardContent {...product} />
+      </S.Container>
+    </Link>
   );
 };
 

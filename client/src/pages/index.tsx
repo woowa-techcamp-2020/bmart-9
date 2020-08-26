@@ -1,13 +1,9 @@
 import React from 'react';
-import Link from 'next/link';
 import API from '../api';
 import { InferGetStaticPropsType } from 'next';
 import { Carousel } from '../components/Carousel';
-// import { Header } from '../components/Header';
 import { Header } from '../components/Header';
-import { HorizontalBar } from '../components/HorizontalBar';
 import { CategoryContainer } from '../components/CategoryContainer';
-import { MainContainer } from '../components/MainContainer';
 import { HorizontalSlider } from '../components/HorizontalSlider';
 import { FourCardsContainer } from '../components/FourCardsContainer';
 import { useProduct } from '../hooks/useProduct';
