@@ -3,10 +3,14 @@ import { useRouter } from 'next/router';
 import { useCreator } from '../utils/createContext';
 import { UserContexts } from '../context/UserContext';
 import API, { TOKEN_KEY } from '../api';
+import { useSnackbar } from './useSnackbar';
+import { useFavorite } from './useFavorite';
 
-export const useUser = () => {
+export const useUser = (toggleSideBar?: () => void) => {
   const [user, dispatch] = useCreator(UserContexts);
   const router = useRouter();
+  const { openSnackbar } = useSnackbar();
+  const { emptyFavorite, fetchFavorite } = useFavorite();
 
   const authHandler = () => {
     const win = window.open('http://localhost:3000/api/auth/github') as Window;
@@ -32,15 +36,37 @@ export const useUser = () => {
   const signIn = async (token: string) => {
     const user = await API.User.getCurrentUser(token);
     dispatch({ type: 'SET_USER', user: { ...user, token } });
+    await fetchFavorite(token);
+    toggleSideBar && toggleSideBar();
   };
 
   const signOut = () => {
     localStorage.removeItem(TOKEN_KEY);
     Cookie.remove(TOKEN_KEY);
     dispatch({ type: 'SET_USER', user: null });
+    emptyFavorite();
+    toggleSideBar && toggleSideBar();
   };
 
-  const isLoggedIn = user ? true : false;
+  const isLoggedIn = user && user.token && user.id ? true : false;
 
-  return { isLoggedIn, user, signIn, signOut, authHandler };
+  const notLogggedInHandler = () => {
+    const token = localStorage.getItem(TOKEN_KEY);
+
+    if (token || isLoggedIn) {
+      return;
+    }
+
+    openSnackbar('warning', '로그인이 필요합니다');
+    router.push('/');
+  };
+
+  return {
+    isLoggedIn,
+    user,
+    signIn,
+    signOut,
+    authHandler,
+    notLogggedInHandler,
+  };
 };

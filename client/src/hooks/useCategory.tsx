@@ -8,7 +8,7 @@ export const useCategory = (categories?: Category[]) => {
   const [category, dispatch] = useCreator(CategoryContexts);
 
   useEffect(() => {
-    if (categories) {
+    if (categories && category.length !== categories.length) {
       dispatch({ type: 'FETCH_CATEGORY', categories });
     }
   }, [categories, dispatch]);

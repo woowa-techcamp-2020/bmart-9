@@ -18,9 +18,9 @@
   },
   "scripts": {
     "dev": "next -p 9000",
-    "start": "NODE_ENV=production next start -p 9000",
+    "start": "NODE_ENV=production pm2 next start -p 9000",
     "build": "NODE_ENV=production next build ",
-    "postbuild": "next export && rm -rf ../server/dist/server/public && mv out ../server/dist/server/public",
+    "Xpostbuild": "next export && rm -rf ../server/dist/server/public && mv out ../server/dist/server/public",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -50,6 +50,7 @@
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
     "@types/styled-components": "^5.1.2",
+    "pm2": "^4.4.1",
     "styled-components": "^5.1.1",
     "typescript": "^3.7.5"
   }

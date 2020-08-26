@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
 import * as S from './CardImgStyle';
 import { faHeart, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
-// import "framework7-icons"
+import { useFavorite } from '../../hooks/useFavorite';
+import { useUser } from '../../hooks/useUser';
 
 type Props = {
+  id: number;
   imgSrc: string;
   viewportWidth: number;
 };
 
-export const CardImg: React.FC<Props> = ({ imgSrc, viewportWidth }: Props) => {
-  const [like, setLike] = useState(false);
+export const CardImg: React.FC<Props> = ({
+  id,
+  imgSrc,
+  viewportWidth,
+}: Props) => {
+  const { isFavorite, onClickFavoriteHandler } = useFavorite();
+  const { user, isLoggedIn, notLogggedInHandler } = useUser();
 
-  const toggleLike = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+  const toggleLike = async (
+    event: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
     event.stopPropagation();
 
-    setLike(!like);
+    if (!isLoggedIn) {
+      return notLogggedInHandler();
+    }
+
+    await onClickFavoriteHandler(id, user!.token);
   };
 
   return (
@@ -26,7 +39,7 @@ export const CardImg: React.FC<Props> = ({ imgSrc, viewportWidth }: Props) => {
         <S.HeartIcon
           onClick={toggleLike}
           icon={faHeart}
-          like={like ? 'red' : 'white'}
+          like={isFavorite(id) ? 'red' : 'white'}
         />
         <S.ShoppingBagIcon icon={faShoppingBag} />
       </S.Container>

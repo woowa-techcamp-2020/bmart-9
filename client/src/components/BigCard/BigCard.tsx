@@ -18,7 +18,7 @@ const BigCard: React.FC<ProductProps> = ({ product }: ProductProps) => {
   return (
     <Link key={id} href="/product/[id]" as={`/product/${id}`}>
       <S.Container>
-        <BigCardImg imgSrc={img} />
+        <BigCardImg id={id} imgSrc={img} />
         <BigCardContent {...product} />
       </S.Container>
     </Link>

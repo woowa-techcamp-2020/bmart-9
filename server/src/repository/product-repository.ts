@@ -99,7 +99,7 @@ export class ProductRepo {
           product p2
         where
           p1.category2_id=p2.category2_id and p1.id <= p2.id
-        ) <=10
+        ) <= 20
       order by
         category2_id;
     `;

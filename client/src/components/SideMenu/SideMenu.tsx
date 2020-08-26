@@ -10,6 +10,7 @@ import { IconButton } from '../IconButton';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useCategory } from '../../hooks/useCategory';
 import { BoxCategory } from '../BoxCategory';
+import Link from 'next/link';
 
 type Props = {
   open: boolean;
@@ -17,17 +18,24 @@ type Props = {
 };
 
 const SideMenu: React.FC<Props> = ({ open, toggleOpen }: Props) => {
-  const { isLoggedIn, user, signOut, authHandler } = useUser();
+  const { isLoggedIn, user, signOut, authHandler } = useUser(toggleOpen);
   const { push } = useRouter();
   const { category } = useCategory();
 
   const renderAuthenticationHandler = () => {
     return isLoggedIn ? (
-      <HorizontalBar
-        start={`안녕하세요. ${user!.name}님`}
-        center=" "
-        end={<IconButton icon={faSignOutAlt} onClickHandler={signOut} />}
-      />
+      <>
+        <HorizontalBar
+          start={`안녕하세요. ${user!.name}님`}
+          center=" "
+          end={<IconButton icon={faSignOutAlt} onClickHandler={signOut} />}
+        />
+        <Link href="/favorite">
+          <S.Authentication>
+            <S.GoHome>찜한 상품보기</S.GoHome>
+          </S.Authentication>
+        </Link>
+      </>
     ) : (
       <S.Authentication onClick={authHandler}>
         <S.GoHome>깃헙으로 로그인하기</S.GoHome>

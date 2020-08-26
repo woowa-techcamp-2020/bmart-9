@@ -25,20 +25,3 @@ router.post(
 );
 
 export default router;
-
-// `
-// SELECT
-//     C1.id, C1.name,
-//     GROUP_CONCAT(id) grouped_category2
-// FROM
-//     category2 as C2
-// GROUP BY
-//     category1_id
-// JOIN
-//     category1 as C1
-// ON
-//     C1.id=C2.category1_id;
-
-// `
-
-// SELECT category1_id, GROUP_CONCAT(id) grouped_category2 FROM category2 GROUP BY category1_id;
