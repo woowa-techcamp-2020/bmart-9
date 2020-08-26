@@ -5,11 +5,10 @@ import { faHeart, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
   imgSrc: string;
+  viewportWidth: number;
 };
 
-export const CardImg: React.FC<Props> = (props: Props) => {
-  const { imgSrc } = props;
-
+export const CardImg: React.FC<Props> = ({ imgSrc, viewportWidth }: Props) => {
   const [like, setLike] = useState(false);
 
   const toggleLike = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
@@ -22,7 +21,7 @@ export const CardImg: React.FC<Props> = (props: Props) => {
     <>
       <S.Container>
         <S.ImgWrapper>
-          <S.Img src={imgSrc} />
+          <S.Img src={imgSrc} viewportWidth={viewportWidth} />
         </S.ImgWrapper>
         <S.HeartIcon
           onClick={toggleLike}

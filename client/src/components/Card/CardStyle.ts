@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  display: inline-block;
-  width: 150px;
-  /* height: 150px; */
-  vertical-align: top;
+type CardContainerProps = {
+  viewportWidth: number;
+};
 
-  /* &:active {
-    img {
-      transition: all 200ms ease;
-      transform: scale(1.05);
-    }
-  } */
+export const Container = styled.div<CardContainerProps>`
+  display: inline-block;
+  width: ${(props) => `${props.viewportWidth}vw`};
+  vertical-align: top;
 `;

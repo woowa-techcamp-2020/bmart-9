@@ -7,16 +7,17 @@ export const Container = styled.div`
   width: 100%;
 `;
 
-export const Img = styled.img`
-  width: 140px;
-  height: 140px;
-  /* border-radius:5px; */
-  /* box-shadow: 0.5px 0.5px 3px grey; */
+export type ImgProps = {
+  viewportWidth: number;
+};
+
+export const Img = styled.img<ImgProps>`
+  width: 100%;
+  height: calc(${(props) => props.viewportWidth}vw - 10px);
 `;
 
 export const ImgWrapper = styled.div`
   padding: 5px;
-  width: 100%;
 `;
 
 export type likeProps = {

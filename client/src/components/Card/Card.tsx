@@ -5,11 +5,12 @@ import { CardContent } from './../CardContent';
 import { Product } from '../../../../shared';
 import Link from 'next/link';
 
-type ProductProps = {
+type CardProps = {
+  viewportWidth: number;
   product: Product;
 };
 
-const Card: React.FC<ProductProps> = ({ product }: ProductProps) => {
+const Card: React.FC<CardProps> = ({ viewportWidth, product }: CardProps) => {
   if (!product) {
     return null;
   }
@@ -17,8 +18,8 @@ const Card: React.FC<ProductProps> = ({ product }: ProductProps) => {
 
   return (
     <Link href="/product/[id]" as={`/product/${id}`}>
-      <S.Container>
-        <CardImg imgSrc={img} />
+      <S.Container viewportWidth={viewportWidth}>
+        <CardImg imgSrc={img} viewportWidth={viewportWidth} />
         <CardContent {...product} />
       </S.Container>
     </Link>

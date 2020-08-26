@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as S from './FourCardsContainerStyle';
 import { BigCard } from '../BigCard';
 import { Product } from '../../../../shared';
