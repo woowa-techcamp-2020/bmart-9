@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import * as S from './CategoryNavBarStyle';
 import { Category } from '../../../../shared/';
-import { HashLink } from 'react-router-hash-link';
 
 type CategoryNavBarProps = {
   categories: Category[];
@@ -15,6 +14,7 @@ const CategoryNavBar: React.FC<CategoryNavBarProps> = ({
 
   const categoryClickHandler = (cat:any) => {
     setCategoryTab(cat);
+    <HashLink to="cat.name"></HashLink>
   };
 
   return (
@@ -24,7 +24,7 @@ const CategoryNavBar: React.FC<CategoryNavBarProps> = ({
           .sort((a, b) => a.id - b.id)
           .map((category) => (
             <S.CategoryContainer
-              // id={}
+              id={category.name}
               key={category.id}
               data-category-id={category.id}
               onClick={() => categoryClickHandler(category)}
