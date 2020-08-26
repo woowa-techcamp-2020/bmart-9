@@ -3,12 +3,35 @@ import { FavoriteRepo } from '../repository/favorite-repository';
 import { User } from '../../../shared';
 import { InvalidParamsError } from '../errors/invalid-params';
 import { DatabaseError } from '../errors/database-error';
+import { ProductRepo } from '../repository/product-repository';
 
 export const getUsersFavorite = async (req: Request, res: Response) => {
   const { id } = req.user as User;
 
   const usersFavorites = await FavoriteRepo.selectAllFavoriteProductId(id);
   res.json(usersFavorites);
+};
+
+export const getUsersFavoriteProducts = async (req: Request, res: Response) => {
+  const { id } = req.user as User;
+
+  const usersFavorites = await FavoriteRepo.selectAllFavoriteProductId(id);
+
+  console.log(usersFavorites);
+  const favoriteProducts = [];
+
+  if (!usersFavorites || usersFavorites.length === 0) {
+    return res.json(usersFavorites);
+  }
+
+  const fetchProductPromise = usersFavorites.map(async (productId) => {
+    const product = await ProductRepo.findOne(productId);
+    favoriteProducts.push(product);
+  });
+
+  await Promise.all(fetchProductPromise);
+
+  res.json(favoriteProducts);
 };
 
 export const removeFavorite = async (req: Request, res: Response) => {

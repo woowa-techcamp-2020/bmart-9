@@ -29,10 +29,8 @@ export class FavoriteRepo {
         user_id=${userId}
     `;
 
-    const favorites = await selectQueryExecuter<FavoriteProductId>(
-      findFavoriteQuery
-    );
-    return favorites;
+    const favorites = await selectQueryExecuter<Favorite>(findFavoriteQuery);
+    return favorites.map(({ productId }) => productId);
   }
 
   static async deleteFavorite({
@@ -41,7 +39,7 @@ export class FavoriteRepo {
   }: FavoriteBody): Promise<number> {
     const deleteFavoriteQuery = `
       DELETE FROM
-        search
+        favorite
       WHERE
         product_id=${productId} and user_id=${userId}
     `;
