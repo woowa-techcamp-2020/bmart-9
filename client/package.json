@@ -18,8 +18,10 @@
   },
   "scripts": {
     "dev": "next -p 9000",
-    "start": "NODE_ENV=production pm2 next start -p 9000",
-    "build": "NODE_ENV=production next build ",
+    "start": "next start -p 9000",
+    "build": "NODE_ENV=production next build",
+    "postbuild": "npm run deploy",
+    "deploy": "NODE_ENV=production pm2 start npm -- start",
     "Xpostbuild": "next export && rm -rf ../server/dist/server/public && mv out ../server/dist/server/public",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

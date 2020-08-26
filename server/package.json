@@ -7,7 +7,7 @@
     "test": "jest --watchAll --runInBand --detectOpenHandles",
     "dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "NODE_ENV=production tsc",
-    "postbuild": "cd ../client && npm run build",
+    "postbuild": "npm run start && cd ../client && npm run build",
     "start": "NODE_ENV=production pm2 start dist/server/src/index.js",
     "ts": "node dist/server/src/index.js"
   },
