@@ -11,21 +11,24 @@ type SixCardsContainerProps = {
   products: Product[];
 };
 
-const SIXCARDSCONTAINER_CARD_VIEWPORT_WIDTH = 32;
+const SIX_CARDS_CONTAINER_CARD_VIEWPORT_WIDTH = 32;
 
 const SixCardsContainer: React.FC<SixCardsContainerProps> = ({
   start,
   end,
   products,
 }: SixCardsContainerProps) => {
-  const [firstProduct, setFirstProduct] = useState(0);
-  const selectedProducts = products.slice(firstProduct, firstProduct + 6);
-  const pageCount = (firstProduct / 6) + 1;
+  const [pageIndex, setPageIndex] = useState(1);
+  const PRODUCT_PER_PAGE = 6;
+  const selectedProducts = products.slice(
+    (pageIndex - 1) * PRODUCT_PER_PAGE,
+    pageIndex * PRODUCT_PER_PAGE
+  );
 
   const displayNextProducts = () => {
-    firstProduct === 18
-      ? setFirstProduct(0)
-      : setFirstProduct(firstProduct + 6);
+    pageIndex === 4
+      ? setPageIndex(1)
+      : setPageIndex(pageIndex + 1);
   };
 
   return (
@@ -35,15 +38,17 @@ const SixCardsContainer: React.FC<SixCardsContainerProps> = ({
         <S.Container>
           {selectedProducts &&
             selectedProducts.map((product) => (
-              <S.CardWrapper key={product.id}><Card
-                product={product}
-                width={SIXCARDSCONTAINER_CARD_VIEWPORT_WIDTH}
-              /></S.CardWrapper>
+              <S.CardWrapper key={product.id}>
+                <Card
+                  product={product}
+                  viewportWidth={SIX_CARDS_CONTAINER_CARD_VIEWPORT_WIDTH}
+                />
+              </S.CardWrapper>
             ))}
         </S.Container>
         <HorizontalBar
           displayNextProducts={displayNextProducts}
-            center={`↻ 지금 뭐 먹지? 다른 상품 보기 ${pageCount}/4`}
+          center={`↻ 지금 뭐 먹지? 다른 상품 보기 ${pageIndex}/4`}
         />
       </MainContainer>
     </>

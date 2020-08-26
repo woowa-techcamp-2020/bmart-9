@@ -8,12 +8,12 @@ export const Container = styled.div`
 `;
 
 export type ImgProps = {
-  width: number;
+  viewportWidth: number;
 };
 
 export const Img = styled.img<ImgProps>`
   width: 100%;
-  height: calc(${props => props.width}vw - 10px);
+  height: calc(${props => props.viewportWidth}vw - 10px);
 `;
 
 export const ImgWrapper = styled.div`
