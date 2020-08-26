@@ -8,7 +8,7 @@ export const useProduct = (initialData?: Product[]) => {
   const [products, dispatch] = useCreator(ProductContexts);
 
   useEffect(() => {
-    if (initialData) {
+    if (initialData && products.length !== initialData.length) {
       dispatch({ type: 'SET_PRODUCT_LIST', productList: initialData });
     }
   }, [initialData]);
