@@ -11,7 +11,7 @@ import comma from '../utils/numberComma';
 import Link from 'next/link';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const TRUE = 1;
 const FALSE = 0;
@@ -95,7 +95,7 @@ const CartPage = () => {
                       allCheck === TRUE ? updateAllCheck(FALSE) : updateAllCheck(TRUE)
                     }
                   ></S.AllCheckBox>
-                  <S.CheckboxContents>전체 선택</S.CheckboxContents>
+                  <S.CheckboxContents>{allCheck === TRUE ? '선택 해제' : '전체 선택'}</S.CheckboxContents>
                 </label>
               </S.SelectCheckbox>
               {renderDeleteAllButton()}
@@ -110,7 +110,7 @@ const CartPage = () => {
             <S.MoreButtonWrapper>
               <Link href="/">
                 <S.TextButton>
-                  + 더 담으러 가기
+                  <FontAwesomeIcon icon={faPlus} /> <span>더 담으러 가기</span>
                 </S.TextButton>
               </Link>
             </S.MoreButtonWrapper>
