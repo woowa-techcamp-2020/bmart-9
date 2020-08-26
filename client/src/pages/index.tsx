@@ -15,7 +15,7 @@ const IndexPage = ({
   bannerImages,
   categoryIcons,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { products } = useProduct();
+  const { products, getFilteredProductByCategory } = useProduct();
   return (
     <>
       <Header />
