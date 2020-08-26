@@ -7,6 +7,21 @@ export type CartAddState = {
 	isOpen: boolean
 };
 
+const emptyProduct: Product = {
+	id: -1,
+	name: '',
+	price: 0,
+	discount: 0,
+	base_price: 0,
+	category1: '',
+	category2: '',
+	category1_id: 0,
+	category2_id: 0,
+	updated_at: '',
+	created_at: '',
+	img: '',
+	stock: 0
+}
 export type CartAddAction =
 	{ type: 'OPEN_CART_ADD', currProduct: Product } |
 	{ type: 'CLOSE_CART_ADD' }
@@ -19,15 +34,14 @@ const CartAddReducer = (
 		case 'OPEN_CART_ADD':
 			return { product: action.currProduct, isOpen: true };
 		case 'CLOSE_CART_ADD':
-			return { ...state, isOpen: false };
-
+			return { product: emptyProduct, isOpen: false };
 		default:
 			throw new Error('존재하지 않는 액션입니다.');
 	}
 };
 
 const initialCartAdd: CartAddState = {
-	product: { id: -1, name: '', price: 0, discount: 0, base_price: 0, category1_id: 0, category2_id: 0, updated_at: '', created_at: '', img: '', stock: 0 },
+	product: emptyProduct,
 	isOpen: false
 };
 
