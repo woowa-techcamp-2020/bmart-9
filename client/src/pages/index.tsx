@@ -9,13 +9,14 @@ import { FourCardsContainer } from '../components/FourCardsContainer';
 import { useProduct } from '../hooks/useProduct';
 import { CartButton } from '../components/CartButton';
 import { SixCardsContainer } from '../components/SixCardsContainer';
-import { TenCardsContainer } from '../components/TenCardsContainer';
+import { CategorizedCardContainer } from '../components/CategorizedCardContainer';
 
 const IndexPage = ({
   bannerImages,
   categoryIcons,
+  categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { products, getFilteredProductByCategory } = useProduct();
+  const { products } = useProduct();
   return (
     <>
       <Header />
@@ -47,10 +48,11 @@ const IndexPage = ({
               start={'날이면 날마다 오는 세일 ㅇㅇ'}
               products={products.slice(30, 40)}
             />
-            <TenCardsContainer
+            <CategorizedCardContainer
               start={'카테고리 이름'}
               end={'더보기 〉'}
-              products={products.slice(68, 78)}
+              products={products}
+              categories={categories}
             />
           </>
         )}
@@ -63,10 +65,12 @@ const IndexPage = ({
 export const getStaticProps = async () => {
   const bannerImages = await API.Image.getBannersImage();
   const categoryIcons = await API.Image.getCategoryIcons();
+  const categories = await API.Category.getAll();
   return {
     props: {
       bannerImages,
       categoryIcons,
+      categories,
     },
   };
 };
