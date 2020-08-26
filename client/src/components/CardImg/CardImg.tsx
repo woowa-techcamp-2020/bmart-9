@@ -3,8 +3,6 @@ import * as S from './CardImgStyle';
 import { faHeart, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import { Product } from '../../../../shared';
 import { useCartAdd } from '../../hooks/useCartAdd';
-
-// import "framework7-icons"
 import { useFavorite } from '../../hooks/useFavorite';
 import { useUser } from '../../hooks/useUser';
 
