@@ -2,15 +2,15 @@ import { useCreator } from '../utils/createContext';
 import { SearchContexts } from '../context/SearchContext';
 import API from '../api';
 import { useUser } from './useUser';
+import { Search } from '../../../shared';
 
 export const useSearch = () => {
   const [search, dispatch] = useCreator(SearchContexts);
   const { isSearched, history, searchedProducts } = search;
   const { user } = useUser();
 
-  const fetchSearch = async () => {
-    const searchHistory = user ? await API.Search.getAll(user.token) : [];
-    dispatch({ type: 'GET_SEARCH', search: searchHistory });
+  const setSearchHistory = async (search: Search[]) => {
+    dispatch({ type: 'GET_SEARCH', search });
   };
 
   const removeSearch = async (id: number) => {
@@ -39,7 +39,7 @@ export const useSearch = () => {
     isSearched,
     history: history.slice(0, 5),
     searchedProducts,
-    fetchSearch,
+    setSearchHistory,
     removeSearch,
     searchByKeyword,
     onLeaveHandler,
