@@ -6,6 +6,7 @@ import { CartProvider } from '../context/CartContext';
 import { UserProvider } from './UserContext';
 import { SnackbarProvider } from './SnackbarContext';
 import { SearchProvider } from './SearchContext';
+import { CartAddProvider } from './CartAddContext';
 
 export const CombinedProviders = CombineProviderApp(
   CounterProvider,
@@ -14,5 +15,6 @@ export const CombinedProviders = CombineProviderApp(
   UserProvider,
   CartProvider,
   SnackbarProvider,
-  SearchProvider
+  SearchProvider,
+  CartAddProvider
 );
