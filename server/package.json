@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest --watchAll --runInBand --detectOpenHandles",
     "dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only src/index.ts",
+    "prebuild": "pm2 kill",
     "build": "NODE_ENV=production tsc",
     "postbuild": "npm run start && cd ../client && npm run deploy",
     "start": "NODE_ENV=production pm2 start dist/server/src/index.js",
