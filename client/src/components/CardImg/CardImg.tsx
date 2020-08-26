@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import * as S from './CardImgStyle';
-import { faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 // import "framework7-icons"
 
 type Props = {
   imgSrc: string;
-  productPrice: number;
+  viewportWidth: number
 };
 
 export const CardImg: React.FC<Props> = (props: Props) => {
-	const { imgSrc, productPrice } = props;
+	const { imgSrc, viewportWidth } = props;
 	
 	const [like, setLike] = useState(false);
   
@@ -21,11 +21,10 @@ export const CardImg: React.FC<Props> = (props: Props) => {
     <>
       <S.Container>
         <S.ImgWrapper>
-          <S.Img src={imgSrc} />
+          <S.Img src={imgSrc} viewportWidth={viewportWidth}/>
         </S.ImgWrapper>
-        <S.HeartIcon onClick={() => toggleLike()} icon={faHeart} like={like ? 'red' : 'white'}/>
-        <S.ShoppingCartIcon icon={faShoppingCart} />
-        <S.IQ>{productPrice}</S.IQ>
+        <S.HeartIcon onClick={toggleLike} icon={faHeart} like={like ? 'red' : 'white'}/>
+        <S.ShoppingBagIcon icon={faShoppingBag} />
       </S.Container>
     </>
   );

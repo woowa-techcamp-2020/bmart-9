@@ -9,8 +9,11 @@ import { HorizontalBar } from '../components/HorizontalBar';
 import { CategoryContainer } from '../components/CategoryContainer';
 import { MainContainer } from '../components/MainContainer';
 import { HorizontalSlider } from '../components/HorizontalSlider';
+import { FourCardsContainer } from '../components/FourCardsContainer';
 import { useProduct } from '../hooks/useProduct';
 import { CartButton } from '../components/CartButton';
+import { SixCardsContainer } from '../components/SixCardsContainer';
+import { TenCardsContainer } from '../components/TenCardsContainer';
 
 const IndexPage = ({
   bannerImages,
@@ -29,9 +32,15 @@ const IndexPage = ({
               start={'고객님이 좋아할 베스트 아이템'}
               products={products.slice(0, 10)}
             />
+            <FourCardsContainer
+              start={'지금사면 ⚡️ 번쩍할인'}
+              end={'더보기 〉'}
+              products={products.slice(40, 44)}
+            />
+            <SixCardsContainer start={'지금 뭐 먹지?'} products={products.slice(44, 68)}/>
             <HorizontalSlider
               start={'특별 모음전'}
-              end={'더보기 >'}
+              end={'더보기 〉'}
               products={products.slice(10, 20)}
             />
             <HorizontalSlider
@@ -41,6 +50,11 @@ const IndexPage = ({
             <HorizontalSlider
               start={'날이면 날마다 오는 세일 ㅇㅇ'}
               products={products.slice(30, 40)}
+            />
+            <TenCardsContainer
+              start={'카테고리 이름'}
+              end={'더보기 〉'}
+              products={products.slice(68, 78)}
             />
           </>
         )}

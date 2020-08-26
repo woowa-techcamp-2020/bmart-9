@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { CategoryRepo } from '../repository/category-repository';
 import { Category } from '../../../shared';
+import { InvalidParamsError } from '../errors/invalid-params';
 
 export const getAllCategory = async (req: Request, res: Response) => {
   const allCategory = await CategoryRepo.selectAllCategory();
@@ -28,4 +29,15 @@ export const getAllCategory = async (req: Request, res: Response) => {
   }, []);
 
   res.json(category.slice(1));
+};
+
+export const getCategoryInfo = async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  if (!id) {
+    throw new InvalidParamsError('ID');
+  }
+
+  const categoryInfo = await CategoryRepo.findOne(+id);
+  res.json(categoryInfo);
 };

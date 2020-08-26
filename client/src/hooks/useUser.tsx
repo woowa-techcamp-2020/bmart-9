@@ -1,9 +1,12 @@
+import Cookie from 'js-cookie';
+import { useRouter } from 'next/router';
 import { useCreator } from '../utils/createContext';
 import { UserContexts } from '../context/UserContext';
 import API, { TOKEN_KEY } from '../api';
 
 export const useUser = () => {
   const [user, dispatch] = useCreator(UserContexts);
+  const router = useRouter();
 
   const authHandler = () => {
     const win = window.open('http://localhost:3000/api/auth/github') as Window;
@@ -18,7 +21,9 @@ export const useUser = () => {
             return alert('Fail to login');
           }
 
+          Cookie.set(TOKEN_KEY, token);
           signIn(token);
+          router.push('/');
         }
       } catch (error) {}
     }, 500);
@@ -31,6 +36,7 @@ export const useUser = () => {
 
   const signOut = () => {
     localStorage.removeItem(TOKEN_KEY);
+    Cookie.remove(TOKEN_KEY);
     dispatch({ type: 'SET_USER', user: null });
   };
 

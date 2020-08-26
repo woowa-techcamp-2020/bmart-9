@@ -19,7 +19,7 @@ export const useCart = () => {
       return FALSE;
   }
 
-  const cartCount = (from: string) => {
+  const cartCheckedCount = () => {
     let tempCount = 0;
     if (cartList.length > 0) {
       cartList.forEach((item: ClientCart) => {
@@ -28,14 +28,19 @@ export const useCart = () => {
         }
       });
     }
-    if (from === "cartButton" && tempCount > 99) {
-      return "99+";
+    return tempCount;
+  };
+  const cartTotalCount = () => {
+    let tempCount = 0;
+    if (cartList.length > 0) {
+      cartList.forEach((item: ClientCart) => {
+        tempCount += item.quantity;
+      });
     }
-
     return tempCount;
   };
 
-  const cartCost = () => {
+  const cartCheckedCost = () => {
     let tempCost = 0;
     if (cartList.length > 0) {
       cartList.forEach((item: ClientCart) => {
@@ -106,7 +111,7 @@ export const useCart = () => {
     dispatch({ type: 'SET_CLIENT_CART_LIST', cartList: newCartList });
   }
 
-  return { cartList, createCart, allCheckValue, deleteAllCheck, updateAllCheck, updateCartCheck, cartCount, cartCost, setCartList, updateCartQuantity, deleteCart, createTestCart };
+  return { cartList, cartTotalCount, allCheckValue, deleteAllCheck, updateAllCheck, updateCartCheck, cartCheckedCount, cartCheckedCost, setCartList, updateCartQuantity, deleteCart, createTestCart };
 };
 
 

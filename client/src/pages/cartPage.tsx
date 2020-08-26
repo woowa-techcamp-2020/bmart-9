@@ -21,8 +21,8 @@ const CartPage = () => {
     cartList,
     setCartList,
     createTestCart,
-    cartCost,
-    cartCount,
+    cartCheckedCost,
+    cartCheckedCount,
   } = useCart();
 
   const { updateAllCheck, allCheckValue, deleteAllCheck } = useCart();
@@ -34,8 +34,6 @@ const CartPage = () => {
   useEffect(() => {
     setAllCheck(allCheckValue());
   }, [allCheckValue()])
-
-  //console.log("what", allCheckValue());
 
   return (
     <>
@@ -64,7 +62,7 @@ const CartPage = () => {
                   <S.CheckboxContents>전체 선택</S.CheckboxContents>
                 </label>
               </S.SelectCheckbox>
-              {cartCount('') > 0 ? (
+              {cartCheckedCount() > 0 ? (
                 <S.DeleteAllButton
                   color="main"
                   onClick={() => deleteAllCheck()}
@@ -93,17 +91,17 @@ const CartPage = () => {
             </S.MoreButtonWrapper>
 
             <HorizontalBar
-              center={`주문금액 : ${comma(cartCost())} 원`}
+              center={`주문금액 : ${comma(cartCheckedCost())} 원`}
             ></HorizontalBar>
             <S.EmptySpace></S.EmptySpace>
             <HorizontalBar
               start={
-                cartCount('') > 0 ? (
+                cartCheckedCount() > 0 ? (
                   <>
                     <S.OrderButton>
-                      <S.OrderButtonCount>{cartCount('')}</S.OrderButtonCount>
+                      <S.OrderButtonCount>{cartCheckedCount()}</S.OrderButtonCount>
                       <S.OrderButtonText>
-                        {` ${comma(cartCost())}`}원 배달 주문 하기
+                        {` ${comma(cartCheckedCost())}`}원 배달 주문 하기
                       </S.OrderButtonText>
                     </S.OrderButton>
                     <S.BottomConcealer />
