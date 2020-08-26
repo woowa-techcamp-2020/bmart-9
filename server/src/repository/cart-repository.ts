@@ -3,10 +3,7 @@ import {
   selectQueryExecuter,
   updateOrDeleteQueryExecuter,
 } from '../utils/query-executor';
-import { Cart, CreateCartBody, CartQuantity } from '../../../shared';
-
-// import { carmelToSnakeTemplate } from '../utils/carmel-to-snake-template';
-import { format } from 'path';
+import { Cart, CartQuantity } from '../../../shared';
 
 export class CartRepo {
   static async findAll(): Promise<Cart[]> {
@@ -127,7 +124,7 @@ export class CartRepo {
       .map(
         ([key, value]) =>
           `${columnName[key] || key}=${
-          typeof value === 'number' ? value : `"${value}"`
+            typeof value === 'number' ? value : `"${value}"`
           } `
       )
       .join(', ');
