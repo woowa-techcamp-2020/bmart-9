@@ -5,9 +5,6 @@ import {
 } from '../utils/query-executor';
 import { Cart, CreateCartBody, CartQuantity, CartDB } from '../../../shared';
 
-// import { carmelToSnakeTemplate } from '../utils/carmel-to-snake-template';
-import { format } from 'path';
-
 export class CartRepo {
   static async findAll(): Promise<Cart[]> {
     const findAllCartQuery = `

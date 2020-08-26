@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   font-size: large;
-  transition: 0.1s;
+
+  transition: all 100ms ease;
   &:active {
-    font-size: x-large;
+    transform: scale(1.1);
   }
 `;

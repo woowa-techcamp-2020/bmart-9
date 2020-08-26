@@ -40,7 +40,7 @@ const FourCardsContainer: React.FC<FourCardsContainerProps> = ({
                 src={product.img}
               />
             ))}
-          {card ? <BigCard {...card} /> : <BigCard {...products[0]} />}
+          <BigCard product={card || products[0]} />
         </S.Container>
       </MainContainer>
     </>

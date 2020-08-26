@@ -14,4 +14,9 @@ export const Category = styled.img`
   display: inline-block;
   width: 20%;
   height: 50%;
+
+  transition: all 100ms ease;
+  &:active {
+    transform: scale(1.1);
+  }
 `;

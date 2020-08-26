@@ -3,6 +3,7 @@ import * as S from './CardStyle';
 import { CardImg } from './../CardImg';
 import { CardContent } from './../CardContent';
 import { Product } from '../../../../shared';
+import Link from 'next/link';
 
 type CardProps = {
   viewportWidth: number;
@@ -10,13 +11,18 @@ type CardProps = {
 };
 
 const Card: React.FC<CardProps> = ({ viewportWidth, product }: CardProps) => {
-  const { img } = product;
+  if (!product) {
+    return null;
+  }
+  const { img, id } = product;
 
   return (
-    <S.Container viewportWidth={viewportWidth}>
-      <CardImg imgSrc={img} viewportWidth={viewportWidth} product={product} />
-      <CardContent {...product} />
-    </S.Container>
+    <Link href="/product/[id]" as={`/product/${id}`}>
+      <S.Container viewportWidth={viewportWidth}>
+        <CardImg id={id} imgSrc={img} viewportWidth={viewportWidth} product={product} />
+        <CardContent {...product} />
+      </S.Container>
+    </Link>
   );
 };
 

@@ -13,7 +13,7 @@ export type ImgProps = {
 
 export const Img = styled.img<ImgProps>`
   width: 100%;
-  height: calc(${props => props.viewportWidth}vw - 10px);
+  height: calc(${(props) => props.viewportWidth}vw - 10px);
 `;
 
 export const ImgWrapper = styled.div`
@@ -35,6 +35,12 @@ export const HeartIcon = styled(FontAwesomeIcon)<likeProps>`
   top: 10px;
   left: 10px;
   opacity: 0.8;
+
+  transition: all 100ms ease;
+  &:active {
+    transform: scale(1.15);
+    opacity: 1;
+  }
 `;
 
 export const ShoppingBagIcon = styled(FontAwesomeIcon)`

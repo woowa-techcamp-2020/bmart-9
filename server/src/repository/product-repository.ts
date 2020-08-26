@@ -46,7 +46,7 @@ export class ProductRepo {
     return await insertQueryExecuter(productCreateQuery);
   }
 
-  static async findOne(id: number): Promise<ProductType[]> {
+  static async findOne(id: number): Promise<ProductType> {
     const findOneProductQuery = `
       select product.id id, product.name name, product.discount discount, 
             product.img img, product.base_price base_price, product.price price, product.stock stock, 
@@ -60,7 +60,7 @@ export class ProductRepo {
         where product.id = ${id};
     `;
 
-    const product: ProductType[] = await selectQueryExecuter<ProductType>(
+    const [product, _]: ProductType[] = await selectQueryExecuter<ProductType>(
       findOneProductQuery
     );
     return product;
@@ -99,7 +99,7 @@ export class ProductRepo {
           product p2
         where
           p1.category2_id=p2.category2_id and p1.id <= p2.id
-        ) <=10
+        ) <= 20
       order by
         category2_id;
     `;

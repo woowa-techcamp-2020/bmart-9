@@ -8,6 +8,8 @@ export type Product = {
   stock: number;
   created_at: string;
   updated_at: string;
+  category1: string;
+  category2: string;
   category1_id: number;
   category2_id: number;
 };

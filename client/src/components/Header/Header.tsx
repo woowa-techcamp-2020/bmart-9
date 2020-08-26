@@ -34,14 +34,18 @@ const Header: React.FC<Props> = ({ title }: Props) => {
           )
         }
         center={
-          <Link href="/">
-            <S.Image height="30px" src={Images.MAIN_LOGO} />
-          </Link>
+          title ? (
+            <S.Title>{title}</S.Title>
+          ) : (
+            <Link href="/">
+              <S.Image height="30px" src={Images.MAIN_LOGO} />
+            </Link>
+          )
         }
         end={<IconButton icon={faBars} onClickHandler={toggleOpen} />}
       />
       {inputVisiblePath.has(pathname) && <SearchBar />}
-      {title && <HorizontalBar center={<S.Title>{title}</S.Title>} />}
+      {/* {title && <HorizontalBar center={<S.Title>{title}</S.Title>} />} */}
     </S.Container>
   );
 };

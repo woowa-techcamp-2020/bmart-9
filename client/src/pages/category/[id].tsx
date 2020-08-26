@@ -7,6 +7,8 @@ import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
 import { BoxCategory } from '../../components/BoxCategory';
 import { HorizontalSlider } from '../../components/HorizontalSlider';
 import { Header } from '../../components/Header';
+import { TenCardsContainer } from '../../components/TenCardsContainer';
+import { HorizontalBar } from '../../components/HorizontalBar';
 
 const CategoryDetailPage = ({
   categoryInfo,
@@ -28,6 +30,11 @@ const CategoryDetailPage = ({
     return <div>loading...</div>;
   }
 
+  const horizonProducts = isSubCategory ? [] : filteredProducts.slice(0, 10);
+  const restProducts = isSubCategory
+    ? filteredProducts
+    : filteredProducts.slice(10);
+
   return (
     <>
       <Header title={currentCategory.name} />
@@ -35,19 +42,16 @@ const CategoryDetailPage = ({
       <BoxCategory categories={currentCategory.subCategory} />
       {filteredProducts && (
         <>
-          <HorizontalSlider
-            start={'고객님이 좋아할 베스트 아이템'}
-            products={filteredProducts.slice(0, 10)}
+          {!isSubCategory && (
+            <HorizontalSlider
+              start={'고객님이 좋아할 베스트 아이템'}
+              products={horizonProducts}
+            />
+          )}
+          <HorizontalBar
+            center={`훌륭한 품질의 ${currentCategory.name}, Bmart와 함께`}
           />
-          <HorizontalSlider
-            start={'특별 모음전'}
-            end={'더보기 >'}
-            products={filteredProducts.slice(10, 20)}
-          />
-          <HorizontalSlider
-            start={'오늘만 하는 세일'}
-            products={filteredProducts.slice(20, 30)}
-          />
+          <TenCardsContainer products={restProducts} />
         </>
       )}
     </>

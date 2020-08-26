@@ -6,8 +6,9 @@
   "scripts": {
     "test": "jest --watchAll --runInBand --detectOpenHandles",
     "dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only src/index.ts",
+    "prebuild": "pm2 kill",
     "build": "NODE_ENV=production tsc",
-    "postbuild": "cd ../client && npm run build",
+    "postbuild": "npm run start && cd ../client && npm run deploy",
     "start": "NODE_ENV=production pm2 start dist/server/src/index.js",
     "ts": "node dist/server/src/index.js"
   },
@@ -36,6 +37,7 @@
     "@types/passport": "^1.0.4",
     "@types/supertest": "^2.0.10",
     "jest": "^26.3.0",
+    "pm2": "^4.4.1",
     "ts-node-dev": "^1.0.0-pre.56",
     "typescript": "^3.9.7"
   }
