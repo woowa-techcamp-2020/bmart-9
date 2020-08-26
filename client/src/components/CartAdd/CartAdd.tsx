@@ -21,7 +21,7 @@ const CartAdd: React.FC = () => {
 		setCount(1);
 	}
 
-	const stopPropagation = (event: React.MouseEvent<MouseEvent>) => {
+	const stopPropagation = (event: React.MouseEvent<Element, MouseEvent>) => {
 		event.stopPropagation();
 	}
 
@@ -57,7 +57,7 @@ const CartAdd: React.FC = () => {
 	}
 
 	return <S.Container onClick={() => closeToggle()} open={addState.isOpen} >
-		<S.AdderWrapper open={addState.isOpen} onClick={() => stopPropagation}>
+		<S.AdderWrapper open={addState.isOpen} onClick={stopPropagation}>
 			<S.AdderHeader>
 				<div></div>
 				<S.HeaderName>
