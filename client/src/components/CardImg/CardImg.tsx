@@ -8,13 +8,15 @@ type Props = {
 };
 
 export const CardImg: React.FC<Props> = (props: Props) => {
-	const { imgSrc } = props;
-	
-	const [like, setLike] = useState(false);
-  
-	const toggleLike = () => {
-		setLike(!like);
-	};
+  const { imgSrc } = props;
+
+  const [like, setLike] = useState(false);
+
+  const toggleLike = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    event.stopPropagation();
+
+    setLike(!like);
+  };
 
   return (
     <>
@@ -22,7 +24,11 @@ export const CardImg: React.FC<Props> = (props: Props) => {
         <S.ImgWrapper>
           <S.Img src={imgSrc} />
         </S.ImgWrapper>
-        <S.HeartIcon onClick={toggleLike} icon={faHeart} like={like ? 'red' : 'white'}/>
+        <S.HeartIcon
+          onClick={toggleLike}
+          icon={faHeart}
+          like={like ? 'red' : 'white'}
+        />
         <S.ShoppingBagIcon icon={faShoppingBag} />
       </S.Container>
     </>
