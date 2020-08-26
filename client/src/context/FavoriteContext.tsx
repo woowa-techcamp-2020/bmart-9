@@ -14,7 +14,6 @@ const FavoriteReducer = (
 ): FavoriteState => {
   switch (action.type) {
     case 'FETCH_FAVORITE':
-      //   console.log(action.favoriteProductsId);
       return new Set(action.favoriteProductsId);
     case 'CREATE_FAVORITE':
       state.add(action.productId);

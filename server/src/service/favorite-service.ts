@@ -17,7 +17,6 @@ export const getUsersFavoriteProducts = async (req: Request, res: Response) => {
 
   const usersFavorites = await FavoriteRepo.selectAllFavoriteProductId(id);
 
-  console.log(usersFavorites);
   const favoriteProducts = [];
 
   if (!usersFavorites || usersFavorites.length === 0) {
