@@ -13,10 +13,10 @@ export const useUser = (toggleSideBar?: () => void) => {
   const { emptyFavorite, fetchFavorite } = useFavorite();
 
   const authHandler = () => {
-    const win = window.open(`${baseURL}:3000/api/auth/github`) as Window;
+    const win = window.open(`${baseURL}3000/api/auth/github`) as Window;
     const timer = setInterval(() => {
       try {
-        if (win.location.href === `${baseURL}:9000/`) {
+        if (win.location.href === `${baseURL}9000/`) {
           clearInterval(timer);
           win.close();
 

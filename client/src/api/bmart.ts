@@ -4,12 +4,11 @@ export const TOKEN_KEY = 'X-Auth';
 export type MethodType = 'GET' | 'POST' | 'DELETE' | 'PATCH' | 'PUT';
 
 const devURL = 'http://localhost:';
-
+// TODO
 const prodURL = 'http://3.35.51.159:';
 const PORT = 3000;
 
-export const baseURL =
-  process.env.NODE_MODE === 'production' ? prodURL : devURL;
+export const baseURL = process.env.NODE_ENV === 'production' ? prodURL : devURL;
 export const apiUrl = baseURL + PORT + '/api';
 
 export const bmart = Axios.create({
