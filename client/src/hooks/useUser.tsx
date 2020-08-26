@@ -2,7 +2,7 @@ import Cookie from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useCreator } from '../utils/createContext';
 import { UserContexts } from '../context/UserContext';
-import API, { TOKEN_KEY } from '../api';
+import API, { TOKEN_KEY, baseURL } from '../api';
 import { useSnackbar } from './useSnackbar';
 import { useFavorite } from './useFavorite';
 
@@ -13,10 +13,10 @@ export const useUser = (toggleSideBar?: () => void) => {
   const { emptyFavorite, fetchFavorite } = useFavorite();
 
   const authHandler = () => {
-    const win = window.open('http://localhost:3000/api/auth/github') as Window;
+    const win = window.open(`${baseURL}:3000/api/auth/github`) as Window;
     const timer = setInterval(() => {
       try {
-        if (win.location.href === 'http://localhost:9000/') {
+        if (win.location.href === `${baseURL}:9000/`) {
           clearInterval(timer);
           win.close();
 
