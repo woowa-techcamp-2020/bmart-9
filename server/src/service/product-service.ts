@@ -30,17 +30,12 @@ export const getProductsByKeyword = async (req: Request, res: Response) => {
 };
 
 export const getProductById = async (req: Request, res: Response) => {
-  const id = Number(req.params.category2_id);
+  const id = Number(req.params.id);
   if (typeof id !== 'number' || id <= 0) {
     throw new InvalidParamsError('id');
   }
 
   const product = await ProductRepo.findOne(id);
-
-  if (product.length === 0) {
-    res.json(`id [${id}]는 존재하지 않는 상품입니다.`);
-    return;
-  }
 
   res.json(product);
 };
