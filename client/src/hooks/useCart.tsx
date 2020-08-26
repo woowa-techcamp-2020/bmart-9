@@ -2,15 +2,16 @@ import React, { useEffect } from 'react';
 import { useCreator } from '../utils/createContext';
 import API from '../api';
 import { CartContexts } from '../context/CartContext'
-import { CartQuantity, ClientCart, Cart } from '../../../shared';
+import { CartQuantity, ClientCart, Cart, CreateCartBody } from '../../../shared';
 import { useSnackbar } from './useSnackbar'
+import { useUser } from './useUser'
 const TRUE = 1;
 const FALSE = 0;
 
 export const useCart = () => {
   const [cartList, dispatch] = useCreator(CartContexts);
   const { openSnackbar } = useSnackbar();
-
+  const { user } = useUser();
   const allCheckValue = (): number => {
     const falseCart = cartList.find((cart) => cart.check === FALSE);
     if (falseCart === undefined)
@@ -57,15 +58,21 @@ export const useCart = () => {
     dispatch({ type: 'SET_CART_LIST', cartList: payloadCartList });
   };
 
-  const updateCartQuantity = async (id: number, quantity: number) => {
-    const cartParams: CartQuantity = { id, quantity };
-    const payloadCart = await API.Cart.updateQuantity(cartParams);
-    dispatch({ type: 'UPDATE_CART_ITEM', udpatedCart: { ...payloadCart, check: TRUE } });
-  };
 
-  const createCart = async (cartParams: Cart) => {
-    const result = await API.Cart.create(cartParams);
-    setCartList();
+  // 추가
+  const createCart = async (productId: number, quantity: number) => {
+
+    const result = await API.Cart.getByProductId(productId);
+    if (result.length === 0) {
+      const payloadCart = await API.Cart.create({ userId: 3, productId, quantity });
+      dispatch({ type: 'ADD_CART_TO_LIST', newCart: payloadCart });
+    }
+    if (result.length > 0) {
+      const id = result[0].id;
+      const cartParams: CartQuantity = { id, quantity };
+      const payloadCart = await API.Cart.updateQuantity(cartParams);
+      dispatch({ type: 'UPDATE_CART_QUANTITY', udpatedCart: { ...payloadCart, check: TRUE } });
+    }
   };
 
   const createTestCart = async (id: number) => {
@@ -73,6 +80,7 @@ export const useCart = () => {
     setCartList();
   };
 
+  // 삭제
   const deleteCart = async (id: number) => {
     const payloadCart = await API.Cart.deleteCart(id);
     dispatch({ type: 'DELETE_CART_ITEM', id });
@@ -96,6 +104,7 @@ export const useCart = () => {
     dispatch({ type: 'SET_CLIENT_CART_LIST', cartList: newCartList });
   }
 
+  // 수정
   const updateCartCheck = async (id: number, check: number) => {
     let cart = cartList.find((cart) => cart.id === id);
     if (cart === undefined) return;
@@ -111,7 +120,14 @@ export const useCart = () => {
     dispatch({ type: 'SET_CLIENT_CART_LIST', cartList: newCartList });
   }
 
-  return { cartList, cartTotalCount, allCheckValue, deleteAllCheck, updateAllCheck, updateCartCheck, cartCheckedCount, cartCheckedCost, setCartList, updateCartQuantity, deleteCart, createTestCart };
+  const updateCartQuantity = async (id: number, quantity: number) => {
+    const cartParams: CartQuantity = { id, quantity };
+    const payloadCart = await API.Cart.updateQuantity(cartParams);
+    dispatch({ type: 'UPDATE_CART_ITEM', udpatedCart: { ...payloadCart, check: TRUE } });
+  };
+
+
+  return { cartList, createCart, cartTotalCount, allCheckValue, deleteAllCheck, updateAllCheck, updateCartCheck, cartCheckedCount, cartCheckedCost, setCartList, updateCartQuantity, deleteCart, createTestCart };
 };
 
 
