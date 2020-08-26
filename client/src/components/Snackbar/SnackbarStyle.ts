@@ -13,13 +13,13 @@ const fadeout = keyframes`
 
 export const Container = styled.div`
     display: none;
-    min-width: 300px;
+    min-width: 350px;
     min-height: 48px;
     background-color: #333;
     
-    text-align: center;
+    text-align: start;
     border-radius: 4px;
-    padding: 16px;
+    padding: 12px;
     position: fixed;
     z-index: 20;
     left: 50%;
@@ -42,7 +42,7 @@ export const Container = styled.div`
     &.active{
         display: grid;
         grid-template-rows: 1fr;
-        grid-template-columns: auto 1fr;
+        grid-template-columns: auto 40px;
         animation: ${fadein} 0.25s, ${fadeout} 0.25s 3s;
     }
 `
