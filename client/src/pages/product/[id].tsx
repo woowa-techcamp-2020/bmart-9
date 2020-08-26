@@ -7,6 +7,10 @@ import { BigCard } from '../../components/BigCard';
 const ProductDetailPage = ({
   productInfo,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  if (!productInfo) {
+    return null;
+  }
+
   return (
     <>
       <Header title={productInfo.category2} />
