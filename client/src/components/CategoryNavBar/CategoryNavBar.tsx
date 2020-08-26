@@ -4,18 +4,15 @@ import { Category } from '../../../../shared/';
 
 type CategoryNavBarProps = {
   categories: Category[];
-  categoryTab:any;
-  categoryClickHandler: (e:React.MouseEvent<MouseEvent> ,cat:any) => void;
-  categoryContainerElements: any[];
+  categoryTab: any;
+  categoryClickHandler: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, cat: any) => void;
 };
 
 const CategoryNavBar: React.FC<CategoryNavBarProps> = ({
   categories,
   categoryTab,
   categoryClickHandler,
-  categoryContainerElements
 }: CategoryNavBarProps) => {
-
   return (
     <>
       <S.Container>
@@ -23,10 +20,9 @@ const CategoryNavBar: React.FC<CategoryNavBarProps> = ({
           .sort((a, b) => a.id - b.id)
           .map((category) => (
             <S.CategoryContainer
-              ref={element => categoryContainerElements.push(element)}
               key={category.id}
               data-category-id={category.id}
-              onClick={(e:any) => categoryClickHandler(e, category)}
+              onClick={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => categoryClickHandler(e, category)}
               select={categoryTab === category && true}
             >
               {category.name}

@@ -16,7 +16,7 @@ type CategorizedCardContainerProps = {
   categories: Category[];
 };
 
-const categoryContainerElements: any[] = [];
+const cardContainerElements: any[] = [];
 
 const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   start,
@@ -27,18 +27,20 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   const { getFilteredProductByCategory } = useProduct();
   const [categoryTab, setCategoryTab] = useState();
 
-  const categoryClickHandler = (e: React.MouseEvent<MouseEvent>, cat: any) => {
+  const categoryClickHandler = (
+    e: any,
+    cat: any
+  ) => {
     setCategoryTab(cat);
-    categoryContainerElements
-      .find((element) => element === e.target)
+
+
+    cardContainerElements
+      .find(
+        (element) => element.dataset.categoryId === e.target.dataset.categoryId
+      )
       .scrollIntoView({
         behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest',
       });
-    console.log(
-      categoryContainerElements.find((element) => element === e.target)
-    );
   };
 
   const PRODUCTS_PER_CATEGORY = 6;
@@ -63,16 +65,21 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
             categories={categories}
             categoryTab={categoryTab}
             categoryClickHandler={categoryClickHandler}
-            categoryContainerElements={categoryContainerElements}
           />
+          {/* ref={element => console.log(element)} */}
           {filteredProducts[0][0] &&
             filteredProducts.map((products) => (
-              <TenCardsContainer
+              <S.ContainerWrapper
                 key={products[0].category1_id}
-                start={getCategoryNameByCategoryId(products[0].category1_id)}
-                end={end}
-                products={products}
-              />
+                data-category-id={products[0].category1_id}
+                ref={(element) => cardContainerElements.push(element)}
+              >
+                <TenCardsContainer
+                  start={getCategoryNameByCategoryId(products[0].category1_id)}
+                  end={end}
+                  products={products}
+                />
+              </S.ContainerWrapper>
             ))}
         </S.Container>
       </MainContainer>
