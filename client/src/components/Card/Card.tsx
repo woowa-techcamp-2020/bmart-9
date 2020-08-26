@@ -4,12 +4,17 @@ import { CardImg } from './../CardImg';
 import { CardContent } from './../CardContent';
 import { Product } from '../../../../shared';
 
-const Card: React.FC<Product> = (product: Product) => {
+type CardProps = {
+  viewportWidth: number;
+  product: Product;
+};
+
+const Card: React.FC<CardProps> = ({ viewportWidth, product }: CardProps) => {
   const { img } = product;
 
   return (
-    <S.Container>
-      <CardImg imgSrc={img} />
+    <S.Container viewportWidth={viewportWidth}>
+      <CardImg imgSrc={img} viewportWidth={viewportWidth}/>
       <CardContent {...product} />
     </S.Container>
   );

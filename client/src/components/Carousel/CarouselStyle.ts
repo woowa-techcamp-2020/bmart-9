@@ -35,7 +35,7 @@ type ImgProps = {
 export const Img = styled.img<ImgProps>`
   display: inline-block;
   width: 100vw;
-  height: 30vh;
+  height: 60vw;
   animation: ${(props) => slide(props.length)} ${(props) => props.length * 3}s
     cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
 `;
