@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import API from '../../api';
 import * as S from './CategorizedCardContainerStyle';
 import { MainContainer } from '../MainContainer';
@@ -16,6 +16,8 @@ type CategorizedCardContainerProps = {
   categories: Category[];
 };
 
+const categoryContainerElements: any[] = [];
+
 const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   start,
   end,
@@ -23,6 +25,22 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   categories,
 }: CategorizedCardContainerProps) => {
   const { getFilteredProductByCategory } = useProduct();
+  const [categoryTab, setCategoryTab] = useState();
+
+  const categoryClickHandler = (e: React.MouseEvent<MouseEvent>, cat: any) => {
+    setCategoryTab(cat);
+    categoryContainerElements
+      .find((element) => element === e.target)
+      .scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+    console.log(
+      categoryContainerElements.find((element) => element === e.target)
+    );
+  };
+
   const PRODUCTS_PER_CATEGORY = 6;
   const filteredProducts = categories
     .map((category) => category.id)
@@ -33,7 +51,7 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
       )
     )
     .sort((a, b) => a[0] && a[0].category1_id - b[0].category1_id);
-  console.log(categories);
+
   const getCategoryNameByCategoryId = (categoryId: number) =>
     categories.filter((category) => category.id === categoryId)[0].name;
 
@@ -41,7 +59,12 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
     <>
       <MainContainer>
         <S.Container>
-          <CategoryNavBar categories={categories} />
+          <CategoryNavBar
+            categories={categories}
+            categoryTab={categoryTab}
+            categoryClickHandler={categoryClickHandler}
+            categoryContainerElements={categoryContainerElements}
+          />
           {filteredProducts[0][0] &&
             filteredProducts.map((products) => (
               <TenCardsContainer

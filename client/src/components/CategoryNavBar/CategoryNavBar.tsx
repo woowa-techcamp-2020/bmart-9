@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as S from './CategoryNavBarStyle';
 import { Category } from '../../../../shared/';
 
 type CategoryNavBarProps = {
   categories: Category[];
+  categoryTab:any;
+  categoryClickHandler: (e:React.MouseEvent<MouseEvent> ,cat:any) => void;
+  categoryContainerElements: any[];
 };
 
 const CategoryNavBar: React.FC<CategoryNavBarProps> = ({
   categories,
+  categoryTab,
+  categoryClickHandler,
+  categoryContainerElements
 }: CategoryNavBarProps) => {
-
-  const [categoryTab, setCategoryTab] = useState();
-
-  const categoryClickHandler = (cat:any) => {
-    setCategoryTab(cat);
-    <HashLink to="cat.name"></HashLink>
-  };
 
   return (
     <>
@@ -24,10 +23,10 @@ const CategoryNavBar: React.FC<CategoryNavBarProps> = ({
           .sort((a, b) => a.id - b.id)
           .map((category) => (
             <S.CategoryContainer
-              id={category.name}
+              ref={element => categoryContainerElements.push(element)}
               key={category.id}
               data-category-id={category.id}
-              onClick={() => categoryClickHandler(category)}
+              onClick={(e:any) => categoryClickHandler(e, category)}
               select={categoryTab === category && true}
             >
               {category.name}
