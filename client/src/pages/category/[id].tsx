@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
-import Router from 'next/router';
 import API from '../../api';
 import { useCategory } from '../../hooks/useCategory';
 import { useProduct } from '../../hooks/useProduct';
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
 import { BoxCategory } from '../../components/BoxCategory';
-import { HorizontalBar } from '../../components/HorizontalBar';
 import { HorizontalSlider } from '../../components/HorizontalSlider';
-import category from '../../api/category';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { Header } from '../../components/Header';
 
 const CategoryDetailPage = ({
   categoryInfo,
@@ -34,16 +30,8 @@ const CategoryDetailPage = ({
 
   return (
     <>
-      <HorizontalBar
-        center={currentCategory.name}
-        start={
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            onClick={() => Router.back()}
-          ></FontAwesomeIcon>
-        }
-        end={'🔍'}
-      />
+      <Header title={currentCategory.name} />
+
       <BoxCategory categories={currentCategory.subCategory} />
       {filteredProducts && (
         <>
@@ -85,14 +73,3 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 export default CategoryDetailPage;
-
-// { params: { id: '420234' } },
-// { params: { id: '420376' } },
-// { params: { id: '435072' } },
-// { params: { id: '435052' } },
-// { params: { id: '464913' } },
-// { params: { id: '420388' } },
-// { params: { id: '420337' } },
-// { params: { id: '435052' } },
-// { params: { id: '420186' } },
-// { params: { id: '464911' } },
