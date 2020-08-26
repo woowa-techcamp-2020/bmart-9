@@ -3,6 +3,6 @@
 </p>
 
 ### 유닛 조합
-- **[퀸(구 저글링)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EC%A0%80%EA%B8%80%EB%A7%81)**  
-- **[배틀크루저(구 골리앗)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EA%B3%A8%EB%A6%AC%EC%95%97)**  
-- **[캐리어(구 옵저버)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EC%98%B5%EC%A0%80%EB%B2%84)**
+- [퀸(구 저글링)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EB%82%A8%ED%98%84%EC%9A%B0)
+- [배틀크루저(구 골리앗)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EC%9D%B4%EC%B0%AC%ED%98%B8)
+- [캐리어(구 옵저버)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EC%A0%95%EB%B4%89%EA%B7%BC)
