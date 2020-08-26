@@ -9,8 +9,6 @@ import { useFavorite } from '../../hooks/useFavorite';
 import { useUser } from '../../hooks/useUser';
 
 type Props = {
-  id: number;
-  imgSrc: string;
   viewportWidth: number
   product: Product;
 };
@@ -18,7 +16,7 @@ type Props = {
 export const CardImg: React.FC<Props> = (props: Props) => {
   const { isFavorite, onClickFavoriteHandler } = useFavorite();
   const { user, isLoggedIn, notLogggedInHandler } = useUser();
-  const { id, imgSrc, viewportWidth, product } = props;
+  const { viewportWidth, product } = props;
   const { openCartAdd } = useCartAdd();
   const [like, setLike] = useState(false);
 
@@ -31,7 +29,7 @@ export const CardImg: React.FC<Props> = (props: Props) => {
       return notLogggedInHandler();
     }
 
-    await onClickFavoriteHandler(id, user!.token);
+    await onClickFavoriteHandler(product.id, user!.token);
   };
 
   const openCartAction = async (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
@@ -43,7 +41,7 @@ export const CardImg: React.FC<Props> = (props: Props) => {
     <>
       <S.Container>
         <S.ImgWrapper>
-          <S.Img src={imgSrc} viewportWidth={viewportWidth} />
+          <S.Img src={product.img} viewportWidth={viewportWidth} />
         </S.ImgWrapper>
         <S.HeartIcon onClick={toggleLike} icon={faHeart} like={like ? 'red' : 'white'} />
         <S.ShoppingBagIcon icon={faShoppingBag} onClick={openCartAction} />
