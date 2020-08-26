@@ -31,6 +31,7 @@ export const useCart = () => {
     }
     return tempCount;
   };
+
   const cartTotalCount = () => {
     let tempCount = 0;
     if (cartList.length > 0) {
@@ -38,7 +39,11 @@ export const useCart = () => {
         tempCount += item.quantity;
       });
     }
-    return tempCount;
+    if (tempCount > 99) {
+      return "99+";
+    } else {
+      return tempCount;
+    }
   };
 
   const cartCheckedCost = () => {
