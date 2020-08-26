@@ -53,9 +53,9 @@ const MyApp = ({
       {CombinedProviders(
         <InitializeStore category={category} products={products} >
           <GlobalStyle />
+          <Snackbar />
           <CartAdd />
           <Component {...pageProps} />
-          <Snackbar />
         </InitializeStore>
       )}
     </>
