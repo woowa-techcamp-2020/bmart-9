@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { GRAY_006, MAIN_COLOR2 } from '../../styles/GlobalStyle';
 
 export const Container = styled.div`
+  background-color: #ffffff;
   border-bottom: 0.4vw solid #ececec;
   overflow-x: scroll;
   white-space: nowrap;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import API from '../../api';
 import * as S from './CategorizedCardContainerStyle';
 import { MainContainer } from '../MainContainer';
@@ -7,7 +7,6 @@ import { CategoryNavBar } from '../CategoryNavBar';
 import { Product } from '../../../../shared';
 import { useProduct } from '../../hooks/useProduct';
 import { Category } from '../../../../shared';
-import { GRAY_001 } from '../../styles/GlobalStyle';
 
 type CategorizedCardContainerProps = {
   start?: any;
@@ -17,6 +16,7 @@ type CategorizedCardContainerProps = {
 };
 
 const cardContainerElements: any[] = [];
+let navBarOffsetTop: any;
 
 const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   start,
@@ -27,12 +27,8 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   const { getFilteredProductByCategory } = useProduct();
   const [categoryTab, setCategoryTab] = useState();
 
-  const categoryClickHandler = (
-    e: any,
-    cat: any
-  ) => {
+  const categoryClickHandler = (e: any, cat: any) => {
     setCategoryTab(cat);
-
 
     cardContainerElements
       .find(
@@ -57,16 +53,39 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   const getCategoryNameByCategoryId = (categoryId: number) =>
     categories.filter((category) => category.id === categoryId)[0].name;
 
+  // console.log(navBarOffsetTop)
+  // console.log(window.pageYOffset)
+
+  const [navBarFixed, setNavBarFixed] = useState(false);
+
+  useEffect(() => {
+    window.onscroll = () => {
+      if (window.pageYOffset >= navBarOffsetTop - 100) {
+        console.log(window.pageYOffset)
+        console.log(navBarOffsetTop)
+
+        setNavBarFixed(true);
+      } else if(window.pageYOffset < navBarOffsetTop +200){
+        
+        setNavBarFixed(false)
+      }
+    };
+  });
+
   return (
     <>
       <MainContainer>
         <S.Container>
-          <CategoryNavBar
-            categories={categories}
-            categoryTab={categoryTab}
-            categoryClickHandler={categoryClickHandler}
-          />
-          {/* ref={element => console.log(element)} */}
+          <S.CategoryNavBarWrapper
+            ref={(element) => (navBarOffsetTop = element?.offsetTop)}
+            navBarFixed={navBarFixed}
+          >
+            <CategoryNavBar
+              categories={categories}
+              categoryTab={categoryTab}
+              categoryClickHandler={categoryClickHandler}
+            />
+          </S.CategoryNavBarWrapper>
           {filteredProducts[0][0] &&
             filteredProducts.map((products) => (
               <S.ContainerWrapper
