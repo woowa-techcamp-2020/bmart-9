@@ -21,6 +21,12 @@ const getAllProduct = async () => {
   return data;
 };
 
+const getOne = async (id: number) => {
+  const { data } = await bmart.get<Product>(`/product/one/${id}`);
+
+  return data;
+};
+
 const getByKeyword = async (keyword: string) => {
   const { data } = await bmart.get<Product[]>(`/product/keyword/${keyword}`);
 
@@ -32,4 +38,5 @@ export default {
   getAllProduct,
   getByCategory,
   getByKeyword,
+  getOne,
 };
