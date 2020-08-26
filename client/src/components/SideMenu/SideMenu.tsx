@@ -3,7 +3,6 @@ import * as S from './SideMenuStyle';
 import { useUser } from '../../hooks/useUser';
 import { Images } from '../../images';
 import { HorizontalBar } from '../HorizontalBar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { MainContainer } from '../MainContainer';
 import { useRouter } from 'next/router';

@@ -21,7 +21,9 @@ const HorizontalSlider: React.FC<HorizontalSliderProps> = ({
       {(start || end) && <HorizontalBar start={start} end={end} />}
       <S.Container>
         {products &&
-          products.map((product) => <Card key={product.id} {...product} />)}
+          products.map((product) => (
+            <Card key={product.id} product={product} />
+          ))}
       </S.Container>
     </MainContainer>
   );
