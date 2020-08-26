@@ -35,6 +35,42 @@ const CartPage = () => {
     setAllCheck(allCheckValue());
   }, [allCheckValue()])
 
+  const renderOrderButton = () => {
+    if (cartCheckedCount() > 0) {
+      return <>
+        <S.OrderButton>
+          <S.OrderButtonCount>{cartCheckedCount()}</S.OrderButtonCount>
+          <S.OrderButtonText>
+            {` ${comma(cartCheckedCost())}`}원 배달 주문 하기
+        </S.OrderButtonText>
+        </S.OrderButton>
+        <S.BottomConcealer />
+      </>
+    } else {
+      return <>
+        <S.EmptyButton>
+          <S.OrderButtonText>
+            최소주문금액을 채워주세요
+      </S.OrderButtonText >
+        </S.EmptyButton >
+        <S.BottomConcealer />
+      </>
+    }
+  }
+
+  const renderDeleteAllButton = () => {
+    if (cartCheckedCount() > 0) {
+      return <S.DeleteAllButton
+        color="main"
+        onClick={() => deleteAllCheck()}>
+        선택 비우기</S.DeleteAllButton>
+    } else {
+      <S.DeleteAllButton color="#ddd" disabled>
+        선택 비우기
+      </S.DeleteAllButton>
+    }
+  }
+
   return (
     <>
       <S.Container>
@@ -62,18 +98,7 @@ const CartPage = () => {
                   <S.CheckboxContents>전체 선택</S.CheckboxContents>
                 </label>
               </S.SelectCheckbox>
-              {cartCheckedCount() > 0 ? (
-                <S.DeleteAllButton
-                  color="main"
-                  onClick={() => deleteAllCheck()}
-                >
-                  선택 비우기
-                </S.DeleteAllButton>
-              ) : (
-                  <S.DeleteAllButton color="#ddd" disabled>
-                    선택 비우기
-                  </S.DeleteAllButton>
-                )}
+              {renderDeleteAllButton()}
             </S.SelectWrapper>
             <S.TitleWrapper>
               <S.Title>일반상품</S.Title>
@@ -94,30 +119,7 @@ const CartPage = () => {
               center={`주문금액 : ${comma(cartCheckedCost())} 원`}
             ></HorizontalBar>
             <S.EmptySpace></S.EmptySpace>
-            <HorizontalBar
-              start={
-                cartCheckedCount() > 0 ? (
-                  <>
-                    <S.OrderButton>
-                      <S.OrderButtonCount>{cartCheckedCount()}</S.OrderButtonCount>
-                      <S.OrderButtonText>
-                        {` ${comma(cartCheckedCost())}`}원 배달 주문 하기
-                      </S.OrderButtonText>
-                    </S.OrderButton>
-                    <S.BottomConcealer />
-                  </>
-                ) : (
-                    <>
-                      <S.EmptyButton>
-                        <S.OrderButtonText>
-                          최소주문금액을 채워주세요
-                      </S.OrderButtonText>
-                      </S.EmptyButton>
-                      <S.BottomConcealer />
-                    </>
-                  )
-              }
-            ></HorizontalBar>
+            <HorizontalBar start={renderOrderButton()} />
           </S.BodyContainer>
         ) : (
             <S.EmptyContainer>
