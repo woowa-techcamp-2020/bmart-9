@@ -3,7 +3,7 @@ import {
   selectQueryExecuter,
   updateOrDeleteQueryExecuter,
 } from '../utils/query-executor';
-import { Cart, CreateCartBody, CartQuantity } from '../../../shared';
+import { Cart, CreateCartBody, CartQuantity, CartDB } from '../../../shared';
 
 // import { carmelToSnakeTemplate } from '../utils/carmel-to-snake-template';
 import { format } from 'path';
@@ -66,29 +66,16 @@ export class CartRepo {
     return 'succeed';
   }
 
-  //// 아래는 작업 안됩.
+  static async create(cartParams: CreateCartBody) {
 
-  // static async create(cartParams: CreateCartBody) {
-
-  //   const columnName: object = {
-  //     userId: "user_id",
-  //     productId: "product_id",
-  //     quantity: "quantity",
-  //     isCheck: 'is_check',
-  //     createdAt: 'created_at',
-  //     updatedAt: 'updated_at',
-  //   };
-
-  //   const template = carmelToSnakeTemplate(cartParams, columnName);
-
-  //   const cartCreateQuery = `
-  // 	INSERT INTO
-  //     bmart.cart(userId, productId, quantity, isCheck, created_at, updated_at)
-  //   VALUES
-  //     ${ template}
-  //       `;
-  //   return await insertQueryExecuter(cartCreateQuery);
-  // }
+    const cartCreateQuery = `
+  	INSERT INTO
+      bmart.cart(user_id, product_id, quantity)
+    VALUES
+     (${cartParams.userId}, ${cartParams.productId},${cartParams.quantity})
+    `;
+    return await insertQueryExecuter(cartCreateQuery);
+  }
 
   static async findOne(id: number): Promise<Cart[]> {
     const findOneCartQuery = `
@@ -108,6 +95,25 @@ export class CartRepo {
     const cart: Cart[] = await selectQueryExecuter<Cart>(findOneCartQuery);
     return cart;
   }
+
+  static async findByProductId(id: number): Promise<CartDB[]> {
+    const findOneCartQuery = `
+        select cart.id id, cart.user_id userId, 
+          cart.quantity quantity, 
+          cart.product_id productId
+        from 
+          cart
+        where cart.product_id = ${id};
+    `;
+
+    const cartDB: CartDB[] = await selectQueryExecuter<CartDB>(findOneCartQuery);
+    return cartDB;
+  }
+
+
+  //// 아래는 작업 안됩.
+
+
 
   static async update(args: Partial<Cart>) {
     const { id, ...rest } = args;
