@@ -23,10 +23,9 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   categories,
 }: CategorizedCardContainerProps) => {
   const { getFilteredProductByCategory } = useProduct();
-  // console.log(getFilteredProductByCategory(420186, false));
   const PRODUCTS_PER_CATEGORY = 6;
-  const allCategories = categories.map((category) => category.id);
-  const filteredProducts = allCategories
+  const filteredProducts = categories
+    .map((category) => category.id)
     .map((category) =>
       getFilteredProductByCategory(category, false).slice(
         0,
@@ -34,7 +33,10 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
       )
     )
     .sort((a, b) => a[0] && a[0].category1_id - b[0].category1_id);
-		console.log(filteredProducts)
+  console.log(categories);
+  const getCategoryNameByCategoryId = (categoryId: number) =>
+    categories.filter((category) => category.id === categoryId)[0].name;
+
   return (
     <>
       <MainContainer>
@@ -43,8 +45,8 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
           {filteredProducts[0][0] &&
             filteredProducts.map((products) => (
               <TenCardsContainer
-								key={products[0].category1_id}
-                start={start}
+                key={products[0].category1_id}
+                start={getCategoryNameByCategoryId(products[0].category1_id)}
                 end={end}
                 products={products}
               />
