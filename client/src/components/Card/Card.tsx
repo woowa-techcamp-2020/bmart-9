@@ -14,7 +14,7 @@ const Card: React.FC<CardProps> = ({ viewportWidth, product }: CardProps) => {
 
   return (
     <S.Container viewportWidth={viewportWidth}>
-      <CardImg imgSrc={img} viewportWidth={viewportWidth}/>
+      <CardImg imgSrc={img} viewportWidth={viewportWidth} product={product} />
       <CardContent {...product} />
     </S.Container>
   );
