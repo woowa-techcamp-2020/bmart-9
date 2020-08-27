@@ -3,10 +3,10 @@ import { Header } from '../../components/Header';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import API, { baseURL } from '../../api';
 import { getToken } from '../../utils/cookieParser';
-import { getSocket } from '../../utils/socket';
-import { useUser } from '../../hooks/useUser';
-import { SocketMessage, Order } from '../../../../shared';
+import { Order, SocketMessage } from '../../../../shared';
 import { OrderItem } from '../../components/OrderItem';
+import { useUser } from '../../hooks/useUser';
+import { getSocket } from '../../utils/socket';
 
 const orders: Order[] = [
   {
@@ -66,7 +66,7 @@ const AdminPage = ({
     <>
       <Header title={'관리자'} />
       {orders.map((order) => (
-        <OrderItem key={order.id} order={order} />
+        <OrderItem key={order.id} order={order} isAdmin={true} />
       ))}
       <button onClick={onSendMessage}>상품발송하기</button>
     </>

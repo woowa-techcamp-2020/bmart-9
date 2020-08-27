@@ -2,7 +2,10 @@ import React from 'react';
 import API from '../../api';
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
 import { Header } from '../../components/Header';
-import { BigCard } from '../../components/BigCard';
+import { OrderMap } from '../../components/OrderMap';
+
+const COMPANY_LATITUDE = 37.516675;
+const COMPANY_LONGITUDE = 127.113063;
 
 const OrderDetailPage = ({
   productInfo,
@@ -14,7 +17,7 @@ const OrderDetailPage = ({
   return (
     <>
       <Header title={productInfo.category2} />
-      <BigCard product={productInfo} />
+      <OrderMap latitude={COMPANY_LATITUDE} longitude={COMPANY_LONGITUDE} />
     </>
   );
 };
