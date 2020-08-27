@@ -9,6 +9,7 @@ type barProps = {
 export const Container = styled.div<barProps>`
   padding: 0 10px;
   border: none;
+  font-weight:bold;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: ${(props) => props.isStart} ${(props) =>
