@@ -35,31 +35,6 @@ const CartAdd: React.FC = () => {
 		closeToggle();
 	}
 
-	const renderMinusButton = () => {
-		if (count > 1) {
-			return <><S.ButtonMinus count={count} onClick={() => count > 1 && setCount(count - 1)}>
-				<FontAwesomeIcon icon={faMinus} />
-			</S.ButtonMinus></>
-		} else {
-			return <><S.ButtonMinus disabled count={count}>
-				<FontAwesomeIcon icon={faMinus} />
-			</S.ButtonMinus></>
-		}
-	}
-	const renderPlusButton = () => {
-		if (count < 99) {
-			return <>
-				<S.ButtonPlus count={count} onClick={() => count < 99 && setCount(count + 1)}>
-					<FontAwesomeIcon icon={faPlus} />
-				</S.ButtonPlus></>
-		} else {
-			return <>
-				<S.ButtonPlus count={count} disabled>
-					<FontAwesomeIcon icon={faPlus} />
-				</S.ButtonPlus></>
-		}
-	}
-
 	return <S.Container onClick={() => closeToggle()} open={addState.isOpen} >
 		<S.AdderWrapper open={addState.isOpen} onClick={stopPropagation}>
 			<S.AdderHeader>
@@ -85,9 +60,13 @@ const CartAdd: React.FC = () => {
 					</S.ContentsPrice>
 				</S.BodyContents>
 				<S.BodyButtonWrapper>
-					{renderMinusButton()}
+					<S.ButtonMinus disabled={count === 1} count={count} onClick={() => count > 1 && setCount(count - 1)}>
+						<FontAwesomeIcon icon={faMinus} />
+					</S.ButtonMinus>
 					<S.ProductQuantity>{count}</S.ProductQuantity>
-					{renderPlusButton()}
+					<S.ButtonPlus disabled={count === 99} count={count} onClick={() => count < 99 && setCount(count + 1)}>
+						<FontAwesomeIcon icon={faPlus} />
+					</S.ButtonPlus>
 				</S.BodyButtonWrapper>
 			</S.AdderBody>
 			<S.AdderFooter>
