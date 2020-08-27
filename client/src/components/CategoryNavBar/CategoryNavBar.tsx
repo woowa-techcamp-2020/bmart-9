@@ -28,8 +28,6 @@ const CategoryNavBar: React.FC<CategoryNavBarProps> = ({
       if (element && element.dataset.categoryId === categoryTab) {
         element.style.backgroundColor = 'grey';
         element.style.color = 'white';
-        console.log(element);
-        console.log(element.getClientRects()[0].x)
         if (element.getClientRects()[0].x > 300) {
           containerElement.scrollTo({
             top: 0,
