@@ -55,7 +55,7 @@ const IndexPage = ({
             />
             <HorizontalSlider
               start={'오늘만 하는 세일'}
-              products={products.slice(20, 30)}
+              products={products.filter(product=> product.discount).slice(14, 24)}
             />
             <SmallBanners />
             <CategorizedCardContainer
