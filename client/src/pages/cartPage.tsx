@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { ClientCart } from '../../../shared';
 import { useCart } from '../hooks/useCart';
 import { useUser } from '../hooks/useUser';
+import { useOrder } from '../hooks/useOrder';
+import { useSnackbar } from '../hooks/useSnackbar';
 
 import API from '../api';
 import { getToken } from '../utils/cookieParser';
@@ -24,6 +26,7 @@ const FALSE = 0;
 const CartPage = ({
   cartListProps,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
   const {
     cartList,
     setCartList,
@@ -32,6 +35,8 @@ const CartPage = ({
     cartCheckedCount,
   } = useCart();
 
+  const { createOrder } = useOrder();
+  const { openSnackbar } = useSnackbar();
   const { updateAllCheck, allCheckValue, deleteAllCheck } = useCart();
   const [allCheck, setAllCheck] = useState<number>(allCheckValue());
 
@@ -45,10 +50,14 @@ const CartPage = ({
     setAllCheck(allCheckValue());
   }, [allCheckValue()])
 
+  const deleteAllCheckAction = () => {
+    deleteAllCheck(user!.token)
+    openSnackbar("success", `선택된 상품을 삭제했습니다.`);
+  }
   const renderOrderButton = () => {
     if (cartCheckedCount() > 0) {
       return <>
-        <S.OrderButton>
+        <S.OrderButton onClick={() => createOrder(user!.token, cartList)}>
           <S.OrderButtonCount>{cartCheckedCount()}</S.OrderButtonCount>
           <S.OrderButtonText>
             {` ${comma(cartCheckedCost())}`}원 배달 주문 하기
@@ -72,7 +81,7 @@ const CartPage = ({
     if (cartCheckedCount() > 0) {
       return <S.DeleteAllButton
         color="main"
-        onClick={() => user && deleteAllCheck(user.token)}>
+        onClick={() => deleteAllCheckAction()}>
         선택 비우기</S.DeleteAllButton>
     } else {
       <S.DeleteAllButton color="#ddd" disabled>
@@ -112,7 +121,6 @@ const CartPage = ({
             </S.SelectWrapper>
             <S.TitleWrapper>
               <S.Title>일반상품</S.Title>
-              {/* <S.TitlePaint /> */}
             </S.TitleWrapper>
             {cartList.map((item: ClientCart) => {
               return <CartItem key={item.id} {...item}></CartItem>;
