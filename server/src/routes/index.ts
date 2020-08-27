@@ -16,6 +16,7 @@ router.use('/api/product', productRouter);
 router.use('/api/cart', cartRouter);
 router.use('/api/image', imageRouter);
 router.use('/api/search', searchRouter);
+router.use('/api/favorite', favoriteRouter);
 router.use('/api/order', orderRouter);
 
 export default router;
