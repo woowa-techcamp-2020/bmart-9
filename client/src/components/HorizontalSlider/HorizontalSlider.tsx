@@ -11,8 +11,10 @@ type HorizontalSliderProps = {
   products: Product[];
 };
 
-const HORIZONTAL_CARD_VIEWPORT_WIDTH = 40;
-const SIX_CARDS_CONTAINER_CARD_FONT_SIZE_PERCENTAGE = 75;
+// const HORIZONTAL_CARD_VIEWPORT_WIDTH = 40;
+// const SIX_CARDS_CONTAINER_CARD_FONT_SIZE_PERCENTAGE = 75;
+const HORIZONTAL_CARD_VIEWPORT_WIDTH = 32;
+const SIX_CARDS_CONTAINER_CARD_FONT_SIZE_PERCENTAGE = 70;
 
 const HorizontalSlider: React.FC<HorizontalSliderProps> = ({
   start,
