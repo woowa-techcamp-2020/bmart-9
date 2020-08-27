@@ -6,6 +6,7 @@ import { getToken } from '../../utils/cookieParser';
 import { Order } from '../../../../shared';
 import { OrderItem } from '../../components/OrderItem';
 import { MainContainer } from '../../components/MainContainer';
+import * as S from './OrderStyle';
 
 const OrderPage = ({
   orderList,
@@ -13,11 +14,11 @@ const OrderPage = ({
   return (
     <>
       <Header title={'주문내역'} />
-      <MainContainer>
+      <S.Container>
         {orderList.map((order) => (
           <OrderItem key={order.id} order={order} />
         ))}
-      </MainContainer>
+      </S.Container>
     </>
   );
 };
