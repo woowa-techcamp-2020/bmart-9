@@ -6,7 +6,7 @@ import API, { TOKEN_KEY, baseURL } from '../api';
 import { useSnackbar } from './useSnackbar';
 import { useFavorite } from './useFavorite';
 
-const ADMIN_ID = 2;
+const ADMIN_ID = 20;
 
 export const useUser = (toggleSideBar?: () => void) => {
   const [user, dispatch] = useCreator(UserContexts);
@@ -20,7 +20,7 @@ export const useUser = (toggleSideBar?: () => void) => {
 
   const authHandler = () => {
     const win = window.open(`${baseURL}3000/api/auth/github`) as Window;
-    const timer = setInterval(() => {
+    const timer = setInterval(async () => {
       try {
         if (win.location.href === `${baseURL}9000/`) {
           clearInterval(timer);
@@ -32,16 +32,17 @@ export const useUser = (toggleSideBar?: () => void) => {
           }
 
           Cookie.set(TOKEN_KEY, token);
-          signIn(token);
+          await signIn(token);
         }
       } catch (error) {}
     }, 500);
   };
 
   const signIn = async (token: string) => {
-    const user = await API.User.getCurrentUser(token);
+    Cookie.remove(TOKEN_KEY);
+    const currentUser = await API.User.getCurrentUser(token);
     Cookie.set(TOKEN_KEY, token);
-    dispatch({ type: 'SET_USER', user: { ...user, token } });
+    dispatch({ type: 'SET_USER', user: { ...currentUser, token } });
     await fetchFavorite(token);
     router.push('/');
     toggleSideBar && toggleSideBar();

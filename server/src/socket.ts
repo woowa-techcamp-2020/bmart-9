@@ -3,7 +3,7 @@ import socketIo from 'socket.io';
 import http from 'http';
 import { SocketUser, SocketMessage } from '../../shared';
 
-const ADMIN_USER = 2;
+const ADMIN_ID = 20;
 
 export const connectSocket = (app: Express): http.Server => {
   const socketUser: SocketUser = {};
@@ -29,7 +29,7 @@ export const connectSocket = (app: Express): http.Server => {
     socket.on(
       'ADMIN_SEND_MESSAGE',
       ({ userId, message, receiverId }: SocketMessage) => {
-        if (userId !== ADMIN_USER) {
+        if (userId !== ADMIN_ID) {
           console.error('Only Admin user can send message');
         }
 
@@ -42,7 +42,7 @@ export const connectSocket = (app: Express): http.Server => {
     );
 
     socket.on('ORDER_REQUESTED', (message: string) => {
-      socket.to(socketUser[ADMIN_USER]).emit('ADMIN_ORDER_REQUESTED', message);
+      socket.to(socketUser[ADMIN_ID]).emit('ADMIN_ORDER_REQUESTED', message);
     });
 
     socket.on('SEND_MESSAGE', (data) => {
