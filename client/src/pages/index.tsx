@@ -10,6 +10,7 @@ import { useProduct } from '../hooks/useProduct';
 import { CartButton } from '../components/CartButton';
 import { SixCardsContainer } from '../components/SixCardsContainer';
 import { CategorizedCardContainer } from '../components/CategorizedCardContainer';
+import { ProductDetail } from '../components/ProductDetail';
 
 const IndexPage = ({
   bannerImages,
