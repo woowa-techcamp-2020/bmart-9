@@ -8,7 +8,7 @@ type openProps = {
 export const Container = styled.div<openProps>`
   padding-top: 20px;
   position: fixed;
-  z-index: 300;
+  z-index: 30;
   top: 0;
   bottom: 0;
   width: 100vw;
