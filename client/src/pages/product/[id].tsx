@@ -4,7 +4,6 @@ import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
 import { Header } from '../../components/Header';
 import * as S from './ProductStyle';
 
-import { BigCard } from '../../components/BigCard';
 import { ProductDetail } from '../../components/ProductDetail';
 
 import { useFavorite } from '../../hooks/useFavorite';
@@ -30,7 +29,6 @@ const ProductDetailPage = ({
     event: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
     event.stopPropagation();
-    console.log(isFavorite(productInfo.id));
     if (!isLoggedIn) {
       return notLogggedInHandler();
     }
@@ -47,6 +45,7 @@ const ProductDetailPage = ({
     }
 
     openCartAdd(productInfo);
+
   }
 
   return (
@@ -77,6 +76,7 @@ const ProductDetailPage = ({
 
         <ProductDetail />
 
+        <S.EmptySpace></S.EmptySpace>
         <S.OrderButton onClick={(e) => openCartAction(e)}>
           <S.OrderButtonText>
             구매하기
