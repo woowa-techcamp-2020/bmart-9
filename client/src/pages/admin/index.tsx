@@ -23,7 +23,7 @@ const AdminPage = ({
       const message: SocketMessage = {
         userId: user.id,
         message: '상품이 발송되었습니다',
-        receiverId: 3,
+        receiverId: 2,
       };
       socket.emit('ADMIN_SEND_MESSAGE', message);
     }
