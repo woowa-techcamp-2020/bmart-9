@@ -3,19 +3,20 @@ import * as S from './SideMenuStyle';
 import { useUser } from '../../hooks/useUser';
 import { Images } from '../../images';
 import { HorizontalBar } from '../HorizontalBar';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MainContainer } from '../MainContainer';
 import { useRouter } from 'next/router';
 import { IconButton } from '../IconButton';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useCategory } from '../../hooks/useCategory';
 import { BoxCategory } from '../BoxCategory';
-import Link from 'next/link';
+import { BoxButton } from '../BoxButton';
 
 type Props = {
   open: boolean;
   toggleOpen: () => void;
 };
+
+const BUTTON_WIDTH = '49%';
 
 const SideMenu: React.FC<Props> = ({ open, toggleOpen }: Props) => {
   const { isLoggedIn, user, signOut, authHandler } = useUser(toggleOpen);
@@ -28,13 +29,21 @@ const SideMenu: React.FC<Props> = ({ open, toggleOpen }: Props) => {
         <HorizontalBar
           start={`안녕하세요. ${user!.name}님`}
           center=" "
-          end={<IconButton icon={faSignOutAlt} onClickHandler={signOut} />}
+
+          // end={<IconButton icon={faSignOutAlt} onClickHandler={signOut} />}
         />
-        <Link href="/favorite">
-          <S.Authentication>
-            <S.GoHome>찜한 상품보기</S.GoHome>
-          </S.Authentication>
-        </Link>
+        <S.ButtonContainer>
+          <BoxButton
+            title={'주문 내역  📄  '}
+            href="/order"
+            width={BUTTON_WIDTH}
+          />
+          <BoxButton
+            title={'찜한 상품  ❤️  '}
+            href="/favorite"
+            width={BUTTON_WIDTH}
+          />
+        </S.ButtonContainer>
       </>
     ) : (
       <S.Authentication onClick={authHandler}>
@@ -57,22 +66,21 @@ const SideMenu: React.FC<Props> = ({ open, toggleOpen }: Props) => {
     <S.Container open={open}>
       <MainContainer>
         <HorizontalBar
-          start={<IconButton icon={faArrowLeft} onClickHandler={toggleOpen} />}
-        />
-        <HorizontalBar
           start={
             <S.GoHome onClick={goToHome}>
               B마트 홈<span>으로 가기 {' >'} </span>
             </S.GoHome>
           }
+          end={<IconButton icon={faTimes} onClickHandler={toggleOpen} />}
         />
+        <HorizontalBar />
         <HorizontalBar start={renderAuthenticationHandler()} />
       </MainContainer>
-      <MainContainer>
-        <HorizontalBar start={<S.GoHome>카테고리</S.GoHome>} />
-        <BoxCategory categories={category} />
-        {renderCategory()}
-      </MainContainer>
+      <HorizontalBar start={<S.GoHome>카테고리</S.GoHome>} />
+      <BoxCategory categories={category} />
+      {renderCategory()}
+
+      {isLoggedIn && <BoxButton title={'로그아웃'} width={'70%'} />}
     </S.Container>
   );
 };

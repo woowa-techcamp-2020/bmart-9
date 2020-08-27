@@ -25,6 +25,15 @@ export const Icon = styled.div`
   padding: 15px;
 `;
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 5px 5px;
+
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Image = styled.img`
   height: 30px;
 `;
