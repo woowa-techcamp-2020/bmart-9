@@ -60,11 +60,11 @@ const CartAdd: React.FC = () => {
 					</S.ContentsPrice>
 				</S.BodyContents>
 				<S.BodyButtonWrapper>
-					<S.ButtonMinus disabled={count === 1} count={count} onClick={() => count > 1 && setCount(count - 1)}>
+					<S.ButtonMinus disabled={count <= 1} count={count} onClick={() => count > 1 && setCount(count - 1)}>
 						<FontAwesomeIcon icon={faMinus} />
 					</S.ButtonMinus>
 					<S.ProductQuantity>{count}</S.ProductQuantity>
-					<S.ButtonPlus disabled={count === 99} count={count} onClick={() => count < 99 && setCount(count + 1)}>
+					<S.ButtonPlus disabled={count >= 99} count={count} onClick={() => count < 99 && setCount(count + 1)}>
 						<FontAwesomeIcon icon={faPlus} />
 					</S.ButtonPlus>
 				</S.BodyButtonWrapper>
