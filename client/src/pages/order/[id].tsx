@@ -26,7 +26,7 @@ const OrderDetailPage = ({
         <HorizontalBar
           start={orderInfo.userName + '님의 주문'}
           center={' '}
-          end={date.getMonth() + '/' + date.getDate()}
+          end={(date.getMonth() + 1) + '/' + date.getDate()}
         />
       </MainContainer>
       <OrderMap
