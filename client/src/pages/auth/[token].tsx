@@ -10,13 +10,13 @@ const AuthPage = () => {
 
   useEffect(() => {
     singInWithToken();
-  }, [token, router]);
+  }, []);
 
   const singInWithToken = async () => {
     if (token && typeof token === 'string') {
       localStorage.setItem(TOKEN_KEY, token);
-      await signIn(token);
       router.push('/');
+      // await signIn(token);
     }
   };
 

@@ -3,10 +3,8 @@ dotenv.config();
 import express from 'express';
 
 import bodyParser from 'body-parser';
-import path from 'path';
 import cors from 'cors';
 import passport from 'passport';
-import { connectSocket } from './socket';
 
 import router from './routes';
 import { errorHandler } from './middlewares/error-handler';
@@ -24,18 +22,13 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 
 // Serve static files at `public` directory
-app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(router);
 
 app.use(errorHandler);
 
-app.get('/auth/:token', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/auth/[token].html'));
-});
-
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+  res.send('Wellcome to Bmart-9 API');
 });
 
-export default connectSocket(app);
+export default app;
