@@ -7,9 +7,9 @@
   <img src="https://user-images.githubusercontent.com/34447105/90772561-b2be3780-e32f-11ea-9ae3-04bd46ea2144.png" width="300"/>
 </p>
 
-- <img src="https://img.shields.io/badge/DEVELOPER-남현우-informational"/>   [퀸(구 저글링)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EB%82%A8%ED%98%84%EC%9A%B0)
-- <img src="https://img.shields.io/badge/DEVELOPER-이찬호-informational"/>   [배틀크루저(구 골리앗)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EC%9D%B4%EC%B0%AC%ED%98%B8)
-- <img src="https://img.shields.io/badge/DEVELOPER-정봉근-informational"/>   [캐리어(구 옵저버)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EC%A0%95%EB%B4%89%EA%B7%BC)
+- <a href="https://github.com/naamoonoo"><img src="https://img.shields.io/badge/DEVELOPER-남현우-informational"/></a>   [퀸(구 저글링)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EB%82%A8%ED%98%84%EC%9A%B0)
+- <a href="https://github.com/0407chan"><img src="https://img.shields.io/badge/DEVELOPER-이찬호-informational"/></a>   [배틀크루저(구 골리앗)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EC%9D%B4%EC%B0%AC%ED%98%B8)
+- <a href="https://github.com/jungcome7"><img src="https://img.shields.io/badge/DEVELOPER-정봉근-informational"/></a>   [캐리어(구 옵저버)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EC%A0%95%EB%B4%89%EA%B7%BC)
 
 ### 이렇게 했습니다
 - [우리의 활동 로그](https://github.com/woowa-techcamp-2020/bmart-9/wiki) ~~눈물 주의~~
