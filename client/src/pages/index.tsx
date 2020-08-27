@@ -10,6 +10,7 @@ import { useProduct } from '../hooks/useProduct';
 import { CartButton } from '../components/CartButton';
 import { SixCardsContainer } from '../components/SixCardsContainer';
 import { CategorizedCardContainer } from '../components/CategorizedCardContainer';
+import { ProductDetail } from '../components/ProductDetail';
 
 const IndexPage = ({
   bannerImages,
@@ -32,7 +33,7 @@ const IndexPage = ({
             <FourCardsContainer
               start={'지금사면 ⚡️ 번쩍할인'}
               end={'더보기 〉'}
-              products={products.slice(40, 44)}
+              products={products.filter(product=> product.discount).slice(10, 14)}
             />
             <SixCardsContainer start={'지금 뭐 먹지?'} products={products.slice(44, 68)}/>
             <HorizontalSlider
