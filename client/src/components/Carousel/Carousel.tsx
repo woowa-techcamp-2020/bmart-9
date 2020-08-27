@@ -4,7 +4,7 @@ import { Image } from './../../../../shared';
 
 type ImageProps = {
   bannerImages: Image[];
-  isSmall: boolean;
+  isSmall?: boolean;
 };
 
 const Carousel: React.FC<ImageProps> = ({
