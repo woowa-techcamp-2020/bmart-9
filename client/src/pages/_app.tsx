@@ -16,8 +16,6 @@ import { Snackbar } from '../components/Snackbar';
 import { CartAdd } from '../components/CartAdd';
 import { CartButton } from '../components/CartButton';
 
-import { onReceiveHandler } from '../utils/socket';
-
 type InitialProps = {
   category: Category[];
   products: Product[];
@@ -45,10 +43,6 @@ const InitializeStore: React.FC<InitialProps> = ({
       fetchCartList(token);
       signIn(token);
     }
-
-    return () => {
-      // socket && socket.disconnect();
-    };
   }, []);
 
   return <>{children}</>;

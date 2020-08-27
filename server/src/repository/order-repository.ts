@@ -3,10 +3,15 @@ import {
   selectQueryExecuter,
   updateOrDeleteQueryExecuter,
 } from '../utils/query-executor';
-import { Order, CreateOrderBody, OrderProduct, CreateOrderDB, UpdateOrderStatus } from '../../../shared';
+import {
+  Order,
+  CreateOrderBody,
+  OrderProduct,
+  CreateOrderDB,
+  UpdateOrderStatus,
+} from '../../../shared';
 
 export class OrderRepo {
-
   // 검색
   static async findAll(userId: number): Promise<Order[]> {
     const findAllOrderQuery = `
@@ -24,7 +29,35 @@ export class OrderRepo {
         on bmart.order.user_id = user.id
         where bmart.order.user_id = ${userId};
     `;
-    const OrderList: Order[] = await selectQueryExecuter<Order>(findAllOrderQuery);
+    const OrderList: Order[] = await selectQueryExecuter<Order>(
+      findAllOrderQuery
+    );
+    return OrderList;
+  }
+
+  static async findAllByAdmin(): Promise<Order[]> {
+    const findAllOrderQuery = `
+    select 
+      bmart.order.id id,
+      bmart.order.user_id userId,
+      user.name userName,
+      bmart.order.name orderName,
+      bmart.order.total_price totalPrice,
+      bmart.order.status status, 
+      bmart.order.created_at createdAt,
+      bmart.order.latitude latitude, 
+      bmart.order.longitude longitude
+    from
+      bmart.order
+    left join
+      user
+    on
+      bmart.order.user_id = user.id
+    `;
+
+    const OrderList: Order[] = await selectQueryExecuter<Order>(
+      findAllOrderQuery
+    );
     return OrderList;
   }
 
@@ -44,11 +77,15 @@ export class OrderRepo {
         on bmart.order.user_id = user.id
         where bmart.order.id = ${orderId};
     `;
-    const OrderList: Order[] = await selectQueryExecuter<Order>(findAllOrderQuery);
+    const OrderList: Order[] = await selectQueryExecuter<Order>(
+      findAllOrderQuery
+    );
     return OrderList;
   }
 
-  static async findOrderProductByOrderId(orderId: number): Promise<OrderProduct[]> {
+  static async findOrderProductByOrderId(
+    orderId: number
+  ): Promise<OrderProduct[]> {
     const findOrderProductQuery = `
     select order_product.id id, order_product.quantity quantity, 
           product.img img, product.name name, product.price price
@@ -58,7 +95,9 @@ export class OrderRepo {
         on order_product.product_id = product.id
       where order_product.order_id = ${orderId};
     `;
-    const OrderProductList: OrderProduct[] = await selectQueryExecuter<OrderProduct>(findOrderProductQuery);
+    const OrderProductList: OrderProduct[] = await selectQueryExecuter<
+      OrderProduct
+    >(findOrderProductQuery);
     return OrderProductList;
   }
 
@@ -74,7 +113,11 @@ export class OrderRepo {
     return await insertQueryExecuter(cartCreateQuery);
   }
 
-  static async createOrderProduct(quantity: number, orderId: number, productId: number) {
+  static async createOrderProduct(
+    quantity: number,
+    orderId: number,
+    productId: number
+  ) {
     const cartCreateQuery = `
     INSERT INTO 
         bmart.order_product(quantity, order_id, product_id)
@@ -92,7 +135,7 @@ export class OrderRepo {
 			UPDATE
 				bmart.order
 			SET
-        status = ${status}
+        status = "${status}"
 			WHERE
 				id=${id}
 			;`;
@@ -109,6 +152,4 @@ export class OrderRepo {
   //   const OrderProductList: OrderProduct[] = await selectQueryExecuter<OrderProduct>(findAllOrderQuery);
   //   return OrderProductList;
   // }
-
-
 }

@@ -10,7 +10,12 @@ import { useProduct } from '../hooks/useProduct';
 
 import { SixCardsContainer } from '../components/SixCardsContainer';
 import { CategorizedCardContainer } from '../components/CategorizedCardContainer';
-import { ProductDetail } from '../components/ProductDetail';
+import { SmallBanners } from '../components/SmallBanners';
+import { useRouter } from 'next/router';
+import { useMap } from '../hooks/useMap';
+import { useSnackbar } from '../hooks/useSnackbar';
+import { useUser } from '../hooks/useUser';
+import { onReceiveHandler } from '../utils/socket';
 
 const IndexPage = ({
   bannerImages,
@@ -18,6 +23,12 @@ const IndexPage = ({
   categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { products } = useProduct();
+  const { user } = useUser();
+  const Router = useRouter();
+  const { moveTo } = useMap();
+  const { openSnackbar } = useSnackbar();
+
+  user && onReceiveHandler(user.id, openSnackbar, Router, moveTo);
   return (
     <>
       <Header />
@@ -27,28 +38,27 @@ const IndexPage = ({
         {products && (
           <>
             <HorizontalSlider
-              start={'고객님이 좋아할 베스트 아이템'}
-              products={products.slice(0, 10)}
+              start={'10초만에 당신께 도달할 우리의 훈련된 새!달!원!'}
+              products={products.slice(0, 7)}
             />
             <FourCardsContainer
               start={'지금사면 ⚡️ 번쩍할인'}
               end={'더보기 〉'}
               products={products.filter(product=> product.discount).slice(10, 14)}
             />
-            <SixCardsContainer start={'지금 뭐 먹지?'} products={products.slice(44, 68)}/>
+            <SixCardsContainer
+              start={'지금 뭐 먹지?'}
+              products={products.slice(44, 68)}
+            />
             <HorizontalSlider
               start={'특별 모음전'}
-              end={'더보기 〉'}
               products={products.slice(10, 20)}
             />
             <HorizontalSlider
               start={'오늘만 하는 세일'}
               products={products.slice(20, 30)}
             />
-            <HorizontalSlider
-              start={'날이면 날마다 오는 세일 ㅇㅇ'}
-              products={products.slice(30, 40)}
-            />
+            <SmallBanners />
             <CategorizedCardContainer
               start={'카테고리 이름'}
               end={'더보기 〉'}
