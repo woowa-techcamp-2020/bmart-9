@@ -3,7 +3,7 @@ import { GRAY_006, MAIN_COLOR2 } from '../../styles/GlobalStyle';
 
 export const Container = styled.div`
   background-color: #ffffff;
-  border-bottom: 0.4vw solid #ececec;
+  border-bottom: 1vw solid #ececec;
   overflow-x: scroll;
   white-space: nowrap;
 

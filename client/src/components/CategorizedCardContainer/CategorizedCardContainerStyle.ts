@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div<NavBarProps>`
-  margin-top: ${(props) => (props.navBarFixed && '50px')};
+  margin-top: ${(props) => (props.navBarFixed && '59px')};
 `;
 
 export const ContainerWrapper = styled.div``;

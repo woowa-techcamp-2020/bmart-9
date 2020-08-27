@@ -22,7 +22,7 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   categories,
 }: CategorizedCardContainerProps) => {
   const { getFilteredProductByCategory } = useProduct();
-  const [categoryTab, setCategoryTab] = useState();
+  const [categoryTab, setCategoryTab] = useState(0);
   const [navBarFixed, setNavBarFixed] = useState(false);
   const [navBarInitialOffsetTop, setNavBarInitialOffsetTop] = useState(0);
 
@@ -39,9 +39,7 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
     )
     .sort((a, b) => a[0] && a[0].category1_id - b[0].category1_id);
 
-  const categoryClickHandler = (e: any, cat: any) => {
-    setCategoryTab(cat);
-
+  const categoryClickHandler = (e: any, catId: any) => {
     const selectedElement = cardContainerElements.find(
       (element) => element.dataset.categoryId === e.target.dataset.categoryId
     );
@@ -50,20 +48,22 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
       top: selectedElement.offsetTop - 155,
       behavior: 'smooth',
     });
+    setCategoryTab(catId);
   };
 
   const getCategoryNameByCategoryId = (categoryId: number) =>
     categories.filter((category) => category.id === categoryId)[0].name;
 
+  // const document = typeof document === 'undefined' ? '' : document;
+
   useEffect(() => {
     window.onscroll = () => {
       if (window.pageYOffset >= navBarInitialOffsetTop) {
         setNavBarFixed(true);
-
-        if(window.pageYOffset >= 3000) {
-          // setCategoryTab()
-        }
-
+        const displayedContainer: any = document
+          .elementFromPoint(0, 160)
+          ?.closest('#container-wrapper');
+        setCategoryTab(displayedContainer?.dataset.categoryId);
       }
       if (window.pageYOffset < navBarInitialOffsetTop) {
         setNavBarFixed(false);
@@ -86,6 +86,7 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
             <CategoryNavBar
               categories={categories}
               categoryTab={categoryTab}
+              setCategoryTab={setCategoryTab}
               categoryClickHandler={categoryClickHandler}
             />
           </S.CategoryNavBarWrapper>
@@ -94,6 +95,7 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
               <S.ContainerWrapper
                 key={products[0].category1_id}
                 data-category-id={products[0].category1_id}
+                id="container-wrapper"
                 ref={(element) => cardContainerElements.push(element)}
               >
                 <TenCardsContainer
