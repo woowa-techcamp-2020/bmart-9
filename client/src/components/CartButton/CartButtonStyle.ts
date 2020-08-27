@@ -11,7 +11,7 @@ type currPathProps = {
 }
 export const Button = styled.button<currPathProps>`
     display: ${(props) => inputVisiblePath.has(props.pathname) ? 'block' : 'none'};
-    z-index: ${(props) => props.pathname === '/search' ? 100 : 10};
+    z-index: 10;
     position: fixed;
     bottom: 20px;
     right: 20px;
