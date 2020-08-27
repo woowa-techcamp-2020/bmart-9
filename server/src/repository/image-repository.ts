@@ -8,6 +8,8 @@ export class ImageRepo {
         *
       FROM
         banner
+      WHERE
+        name LIKE 'banner%'
     `;
 
     // type generic
