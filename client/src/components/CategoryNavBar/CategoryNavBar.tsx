@@ -19,14 +19,9 @@ const CategoryNavBar: React.FC<CategoryNavBarProps> = ({
   categoryClickHandler,
   setCategoryTab,
 }: CategoryNavBarProps) => {
-  // const [navBarSelected, setNavBarSelected] = useState(categoryTab);
 
   const categoryElements: HTMLElement[] = [];
   const slideCategory = () => {
-    // const targetElement: any = categoryElements.find(
-    //   (cat) => cat.dataset.categoryId === categoryTab
-    // );
-    // targetElement ? targetElement.style.backgroundColor = 'grey' : '';
     
     categoryElements.forEach(element => {
       if(element && element.dataset.categoryId === categoryTab) {
@@ -37,16 +32,11 @@ const CategoryNavBar: React.FC<CategoryNavBarProps> = ({
         element.style.color = 'grey';
       }
     })
-
   };
 
   useEffect(() => {
     slideCategory();
   }, [categoryTab]);
-
-  // console.log(categoryTab)
-  // console.log(categories)
-  // console.log(categoryElements)
 
   return (
     <>

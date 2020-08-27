@@ -48,7 +48,6 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
       top: selectedElement.offsetTop - 155,
       behavior: 'smooth',
     });
-    setCategoryTab(catId);
   };
 
   const getCategoryNameByCategoryId = (categoryId: number) =>
