@@ -5,7 +5,7 @@ import { Product } from '../../../../shared';
 import { useCartAdd } from '../../hooks/useCartAdd';
 import { useFavorite } from '../../hooks/useFavorite';
 import { useUser } from '../../hooks/useUser';
-
+import { Images } from '../../images';
 type Props = {
   viewportWidth: number
   product: Product;
@@ -30,7 +30,7 @@ export const CardImg: React.FC<Props> = (props: Props) => {
     await onClickFavoriteHandler(product.id, user!.token);
   };
 
-  const openCartAction = async (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+  const openCartAction = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
 
     if (!isLoggedIn) {
@@ -47,7 +47,9 @@ export const CardImg: React.FC<Props> = (props: Props) => {
           <S.Img src={product.img} viewportWidth={viewportWidth} />
         </S.ImgWrapper>
         <S.HeartIcon onClick={toggleLike} icon={faHeart} like={isFavorite(product.id) ? 'red' : 'white'} />
-        <S.ShoppingBagIcon icon={faShoppingBag} onClick={openCartAction} />
+        <S.ShoppingIconWrapper onClick={openCartAction}>
+          <S.ShoppingBagIcon src={Images.CART_ICON_MINT} />
+        </S.ShoppingIconWrapper>
       </S.Container>
     </>
   );
