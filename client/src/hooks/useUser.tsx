@@ -27,7 +27,6 @@ export const useUser = (toggleSideBar?: () => void) => {
 
           Cookie.set(TOKEN_KEY, token);
           signIn(token);
-          router.push('/');
         }
       } catch (error) {}
     }, 500);
@@ -35,8 +34,10 @@ export const useUser = (toggleSideBar?: () => void) => {
 
   const signIn = async (token: string) => {
     const user = await API.User.getCurrentUser(token);
+    Cookie.set(TOKEN_KEY, token);
     dispatch({ type: 'SET_USER', user: { ...user, token } });
     await fetchFavorite(token);
+    router.push('/');
     toggleSideBar && toggleSideBar();
   };
 
@@ -45,6 +46,7 @@ export const useUser = (toggleSideBar?: () => void) => {
     Cookie.remove(TOKEN_KEY);
     dispatch({ type: 'SET_USER', user: null });
     emptyFavorite();
+    router.push('/');
     toggleSideBar && toggleSideBar();
   };
 
