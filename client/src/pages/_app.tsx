@@ -9,7 +9,7 @@ import { useProduct } from '../hooks/useProduct';
 import { useSnackbar } from '../hooks/useSnackbar';
 import { Snackbar } from '../components/Snackbar';
 import { useUser } from '../hooks/useUser';
-import { getSocket } from '../utils/getSocket';
+import { getSocket, onReceiveHandler } from '../utils/socket';
 
 type InitialProps = {
   category: Category[];
@@ -21,21 +21,22 @@ const InitializeStore: React.FC<InitialProps> = ({
   category,
   products,
 }) => {
-  const { signIn } = useUser();
+  const { user, signIn } = useUser();
   useCategory(category);
   useProduct(products);
   const { openSnackbar } = useSnackbar();
-  const socket = getSocket();
-  socket.on('sayHello', (data: string) => {
-    console.log('hello');
-    openSnackbar('success', data);
-  });
+
+  user && onReceiveHandler(user.id, openSnackbar);
 
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
       signIn(token);
     }
+
+    return () => {
+      // socket && socket.disconnect();
+    };
   }, []);
 
   return <>{children}</>;
