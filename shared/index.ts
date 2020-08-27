@@ -6,4 +6,5 @@ export * from "./image";
 export * from "./search";
 export * from "./snackbar";
 export * from "./favorite";
+export * from "./socket";
 export * from "./order";

@@ -2,16 +2,16 @@ import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 
-import {SideMenu} from './';
+import {CategorizedCardContainer} from './';
 
-describe('SideMenu comopoent', () => {
+describe('CategorizedCardContainer comopoent', () => {
   it('matches snapshot', () => {
-    const { container } = render(<SideMenu />);
+    const { container } = render(<CategorizedCardContainer />);
     expect(container).toMatchSnapshot();
   });
 
   it('shows the elemnts correctly', () => {
-    const utils = render(<SideMenu />);
+    const utils = render(<CategorizedCardContainer />);
     // utils.getByText('+');
 
   });

@@ -13,7 +13,7 @@ import { useUser } from '../hooks/useUser';
 import { useCartAdd } from '../hooks/useCartAdd';
 import { Snackbar } from '../components/Snackbar';
 import { CartAdd } from '../components/CartAdd';
-import { getSocket } from '../utils/getSocket';
+import { onReceiveHandler } from '../utils/socket';
 
 type InitialProps = {
   category: Category[];
@@ -25,22 +25,24 @@ const InitializeStore: React.FC<InitialProps> = ({
   category,
   products,
 }) => {
-  const { signIn } = useUser();
+  const { user, signIn } = useUser();
   useCategory(category);
   useProduct(products);
   useSnackbar();
   useCartAdd();
   const { openSnackbar } = useSnackbar();
-  const socket = getSocket();
-  socket.on('sayHello', (data: string) => {
-    console.log('hello');
-    openSnackbar('success', data);
-  });
+
+  user && onReceiveHandler(user.id, openSnackbar);
+
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
       signIn(token);
     }
+
+    return () => {
+      // socket && socket.disconnect();
+    };
   }, []);
 
   return <>{children}</>;
