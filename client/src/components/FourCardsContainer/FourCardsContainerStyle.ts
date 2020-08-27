@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   height: 123vw;
-  margin: 2vw;
+  margin: 0 2vw 2vw 2vw;
 `;
 
 type ImgProps = {
