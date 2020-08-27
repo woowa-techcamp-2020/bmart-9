@@ -29,32 +29,40 @@ const BUTTON_WIDTH = '49%';
 
 const OrderItem: React.FC<Props> = ({ order, isAdmin = false }: Props) => {
   const date = new Date(order.createdAt);
-  const dataToString = `${date.getMonth()}/${date.getDate()} (${
-    dayMap[date.getDay()]
-  }) ${order.userName}의 주문`;
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const currDaye = date.getDate();
+  let hour: string | number = date.getHours();
+  if (hour < 10) hour = `0${hour}`;
+  let min: string | number = date.getMinutes();
+  if (min < 10) min = `0${min}`;
+
+  const dataToString = `주문일시: ${year}년 ${month}월 ${currDaye}일 ${hour}:${min}`;
+  const orderNumber = `주문번호: ${order.id}`;
 
   const routes = isAdmin ? 'admin' : 'order';
 
   return (
     <S.Container>
-      <S.Warpper>
-        <HorizontalBar
-          start={<S.Tag color={colorMap[order.status]} />}
-          center={dataToString}
-        />
+      <S.FirstLine>
         <S.Title>{order.orderName}</S.Title>
-        <HorizontalBar end={numberComma(order.totalPrice) + '원'} />
-        <S.ButtonContainer>
-          <BoxButton title={statusMap[order.status]} width={BUTTON_WIDTH} />
-          <BoxButton
-            title={'상세보기'}
-            width={BUTTON_WIDTH}
-            href={`/${routes}/[id]`}
-            as={`/${routes}/${order.id}`}
-          />
-        </S.ButtonContainer>
-      </S.Warpper>
-      <S.Padding />
+        <S.Tag color={colorMap[order.status]} />
+      </S.FirstLine>
+      <HorizontalBar start={numberComma(order.totalPrice) + '원'} />
+      <S.DiscWrapper>
+        <S.Disc>{dataToString}</S.Disc>
+        <S.Disc>{orderNumber}</S.Disc>
+      </S.DiscWrapper>
+      <S.ButtonContainer>
+        <BoxButton title={statusMap[order.status]} width={BUTTON_WIDTH} />
+        <BoxButton
+          title={'상세보기'}
+          width={BUTTON_WIDTH}
+          href={`/${routes}/[id]`}
+          as={`/${routes}/${order.id}`}
+        />
+      </S.ButtonContainer>
     </S.Container>
   );
 };
