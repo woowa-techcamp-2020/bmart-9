@@ -7,6 +7,8 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import API from '../api';
 import { getToken } from '../utils/cookieParser';
 
+import { TenCardsContainer } from '../components/TenCardsContainer';
+
 const SearchPage = ({
   searchedHistory,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -16,6 +18,8 @@ const SearchPage = ({
     setSearchHistory,
     onLeaveHandler,
   } = useSearch();
+
+
 
   useEffect(() => {
     setSearchHistory(searchedHistory);
@@ -28,14 +32,10 @@ const SearchPage = ({
     <>
       <Header />
       {isSearched ? (
-        <>
-          {searchedProducts.map((product) => (
-            <HorizontalBar key={product.id} start={product.name} />
-          ))}
-        </>
+        <TenCardsContainer start={"검색결과"} products={searchedProducts}></TenCardsContainer>
       ) : (
-        <SearchHistory searchedHistory={searchedHistory} />
-      )}
+          <SearchHistory searchedHistory={searchedHistory} />
+        )}
     </>
   );
 };
