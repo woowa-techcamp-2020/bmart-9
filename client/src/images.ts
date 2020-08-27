@@ -17,4 +17,8 @@ export const Images = {
     'https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/small_4.jpg',
   SMALL_BANNER5:
     'https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/small_5.gif',
+  CART_ICON_MINT:
+    'https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/cart_img_mint.png',
+  CART_ICON_WHITE:
+    'https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/cart_img_white.png',
 };
