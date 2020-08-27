@@ -4,7 +4,7 @@ import comma from '../../utils/numberComma';
 import { ClientCart } from '../../../../shared'
 import { $str } from "../../utils/localization";
 import { useCart } from "../../hooks/useCart";
-import { constants } from 'os';
+import { useUser } from "../../hooks/useUser";
 
 import { Checkbox } from '../Checkbox';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,6 +30,7 @@ const CartItem: React.FC<ClientCart> = ({
   const [tempQuantity, setTempQuantity] = useState<number>(initQuantity);
 
   const { updateCartQuantity, deleteCart, updateCartCheck } = useCart();
+  const { user } = useUser();
   let description: string[] = [
     '',
     '1개 이하로 선택할 수 없습니다.',
@@ -37,7 +38,7 @@ const CartItem: React.FC<ClientCart> = ({
   ];
 
   useEffect(() => {
-    updateCartQuantity(id, tempQuantity);
+    if (user !== null) updateCartQuantity(user.token, id, tempQuantity);
   }, [tempQuantity])
 
   const renderCartPrice = () => {
@@ -95,7 +96,7 @@ const CartItem: React.FC<ClientCart> = ({
     <S.Container>
       <S.cartHeader>
         <Checkbox checkboxId={id} isCheck={check} contents={name}></Checkbox>
-        <S.deleteButton onClick={() => deleteCart(id)}>삭제</S.deleteButton>
+        <S.deleteButton onClick={() => (user && deleteCart(user.token, id))}>삭제</S.deleteButton>
       </S.cartHeader>
       <S.cartBody>
         <S.cartImage src={image}></S.cartImage>

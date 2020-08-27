@@ -32,6 +32,11 @@ export const CardImg: React.FC<Props> = (props: Props) => {
 
   const openCartAction = async (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     event.stopPropagation();
+
+    if (!isLoggedIn) {
+      return notLogggedInHandler();
+    }
+
     openCartAdd(product);
   }
 

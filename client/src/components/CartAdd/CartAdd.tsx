@@ -7,11 +7,13 @@ import { useSnackbar } from '../../hooks/useSnackbar';
 
 import { useCart } from "../../hooks/useCart"
 import { useCartAdd } from "../../hooks/useCartAdd"
+import { useUser } from "../../hooks/useUser"
 import comma from '../../utils/numberComma';
 
 const CartAdd: React.FC = () => {
 	const [count, setCount] = useState(1);
 	const { createCart } = useCart();
+	const { isLoggedIn, user, notLogggedInHandler } = useUser();
 	const { addState, closeCartAdd } = useCartAdd();
 	const { openSnackbar } = useSnackbar();
 	const { name, img, price, id } = addState.product;
@@ -26,8 +28,10 @@ const CartAdd: React.FC = () => {
 	}
 
 	const addAction = () => {
+		if (!isLoggedIn) return notLogggedInHandler();
+
 		openSnackbar('success', `${addState.product.name}을 장바구니에 ${count}개 추가했습니다.`)
-		createCart(addState.product.id, count);
+		if (user !== null) createCart(user.token, addState.product.id, count);
 		closeToggle();
 	}
 
