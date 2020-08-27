@@ -3,23 +3,36 @@ import * as S from './CardContentStyle';
 import { Product } from '../../../../shared';
 import numberComma from '../../utils/numberComma';
 
-// id baseprice discount name price
+type Props = {
+  fontSizePercentage: number
+  product: Product;
+};
 
-export const CardContent: React.FC<Product> = ({
-  id,
-  base_price,
-  name,
-  discount,
-  price,
-}: Product) => {
-
+export const CardContent: React.FC<Props> = (props:Props) => {
+  const { fontSizePercentage, product } = props;
   return (
     <>
       <S.Container>
-        <S.ProductName>{name}</S.ProductName>
-          {discount ? <S.ProductDiscount>{discount}%</S.ProductDiscount> : ''}
-          {base_price ? <S.ProductBasePrice>{numberComma(base_price)}원</S.ProductBasePrice> : ''}
-          <S.ProductPrice>{numberComma(price)}원</S.ProductPrice>
+        <S.ProductName fontSizePercentage={fontSizePercentage}>
+          {product.name}
+        </S.ProductName>
+        {product.discount ? (
+          <S.ProductDiscount fontSizePercentage={fontSizePercentage}>
+            {product.discount}%
+          </S.ProductDiscount>
+        ) : (
+          ''
+        )}
+        {product.base_price ? (
+          <S.ProductBasePrice fontSizePercentage={fontSizePercentage}>
+            {numberComma(product.base_price)}원
+          </S.ProductBasePrice>
+        ) : (
+          ''
+        )}
+        <S.ProductPrice fontSizePercentage={fontSizePercentage}>
+          {numberComma(product.price)}원
+        </S.ProductPrice>
       </S.Container>
     </>
   );

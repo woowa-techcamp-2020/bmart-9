@@ -8,9 +8,10 @@ import Link from 'next/link';
 type CardProps = {
   viewportWidth: number;
   product: Product;
+  fontSizePercentage: number;
 };
 
-const Card: React.FC<CardProps> = ({ viewportWidth, product }: CardProps) => {
+const Card: React.FC<CardProps> = ({ viewportWidth, fontSizePercentage, product }: CardProps) => {
   if (!product) {
     return null;
   }
@@ -20,7 +21,7 @@ const Card: React.FC<CardProps> = ({ viewportWidth, product }: CardProps) => {
     <Link href="/product/[id]" as={`/product/${id}`}>
       <S.Container viewportWidth={viewportWidth}>
         <CardImg viewportWidth={viewportWidth} product={product} />
-        <CardContent {...product} />
+        <CardContent product ={product} fontSizePercentage={fontSizePercentage}/>
       </S.Container>
     </Link>
   );

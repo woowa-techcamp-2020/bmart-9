@@ -12,6 +12,7 @@ type HorizontalSliderProps = {
 };
 
 const HORIZONTAL_CARD_VIEWPORT_WIDTH = 40;
+const SIX_CARDS_CONTAINER_CARD_FONT_SIZE_PERCENTAGE = 75;
 
 const HorizontalSlider: React.FC<HorizontalSliderProps> = ({
   start,
@@ -28,6 +29,7 @@ const HorizontalSlider: React.FC<HorizontalSliderProps> = ({
               key={product.id}
               product={product}
               viewportWidth={HORIZONTAL_CARD_VIEWPORT_WIDTH}
+              fontSizePercentage={SIX_CARDS_CONTAINER_CARD_FONT_SIZE_PERCENTAGE}
             />
           ))}
       </S.Container>

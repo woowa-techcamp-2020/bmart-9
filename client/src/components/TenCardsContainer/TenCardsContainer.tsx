@@ -12,6 +12,7 @@ type TenCardsContainerProps = {
 };
 
 const TEN_CARDS_CONTAINER_CARD_VIEWPORT_WIDTH = 48;
+const SIX_CARDS_CONTAINER_CARD_FONT_SIZE_PERCENTAGE = 80;
 
 const TenCardsContainer: React.FC<TenCardsContainerProps> = ({
   start,
@@ -29,6 +30,7 @@ const TenCardsContainer: React.FC<TenCardsContainerProps> = ({
                 <Card
                   product={product}
                   viewportWidth={TEN_CARDS_CONTAINER_CARD_VIEWPORT_WIDTH}
+                  fontSizePercentage={SIX_CARDS_CONTAINER_CARD_FONT_SIZE_PERCENTAGE}
                 />
               </S.CardWrapper>
             ))}
