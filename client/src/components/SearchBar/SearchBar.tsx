@@ -16,7 +16,7 @@ const SearchBar: React.FC<Props> = ({}: Props) => {
       <Link href="/search">
         <S.InputWrapper>
           🔍
-          <S.Input placeholder="B마트 상품을 검색해보세요!" />
+          <S.Input disabled placeholder="B마트 상품을 검색해보세요!" />
         </S.InputWrapper>
       </Link>
     );

@@ -20,11 +20,11 @@ passport.use(
 
       const createUserId = await UserRepo.createWithSocial({
         socialId: profile.id,
-        name: profile.displayName,
+        name: profile.displayName || profile.username,
       });
 
       const token = await createJWT(createUserId);
-      return cb(null, null, token);
+      return cb(null, token, token);
     }
   )
 );

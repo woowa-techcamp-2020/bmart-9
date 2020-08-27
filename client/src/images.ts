@@ -7,4 +7,14 @@ export const Images = {
     'https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/bmart-logo.png',
   EMPTY_CART:
     'https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/empty.png',
+  SMALL_BANNER1:
+    'https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/small_1.jpg',
+  SMALL_BANNER2:
+    'https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/small_2.jpg',
+  SMALL_BANNER3:
+    'https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/small_3.jpg',
+  SMALL_BANNER4:
+    'https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/small_4.jpg',
+  SMALL_BANNER5:
+    'https://bmart-9.s3.ap-northeast-2.amazonaws.com/public/small_5.gif',
 };

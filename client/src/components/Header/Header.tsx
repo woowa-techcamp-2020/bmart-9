@@ -8,20 +8,34 @@ import { SearchBar } from '../SearchBar';
 import { Images } from '../../images';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBars,
+  faArrowLeft,
+  faBoxOpen,
+} from '@fortawesome/free-solid-svg-icons';
 import { IconButton } from '../IconButton';
 import { useUser } from '../../hooks/useUser';
+import { getSocket } from '../../utils/socket';
 
 type Props = {
   title?: string;
 };
 
 const Header: React.FC<Props> = ({ title }: Props) => {
-  const { pathname, back } = useRouter();
+  const { pathname, back, push } = useRouter();
   const inputVisiblePath = new Set(['/', '/search']);
   const [open, setOpen] = useState(false);
-  const { isAmdin } = useUser();
+  const { isAmdin, user } = useUser();
   const toggleOpen = () => setOpen(!open);
+
+  //TODO
+  const onReuquestOrder = () => {
+    if (user) {
+      const socket = getSocket(user.id);
+      socket.emit('ORDER_REQUESTED', `${user.name}님이 주문을 요청했습니다`);
+      push('/');
+    }
+  };
 
   return (
     <S.Container>
@@ -35,7 +49,7 @@ const Header: React.FC<Props> = ({ title }: Props) => {
               <a>어듬인</a>
             </Link>
           ) : (
-            ' '
+            <IconButton icon={faBoxOpen} onClickHandler={onReuquestOrder} />
           )
         }
         center={
