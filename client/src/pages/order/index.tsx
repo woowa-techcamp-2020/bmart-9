@@ -3,10 +3,8 @@ import { Header } from '../../components/Header';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import API, { baseURL } from '../../api';
 import { getToken } from '../../utils/cookieParser';
-import { Order, SocketMessage } from '../../../../shared';
+import { Order } from '../../../../shared';
 import { OrderItem } from '../../components/OrderItem';
-import { useUser } from '../../hooks/useUser';
-import { getSocket } from '../../utils/socket';
 
 const orders: Order[] = [
   {
@@ -42,33 +40,15 @@ const orders: Order[] = [
   },
 ];
 
-const AdminPage = ({
+const OrderPage = ({
   searchedHistory,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { user, notAdminHandler } = useUser();
-
-  useEffect(() => {
-    notAdminHandler();
-  }, []);
-
-  const onSendMessage = () => {
-    if (user) {
-      const socket = getSocket(user.id);
-      const message: SocketMessage = {
-        userId: user.id,
-        message: '상품이 발송되었습니다',
-        receiverId: 2,
-      };
-      socket.emit('ADMIN_SEND_MESSAGE', message);
-    }
-  };
   return (
     <>
-      <Header title={'관리자'} />
+      <Header title={'주문내역'} />
       {orders.map((order) => (
-        <OrderItem key={order.id} order={order} isAdmin={true} />
+        <OrderItem key={order.id} order={order} />
       ))}
-      <button onClick={onSendMessage}>상품발송하기</button>
     </>
   );
 };
@@ -85,4 +65,4 @@ export const getServerSideProps = async ({
   };
 };
 
-export default AdminPage;
+export default OrderPage;

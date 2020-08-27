@@ -9,6 +9,7 @@ import { MAIN_GREEN, MAIN_RED, MAIN_COLOR1 } from '../../styles/GlobalStyle';
 
 type Props = {
   order: Order;
+  isAdmin?: boolean;
 };
 
 const dayMap = ['일', '월', '화', '수', '목', '금', '토'];
@@ -26,11 +27,13 @@ const colorMap = {
 
 const BUTTON_WIDTH = '49%';
 
-const OrderItem: React.FC<Props> = ({ order }: Props) => {
+const OrderItem: React.FC<Props> = ({ order, isAdmin = false }: Props) => {
   const date = new Date(order.createdAt);
   const dataToString = `${date.getMonth()}/${date.getDate()} (${
     dayMap[date.getDay()]
   }) ${order.userName}의 주문`;
+
+  const routes = isAdmin ? 'admin' : 'order';
 
   return (
     <S.Container>
@@ -43,7 +46,12 @@ const OrderItem: React.FC<Props> = ({ order }: Props) => {
         <HorizontalBar end={numberComma(order.totalPrice) + '원'} />
         <S.ButtonContainer>
           <BoxButton title={statusMap[order.status]} width={BUTTON_WIDTH} />
-          <BoxButton title={'상세보기'} width={BUTTON_WIDTH} />
+          <BoxButton
+            title={'상세보기'}
+            width={BUTTON_WIDTH}
+            href={`/${routes}/[id]`}
+            as={`/${routes}/${order.id}`}
+          />
         </S.ButtonContainer>
       </S.Warpper>
       <S.Padding />

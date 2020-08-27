@@ -10,13 +10,9 @@ const COMPANY_LONGITUDE = 127.113063;
 const OrderDetailPage = ({
   productInfo,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  if (!productInfo) {
-    return null;
-  }
-
   return (
     <>
-      <Header title={productInfo.category2} />
+      <Header title={'주문내역'} />
       <OrderMap latitude={COMPANY_LATITUDE} longitude={COMPANY_LONGITUDE} />
     </>
   );
