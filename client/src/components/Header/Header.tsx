@@ -10,6 +10,7 @@ import { Images } from '../../images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { IconButton } from '../IconButton';
+import { useUser } from '../../hooks/useUser';
 
 type Props = {
   title?: string;
@@ -19,7 +20,7 @@ const Header: React.FC<Props> = ({ title }: Props) => {
   const { pathname, back } = useRouter();
   const inputVisiblePath = new Set(['/', '/search']);
   const [open, setOpen] = useState(false);
-
+  const { isAmdin } = useUser();
   const toggleOpen = () => setOpen(!open);
 
   return (
@@ -29,6 +30,10 @@ const Header: React.FC<Props> = ({ title }: Props) => {
         start={
           pathname !== '/' ? (
             <IconButton icon={faArrowLeft} onClickHandler={() => back()} />
+          ) : isAmdin ? (
+            <Link href="/admin">
+              <a>어듬인</a>
+            </Link>
           ) : (
             ' '
           )

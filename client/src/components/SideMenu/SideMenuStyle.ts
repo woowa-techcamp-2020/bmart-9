@@ -9,6 +9,8 @@ export const Container = styled.div<openProps>`
   padding-top: 20px;
   position: fixed;
   z-index: 300;
+  top: 0;
+  bottom: 0;
   width: 100vw;
   height: 100vh;
   background-color: white;

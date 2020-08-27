@@ -6,11 +6,17 @@ import API, { TOKEN_KEY, baseURL } from '../api';
 import { useSnackbar } from './useSnackbar';
 import { useFavorite } from './useFavorite';
 
+const ADMIN_ID = 2;
+
 export const useUser = (toggleSideBar?: () => void) => {
   const [user, dispatch] = useCreator(UserContexts);
   const router = useRouter();
   const { openSnackbar } = useSnackbar();
   const { emptyFavorite, fetchFavorite } = useFavorite();
+
+  const isLoggedIn = user && user.token && user.id ? true : false;
+
+  const isAmdin = isLoggedIn && user!.id === ADMIN_ID;
 
   const authHandler = () => {
     const win = window.open(`${baseURL}3000/api/auth/github`) as Window;
@@ -27,7 +33,6 @@ export const useUser = (toggleSideBar?: () => void) => {
 
           Cookie.set(TOKEN_KEY, token);
           signIn(token);
-          router.push('/');
         }
       } catch (error) {}
     }, 500);
@@ -35,8 +40,10 @@ export const useUser = (toggleSideBar?: () => void) => {
 
   const signIn = async (token: string) => {
     const user = await API.User.getCurrentUser(token);
+    Cookie.set(TOKEN_KEY, token);
     dispatch({ type: 'SET_USER', user: { ...user, token } });
     await fetchFavorite(token);
+    router.push('/');
     toggleSideBar && toggleSideBar();
   };
 
@@ -45,10 +52,9 @@ export const useUser = (toggleSideBar?: () => void) => {
     Cookie.remove(TOKEN_KEY);
     dispatch({ type: 'SET_USER', user: null });
     emptyFavorite();
+    router.push('/');
     toggleSideBar && toggleSideBar();
   };
-
-  const isLoggedIn = user && user.token && user.id ? true : false;
 
   const notLogggedInHandler = () => {
     const token = localStorage.getItem(TOKEN_KEY);
@@ -61,12 +67,30 @@ export const useUser = (toggleSideBar?: () => void) => {
     router.push('/');
   };
 
+  const notAdminHandler = () => {
+    const token = localStorage.getItem(TOKEN_KEY);
+
+    if (!token || !isLoggedIn) {
+      openSnackbar('warning', '로그인이 필요합니다');
+      router.push('/');
+      return;
+    }
+
+    if (user && user.id !== ADMIN_ID) {
+      openSnackbar('warning', '관리자만 접근가능합니다');
+      router.push('/');
+      return;
+    }
+  };
+
   return {
+    isAmdin,
     isLoggedIn,
     user,
     signIn,
     signOut,
     authHandler,
     notLogggedInHandler,
+    notAdminHandler,
   };
 };

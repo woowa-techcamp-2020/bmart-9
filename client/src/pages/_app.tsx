@@ -9,6 +9,7 @@ import { useProduct } from '../hooks/useProduct';
 import { useSnackbar } from '../hooks/useSnackbar';
 import { Snackbar } from '../components/Snackbar';
 import { useUser } from '../hooks/useUser';
+import { getSocket } from '../utils/getSocket';
 
 type InitialProps = {
   category: Category[];
@@ -18,12 +19,17 @@ type InitialProps = {
 const InitializeStore: React.FC<InitialProps> = ({
   children,
   category,
-  products
+  products,
 }) => {
   const { signIn } = useUser();
   useCategory(category);
   useProduct(products);
-  useSnackbar();
+  const { openSnackbar } = useSnackbar();
+  const socket = getSocket();
+  socket.on('sayHello', (data: string) => {
+    console.log('hello');
+    openSnackbar('success', data);
+  });
 
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_KEY);
@@ -39,14 +45,12 @@ const MyApp = ({
   Component,
   pageProps,
   category,
-  products
+  products,
 }: AppProps & InitialProps) => {
-
-
   return (
     <>
       {CombinedProviders(
-        <InitializeStore category={category} products={products} >
+        <InitializeStore category={category} products={products}>
           <GlobalStyle />
           <Component {...pageProps} />
           <Snackbar />
