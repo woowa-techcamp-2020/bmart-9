@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import cors from 'cors';
 import passport from 'passport';
+import { connectSocket } from './socket';
 
 import router from './routes';
 import { errorHandler } from './middlewares/error-handler';
@@ -37,4 +38,4 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-export default app;
+export default connectSocket(app);
