@@ -33,9 +33,9 @@ export const HeartIcon = styled(FontAwesomeIcon)<likeProps>`
   padding: 10px;
   position: absolute;
   font-size: 40px;
-  bottom: 10px;
-  right: 10px;
-  opacity: 0.6;
+  bottom: 4vw;
+  right: 4vw;
+  opacity: 0.8;
 
   transition: all 100ms ease;
   &:active {
