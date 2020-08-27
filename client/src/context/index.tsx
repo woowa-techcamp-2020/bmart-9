@@ -7,6 +7,7 @@ import { SnackbarProvider } from './SnackbarContext';
 import { SearchProvider } from './SearchContext';
 import { CartAddProvider } from './CartAddContext';
 import { FavoriteProvider } from './FavoriteContext';
+import { OrderProvider } from './OrderContext';
 
 export const CombinedProviders = CombineProviderApp(
   CategoryProvider,
@@ -16,5 +17,6 @@ export const CombinedProviders = CombineProviderApp(
   SnackbarProvider,
   SearchProvider,
   CartAddProvider,
-  FavoriteProvider
+  FavoriteProvider,
+  OrderProvider
 );
