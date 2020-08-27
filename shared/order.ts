@@ -27,6 +27,8 @@ export type OrderDetail = {
   totalPrice: number;
   status: "requested" | "dispatched" | "delivered";
   createdAt: string;
+  longitude: number;
+  latitude: number;
 };
 
 export type CreateOrderBody = {
