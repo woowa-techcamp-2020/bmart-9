@@ -9,12 +9,14 @@ type FourCardsContainerProps = {
   start?: any;
   end?: any;
   products: Product[];
+  fontWeight?:string
 };
 
 const FourCardsContainer: React.FC<FourCardsContainerProps> = ({
   start,
   end,
   products,
+  fontWeight,
 }: FourCardsContainerProps) => {
   const [card, setCard] = useState(products[0]);
 
@@ -25,7 +27,7 @@ const FourCardsContainer: React.FC<FourCardsContainerProps> = ({
   return (
     <>
       <MainContainer>
-        {(start || end) && <HorizontalBar start={start} end={end} />}
+        {(start || end) && <HorizontalBar fontWeight={fontWeight} start={start} end={end} />}
         <S.Container>
           {products &&
             products.map((product) => (

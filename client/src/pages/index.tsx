@@ -47,6 +47,7 @@ const IndexPage = ({
             />
             <SixCardsContainer
               start={'지금 뭐 먹지?'}
+              fontWeight={'normal'}
               products={products.slice(44, 68)}
             />
             <HorizontalSlider
