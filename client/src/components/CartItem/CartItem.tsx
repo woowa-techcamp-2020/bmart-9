@@ -67,31 +67,6 @@ const CartItem: React.FC<ClientCart> = ({
     }
   }
 
-  const renderMinusButton = () => {
-    if (tempQuantity > 1) {
-      return <><S.CartQuantityMinus count={tempQuantity} onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
-        <FontAwesomeIcon icon={faMinus} />
-      </S.CartQuantityMinus></>
-    } else {
-      return <><S.CartQuantityMinus disabled count={tempQuantity}>
-        <FontAwesomeIcon icon={faMinus} />
-      </S.CartQuantityMinus></>
-    }
-  }
-  const renderPlusButton = () => {
-    if (tempQuantity < 99) {
-      return <>
-        <S.CartQuantityPlus count={tempQuantity} onClick={() => tempQuantity < 99 && setTempQuantity(tempQuantity + 1)}>
-          <FontAwesomeIcon icon={faPlus} />
-        </S.CartQuantityPlus></>
-    } else {
-      return <>
-        <S.CartQuantityPlus count={tempQuantity} disabled>
-          <FontAwesomeIcon icon={faPlus} />
-        </S.CartQuantityPlus></>
-    }
-  }
-
   return (
     <S.Container>
       <S.cartHeader>
@@ -104,9 +79,13 @@ const CartItem: React.FC<ClientCart> = ({
           {renderCartPrice()}
           <S.cartDescription>{description[currDisc]}</S.cartDescription>
           <S.cartQuantityWrapper>
-            {renderMinusButton()}
+            <S.CartQuantityMinus disabled={tempQuantity === 1} count={tempQuantity} onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
+              <FontAwesomeIcon icon={faMinus} />
+            </S.CartQuantityMinus>
             <S.CartQuantity>{tempQuantity}</S.CartQuantity>
-            {renderPlusButton()}
+            <S.CartQuantityPlus disabled={tempQuantity === 99} count={tempQuantity} onClick={() => tempQuantity < 99 && setTempQuantity(tempQuantity + 1)}>
+              <FontAwesomeIcon icon={faPlus} />
+            </S.CartQuantityPlus>
           </S.cartQuantityWrapper>
         </S.cartPriceWrapper>
       </S.cartBody>
