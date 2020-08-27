@@ -14,8 +14,10 @@ const OrderMapMarker: React.FC<Props> = ({
   latitude,
   longitude,
 }: Props) => {
+  const COMPANY_LATITUDE = 37.516675;
+  const COMPANY_LONGITUDE = 127.113063;
   return (
-    <Marker latitude={latitude} longitude={longitude}>
+    <Marker latitude={COMPANY_LATITUDE} longitude={COMPANY_LONGITUDE}>
       <S.Pin zoom={zoom} src={Images.MAIN_LOGO} />
     </Marker>
   );
