@@ -108,7 +108,7 @@ export const useCart = () => {
     });
     const result = await Promise.all(promiseList);
 
-    openSnackbar("success", `선택된 상품 ${promiseList.length}개를 삭제했습니다.`);
+
     dispatch({ type: 'SET_CLIENT_CART_LIST', cartList: newCartList });
   }
 
