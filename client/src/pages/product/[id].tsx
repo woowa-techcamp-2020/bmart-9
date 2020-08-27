@@ -3,7 +3,7 @@ import API from '../../api';
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
 import { Header } from '../../components/Header';
 import { BigCard } from '../../components/BigCard';
-import * as S from './ProductStyle';
+import * as S from '../../styles/ProductStyle';
 import { ProductDetail } from '../../components/ProductDetail';
 
 const ProductDetailPage = ({
@@ -18,7 +18,7 @@ const ProductDetailPage = ({
       <Header title={productInfo.category2} />
       <S.Container>
         <BigCard product={productInfo} />
-        <ProductDetail/>
+        <ProductDetail />
       </S.Container>
     </>
   );
