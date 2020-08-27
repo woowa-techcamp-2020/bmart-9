@@ -26,16 +26,13 @@ const InitializeStore: React.FC<InitialProps> = ({
   category,
   products,
 }) => {
-  const { user, signIn } = useUser();
+  const { signIn } = useUser();
   useCategory(category);
   useProduct(products);
   useSnackbar();
   useCartAdd();
 
   const { fetchCartList } = useCart();
-  const { openSnackbar } = useSnackbar();
-
-  user && onReceiveHandler(user.id, openSnackbar);
 
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_KEY);

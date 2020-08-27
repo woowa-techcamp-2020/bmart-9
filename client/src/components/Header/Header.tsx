@@ -49,7 +49,7 @@ const Header: React.FC<Props> = ({ title }: Props) => {
               <a>어듬인</a>
             </Link>
           ) : (
-            <IconButton icon={faBoxOpen} onClickHandler={onReuquestOrder} />
+            ' '
           )
         }
         center={

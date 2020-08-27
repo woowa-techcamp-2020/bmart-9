@@ -16,7 +16,7 @@ type Props = {
   toggleOpen: () => void;
 };
 
-const BUTTON_WIDTH = '49%';
+const BUTTON_WIDTH = '45%';
 
 const SideMenu: React.FC<Props> = ({ open, toggleOpen }: Props) => {
   const { isLoggedIn, user, signOut, authHandler } = useUser(toggleOpen);
@@ -27,10 +27,12 @@ const SideMenu: React.FC<Props> = ({ open, toggleOpen }: Props) => {
     return isLoggedIn ? (
       <>
         <HorizontalBar
-          start={<div><div>안녕하세요.</div> <div>{user!.name}님</div></div>}
+          start={
+            <div>
+              <div>안녕하세요.</div> <div>{user!.name}님</div>
+            </div>
+          }
           center=" "
-
-        // end={<IconButton icon={faSignOutAlt} onClickHandler={signOut} />}
         />
         <S.ButtonContainer>
           <BoxButton
@@ -46,11 +48,11 @@ const SideMenu: React.FC<Props> = ({ open, toggleOpen }: Props) => {
         </S.ButtonContainer>
       </>
     ) : (
-        <S.Authentication onClick={authHandler}>
-          <S.GoHome>깃헙으로 로그인하기</S.GoHome>
-          <S.Image src={Images.GITHUB} />
-        </S.Authentication>
-      );
+      <S.Authentication onClick={authHandler}>
+        <S.GoHome>깃헙으로 로그인하기</S.GoHome>
+        <S.Image src={Images.GITHUB} />
+      </S.Authentication>
+    );
   };
 
   const goToHome = () => {
@@ -74,7 +76,7 @@ const SideMenu: React.FC<Props> = ({ open, toggleOpen }: Props) => {
           end={<IconButton icon={faTimes} onClickHandler={toggleOpen} />}
         />
         <HorizontalBar />
-        <HorizontalBar start={renderAuthenticationHandler()} />
+        {renderAuthenticationHandler()}
       </MainContainer>
       <HorizontalBar start={<S.GoHome>카테고리</S.GoHome>} />
       <BoxCategory categories={category} />
