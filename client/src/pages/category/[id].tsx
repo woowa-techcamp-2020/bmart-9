@@ -9,6 +9,7 @@ import { HorizontalSlider } from '../../components/HorizontalSlider';
 import { Header } from '../../components/Header';
 import { TenCardsContainer } from '../../components/TenCardsContainer';
 import { HorizontalBar } from '../../components/HorizontalBar';
+import { SmallBanners } from '../../components/SmallBanners';
 
 const CategoryDetailPage = ({
   categoryInfo,
@@ -38,7 +39,7 @@ const CategoryDetailPage = ({
   return (
     <>
       <Header title={currentCategory.name} />
-
+      <SmallBanners />
       <BoxCategory categories={currentCategory.subCategory} />
       {filteredProducts && (
         <>
