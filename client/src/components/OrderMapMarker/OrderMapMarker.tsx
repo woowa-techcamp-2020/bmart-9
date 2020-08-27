@@ -4,21 +4,19 @@ import { Marker } from 'react-map-gl';
 import { Images } from '../../images';
 
 type Props = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
+  latitude?: number;
+  longitude?: number;
 };
+const COMPANY_LATITUDE = 37.516675;
+const COMPANY_LONGITUDE = 127.113063;
 
 const OrderMapMarker: React.FC<Props> = ({
-  zoom,
-  latitude,
-  longitude,
+  latitude = COMPANY_LATITUDE,
+  longitude = COMPANY_LONGITUDE,
 }: Props) => {
-  const COMPANY_LATITUDE = 37.516675;
-  const COMPANY_LONGITUDE = 127.113063;
   return (
-    <Marker latitude={COMPANY_LATITUDE} longitude={COMPANY_LONGITUDE}>
-      <S.Pin zoom={zoom} src={Images.MAIN_LOGO} />
+    <Marker latitude={latitude} longitude={longitude}>
+      <S.Pin src={Images.MAIN_LOGO} />
     </Marker>
   );
 };
