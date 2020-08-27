@@ -1,4 +1,4 @@
-import {Cart} from './cart'
+import { Cart } from "./cart";
 export type Order = {
   id: number;
   userId: number;
@@ -7,8 +7,8 @@ export type Order = {
   totalPrice: number;
   status: "requested" | "dispatched" | "delivered";
   createdAt: string;
-  longitude:number;
-  latitude:number;
+  longitude: number;
+  latitude: number;
 };
 
 export type OrderProduct = {
@@ -29,8 +29,8 @@ export type OrderDetail = {
   totalPrice: number;
   status: "requested" | "dispatched" | "delivered";
   createdAt: string;
-  longitude:number;
-  latitude:number;
+  longitude: number;
+  latitude: number;
 };
 
 export type CreateOrderBody = {
@@ -42,8 +42,8 @@ export type CreateOrderBody = {
 
 export type CreateOrderDB = {
   createdAt: string;
-  longitude:number;
-  latitude:number;
+  longitude: number;
+  latitude: number;
   userId: number;
   name: string;
   totalPrice: number;
@@ -53,4 +53,3 @@ export type UpdateOrderStatus = {
   id: number;
   status: "requested" | "dispatched" | "delivered";
 };
-
