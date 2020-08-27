@@ -12,10 +12,6 @@ const CartButton: React.FC<Props> = ({ }: Props) => {
 	const { cartTotalCount } = useCart();
 	const { isLoggedIn } = useUser();
 
-	useEffect(() => {
-		renderButton();
-	}, [isLoggedIn])
-
 	const renderButton = () => {
 		if (isLoggedIn) {
 			return <S.Container>
