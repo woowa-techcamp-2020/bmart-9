@@ -1,16 +1,40 @@
 import { Request, Response } from 'express';
 import { OrderRepo } from '../repository/order-repository';
 import { InvalidParamsError } from '../errors/invalid-params';
-import { User, CreateOrderBody, Order, CreateOrderDB, Cart, UpdateOrderStatus } from '../../../shared';
+import {
+  User,
+  CreateOrderBody,
+  Order,
+  CreateOrderDB,
+  Cart,
+  UpdateOrderStatus,
+} from '../../../shared';
 
 // 검색
+export const getOneOrder = async (req: Request, res: Response) => {
+  const orderId = Number(req.params.orderId);
+  if (typeof orderId !== 'number' || orderId <= 0) {
+    throw new InvalidParamsError('orderId');
+  }
+  const [order, _] = await OrderRepo.findOne(orderId);
+  res.json(order);
+};
+
+export const getAllOrdersByAdmin = async (req: Request, res: Response) => {
+  const order = await OrderRepo.findAllByAdmin();
+  res.json(order);
+};
+
 export const getAllOrder = async (req: Request, res: Response) => {
   const userId = (req.user as User).id;
   const OrderList = await OrderRepo.findAll(userId);
   res.json(OrderList);
 };
 
-export const getAllOrderProdutdsByOrderId = async (req: Request, res: Response) => {
+export const getAllOrderProdutdsByOrderId = async (
+  req: Request,
+  res: Response
+) => {
   const orderId = Number(req.params.orderId);
   if (typeof orderId !== 'number' || orderId <= 0) {
     throw new InvalidParamsError('orderId');
@@ -24,15 +48,19 @@ export const createOrder = async (req: Request, res: Response) => {
   const userId = (req.user as User).id;
   const orderCreateParams: CreateOrderBody = req.body;
 
-  let name = ''
+  let name = '';
   if (orderCreateParams.cartList.length > 1) {
-    name = `${orderCreateParams.cartList[0].name} 외 ${orderCreateParams.cartList.length - 1}개`;
+    name = `${orderCreateParams.cartList[0].name} 외 ${
+      orderCreateParams.cartList.length - 1
+    }개`;
   } else {
     name = `${orderCreateParams.cartList[0].name}`;
   }
 
   let totalPrice = 0;
-  orderCreateParams.cartList.forEach((cart) => totalPrice += cart.price * cart.quantity);
+  orderCreateParams.cartList.forEach(
+    (cart) => (totalPrice += cart.price * cart.quantity)
+  );
 
   const newOrderParams: CreateOrderDB = {
     createdAt: orderCreateParams.createdAt,
@@ -40,15 +68,18 @@ export const createOrder = async (req: Request, res: Response) => {
     latitude: orderCreateParams.latitude,
     userId: userId,
     name: name,
-    totalPrice: totalPrice
-  }
+    totalPrice: totalPrice,
+  };
 
   // order추가완료
   const newOrderId = await OrderRepo.create(userId, newOrderParams);
   const newOrder = await OrderRepo.findOne(newOrderId);
 
   // order Products 추가
-  const result = await createOrderProduct(newOrderId, orderCreateParams.cartList);
+  const result = await createOrderProduct(
+    newOrderId,
+    orderCreateParams.cartList
+  );
 
   res.json(newOrder[0]);
 };
@@ -56,7 +87,9 @@ export const createOrder = async (req: Request, res: Response) => {
 const createOrderProduct = async (orderId: number, cartList: Cart[]) => {
   const promiseList: Promise<number>[] = [];
   cartList.forEach((cart) => {
-    promiseList.push(OrderRepo.createOrderProduct(cart.quantity, orderId, cart.productId));
+    promiseList.push(
+      OrderRepo.createOrderProduct(cart.quantity, orderId, cart.productId)
+    );
   });
   const result = await Promise.all(promiseList);
   return result;
@@ -70,5 +103,3 @@ export const updateStatus = async (req: Request, res: Response) => {
   const updatedOrder = await OrderRepo.findOne(orderQuantityParams.id);
   res.json(updatedOrder[0]);
 };
-
-
