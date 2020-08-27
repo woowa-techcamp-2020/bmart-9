@@ -1,15 +1,22 @@
 import styled from 'styled-components';
 import { MAIN_COLOR1, TRANS_TIME } from '../../styles/GlobalStyle';
+const inputVisiblePath = new Set(['/', '/search']);
 
 
-export const Container = styled.div``
-export const Button = styled.button`
+export const Container = styled.div`
+    
+`
+type currPathProps = {
+    pathname: string
+}
+export const Button = styled.button<currPathProps>`
+    display: ${(props) => inputVisiblePath.has(props.pathname) ? 'block' : 'none'};
+    z-index: ${(props) => props.pathname === '/search' ? 100 : 10};
     position: fixed;
     bottom: 20px;
     right: 20px;
     width: 3.5rem;
     height: 3.5rem;
-    z-index: 10;
     font-size: 1.6rem;
     outline: none;
     background-color: rgb(42,193,188);
@@ -18,8 +25,8 @@ export const Button = styled.button`
     padding: 15px;
     border-radius: 100%;
     transition: ${TRANS_TIME};
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.6);
-    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+
     &:active{
         bottom: 17px;
         right: 17px;
@@ -30,6 +37,10 @@ export const Button = styled.button`
             font-size: 0.8rem;
         }
     }
+`
+export const Img = styled.img`
+    width: 100%;
+    z-index:12;
 `
 export const CartCount = styled.div`
     position: absolute;
@@ -45,5 +56,4 @@ export const CartCount = styled.div`
     border-radius: 20px;
     color: rgb(42,193,188);
     background-color: white;
-
 `
