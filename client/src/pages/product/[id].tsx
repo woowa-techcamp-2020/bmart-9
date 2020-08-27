@@ -4,6 +4,7 @@ import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
 import { Header } from '../../components/Header';
 import { BigCard } from '../../components/BigCard';
 import * as S from './ProductStyle';
+import { ProductDetail } from '../../components/ProductDetail';
 
 const ProductDetailPage = ({
   productInfo,
@@ -17,6 +18,7 @@ const ProductDetailPage = ({
       <Header title={productInfo.category2} />
       <S.Container>
         <BigCard product={productInfo} />
+        <ProductDetail/>
       </S.Container>
     </>
   );

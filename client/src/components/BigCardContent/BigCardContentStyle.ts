@@ -13,6 +13,7 @@ export const ProductName = styled.div`
   white-space: normal;
   vertical-align: middle;
   margin-top: 2vw;
+  margin-bottom:1vw;
 `;
 
 export const ProductDiscount = styled.div`
@@ -31,6 +32,7 @@ export const ProductBasePrice = styled.div`
   display: inline-block;
   text-align: start;
   text-decoration: line-through;
+  margin-left:2vw;
 `;
 
 export const ProductPrice = styled.div`

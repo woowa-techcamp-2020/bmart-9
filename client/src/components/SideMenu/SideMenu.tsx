@@ -27,10 +27,10 @@ const SideMenu: React.FC<Props> = ({ open, toggleOpen }: Props) => {
     return isLoggedIn ? (
       <>
         <HorizontalBar
-          start={`안녕하세요. ${user!.name}님`}
+          start={<div><div>안녕하세요.</div> <div>{user!.name}님</div></div>}
           center=" "
 
-          // end={<IconButton icon={faSignOutAlt} onClickHandler={signOut} />}
+        // end={<IconButton icon={faSignOutAlt} onClickHandler={signOut} />}
         />
         <S.ButtonContainer>
           <BoxButton
@@ -46,11 +46,11 @@ const SideMenu: React.FC<Props> = ({ open, toggleOpen }: Props) => {
         </S.ButtonContainer>
       </>
     ) : (
-      <S.Authentication onClick={authHandler}>
-        <S.GoHome>깃헙으로 로그인하기</S.GoHome>
-        <S.Image src={Images.GITHUB} />
-      </S.Authentication>
-    );
+        <S.Authentication onClick={authHandler}>
+          <S.GoHome>깃헙으로 로그인하기</S.GoHome>
+          <S.Image src={Images.GITHUB} />
+        </S.Authentication>
+      );
   };
 
   const goToHome = () => {
