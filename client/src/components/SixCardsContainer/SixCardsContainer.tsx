@@ -11,7 +11,7 @@ type SixCardsContainerProps = {
   products: Product[];
 };
 
-const SIX_CARDS_CONTAINER_CARD_VIEWPORT_WIDTH = 32;
+const SIX_CARDS_CONTAINER_CARD_VIEWPORT_WIDTH = 30;
 const SIX_CARDS_CONTAINER_CARD_FONT_SIZE_PERCENTAGE = 70;
 
 const SixCardsContainer: React.FC<SixCardsContainerProps> = ({

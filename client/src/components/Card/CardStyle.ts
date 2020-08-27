@@ -8,4 +8,5 @@ export const Container = styled.div<CardContainerProps>`
   display: inline-block;
   width: ${(props) => `${props.viewportWidth}vw`};
   vertical-align: top;
+  margin: 0 1vw;
 `;
