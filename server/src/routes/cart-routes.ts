@@ -1,22 +1,25 @@
 import { Router } from 'express';
 import { validateBody } from '../middlewares/validate-body';
-
+import { decodeJWT } from '../middlewares/decode-jwt';
 import { CreateCartBody, CartQuantity } from '../../../shared';
 
-import { getAllCart, updateQuantity, deleteCart, createTestCart } from '../service/cart-service';
+import { getAllCart, getCartByProductId, updateQuantity, deleteCart, createTestCart, createCart } from '../service/cart-service';
 
 const router = Router();
 
-// get all product
-router.get('/', getAllCart);
+// 검색
+router.get('/', decodeJWT, getAllCart);
+router.get('/one/:productId', decodeJWT, getCartByProductId);
+router.get('/test', decodeJWT, createTestCart);
 
-// update cart quantity
-router.put('/quantity', validateBody<CartQuantity>(['id', 'quantity']), updateQuantity);
+// 수정
+router.put('/quantity', decodeJWT, validateBody<CartQuantity>(['id', 'quantity']), updateQuantity);
 
-// delete Cart
-router.delete('/:id', deleteCart);
+// 삭제
+router.delete('/:id', decodeJWT, deleteCart);
 
-router.get('/test/:id', createTestCart);
+// 추가
+router.post('/', decodeJWT, validateBody<CreateCartBody>(['productId', 'quantity']), createCart);
 
 
 

@@ -13,6 +13,13 @@ export type Cart = {
   stock: number;
 };
 
+export type CartDB = {
+  id: number;
+  userId: number;
+  quantity: number;
+  productId: number;
+}
+
 export type ClientCart ={
   id: number;
   userId: number;
@@ -35,9 +42,6 @@ export type CartQuantity = {
 };
 
 export type CreateCartBody = {
-  userId: number;
   productId: number;
   quantity: number;
-  createdAt: string;
-  updatedAt: string;
 };

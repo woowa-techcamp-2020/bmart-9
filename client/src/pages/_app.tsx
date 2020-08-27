@@ -4,12 +4,16 @@ import GlobalStyle from '../styles/GlobalStyle';
 import { CombinedProviders } from '../context';
 import API, { TOKEN_KEY } from '../api';
 import { Category, Product } from '../../../shared';
+
 import { useCategory } from '../hooks/useCategory';
 import { useProduct } from '../hooks/useProduct';
 import { useSnackbar } from '../hooks/useSnackbar';
-import { Snackbar } from '../components/Snackbar';
 import { useUser } from '../hooks/useUser';
-import { getSocket, onReceiveHandler } from '../utils/socket';
+
+import { useCartAdd } from '../hooks/useCartAdd';
+import { Snackbar } from '../components/Snackbar';
+import { CartAdd } from '../components/CartAdd';
+import { onReceiveHandler } from '../utils/socket';
 
 type InitialProps = {
   category: Category[];
@@ -24,6 +28,8 @@ const InitializeStore: React.FC<InitialProps> = ({
   const { user, signIn } = useUser();
   useCategory(category);
   useProduct(products);
+  useSnackbar();
+  useCartAdd();
   const { openSnackbar } = useSnackbar();
 
   user && onReceiveHandler(user.id, openSnackbar);
@@ -53,8 +59,9 @@ const MyApp = ({
       {CombinedProviders(
         <InitializeStore category={category} products={products}>
           <GlobalStyle />
-          <Component {...pageProps} />
           <Snackbar />
+          <CartAdd />
+          <Component {...pageProps} />
         </InitializeStore>
       )}
     </>

@@ -4,7 +4,7 @@ import comma from '../../utils/numberComma';
 import { ClientCart } from '../../../../shared'
 import { $str } from "../../utils/localization";
 import { useCart } from "../../hooks/useCart";
-import { constants } from 'os';
+import { useUser } from "../../hooks/useUser";
 
 import { Checkbox } from '../Checkbox';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,6 +30,7 @@ const CartItem: React.FC<ClientCart> = ({
   const [tempQuantity, setTempQuantity] = useState<number>(initQuantity);
 
   const { updateCartQuantity, deleteCart, updateCartCheck } = useCart();
+  const { user } = useUser();
   let description: string[] = [
     '',
     '1개 이하로 선택할 수 없습니다.',
@@ -37,50 +38,54 @@ const CartItem: React.FC<ClientCart> = ({
   ];
 
   useEffect(() => {
-    updateCartQuantity(id, tempQuantity);
+    if (user !== null) updateCartQuantity(user.token, id, tempQuantity);
   }, [tempQuantity])
+
+  const renderCartPrice = () => {
+    if (discount > 0) {
+      return <>
+        <S.cartPriceFristLine>
+          <S.cartDiscount>{discount}%</S.cartDiscount>
+          <S.cartPrice> ({comma(price)}원)</S.cartPrice>
+        </S.cartPriceFristLine>
+        <S.cartPriceSecondLine>
+          <S.cartTotalBasePrice>
+            {comma(basePrice * tempQuantity)}원
+        </S.cartTotalBasePrice>
+          <S.cartTotalPrice> {comma(price * tempQuantity)}원</S.cartTotalPrice>
+        </S.cartPriceSecondLine>
+      </>
+    } else {
+      return <>
+        <S.cartPriceFristLine>
+          <S.cartPrice> ({comma(price)}원)</S.cartPrice>
+        </S.cartPriceFristLine>
+        <S.cartPriceSecondLine>
+          <S.cartTotalPrice> {comma(price * tempQuantity)}원</S.cartTotalPrice>
+        </S.cartPriceSecondLine>
+      </>
+    }
+  }
 
   return (
     <S.Container>
       <S.cartHeader>
         <Checkbox checkboxId={id} isCheck={check} contents={name}></Checkbox>
-        <S.deleteButton onClick={() => deleteCart(id)}>삭제</S.deleteButton>
+        <S.deleteButton onClick={() => (user && deleteCart(user.token, id))}>삭제</S.deleteButton>
       </S.cartHeader>
       <S.cartBody>
         <S.cartImage src={image}></S.cartImage>
         <S.cartPriceWrapper>
-          {discount > 0 ?
-            <>
-              <S.cartPriceFristLine>
-                <S.cartDiscount>{discount}%</S.cartDiscount>
-                <S.cartPrice> ({comma(price)}원)</S.cartPrice>
-              </S.cartPriceFristLine>
-              <S.cartPriceSecondLine>
-                <S.cartTotalBasePrice>
-                  {comma(basePrice * tempQuantity)}원
-                </S.cartTotalBasePrice>
-                <S.cartTotalPrice> {comma(price * tempQuantity)}원</S.cartTotalPrice>
-              </S.cartPriceSecondLine>
-            </> :
-            <>
-              <S.cartPriceFristLine>
-                <S.cartPrice> ({comma(price)}원)</S.cartPrice>
-              </S.cartPriceFristLine>
-              <S.cartPriceSecondLine>
-                <S.cartTotalPrice> {comma(price * tempQuantity)}원</S.cartTotalPrice>
-              </S.cartPriceSecondLine>
-            </>
-          }
-
+          {renderCartPrice()}
           <S.cartDescription>{description[currDisc]}</S.cartDescription>
           <S.cartQuantityWrapper>
-            <S.cartQuantityMinus onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
+            <S.CartQuantityMinus disabled={tempQuantity === 1} count={tempQuantity} onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
               <FontAwesomeIcon icon={faMinus} />
-            </S.cartQuantityMinus>
-            <S.cartQuantity>{tempQuantity}</S.cartQuantity>
-            <S.cartQuantityPlus onClick={() => tempQuantity < 100 && setTempQuantity(tempQuantity + 1)}>
+            </S.CartQuantityMinus>
+            <S.CartQuantity>{tempQuantity}</S.CartQuantity>
+            <S.CartQuantityPlus disabled={tempQuantity === 99} count={tempQuantity} onClick={() => tempQuantity < 99 && setTempQuantity(tempQuantity + 1)}>
               <FontAwesomeIcon icon={faPlus} />
-            </S.cartQuantityPlus>
+            </S.CartQuantityPlus>
           </S.cartQuantityWrapper>
         </S.cartPriceWrapper>
       </S.cartBody>

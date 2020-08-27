@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import * as S from '../styles/cartPageStyle';
-import { Cart, ClientCart } from '../../../shared';
-import { useCart } from '../hooks/useCart';
-
-import { CartItem } from '../components/CartItem';
-import { Checkbox } from '../components/Checkbox';
-import { HorizontalBar } from '../components/HorizontalBar';
-import { Images } from '../images';
-import comma from '../utils/numberComma';
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 
+import { ClientCart } from '../../../shared';
+import { useCart } from '../hooks/useCart';
+import { useUser } from '../hooks/useUser';
+
+import API from '../api';
+import { getToken } from '../utils/cookieParser';
+import comma from '../utils/numberComma';
+
+import { CartItem } from '../components/CartItem';
+import { HorizontalBar } from '../components/HorizontalBar';
+import { Images } from '../images';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const TRUE = 1;
 const FALSE = 0;
 
-const CartPage = () => {
+const CartPage = ({
+  cartListProps,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const {
     cartList,
     setCartList,
@@ -27,13 +34,52 @@ const CartPage = () => {
 
   const { updateAllCheck, allCheckValue, deleteAllCheck } = useCart();
   const [allCheck, setAllCheck] = useState<number>(allCheckValue());
+
   useEffect(() => {
-    setCartList();
+    setCartList(cartListProps);
   }, []);
+
+  const { user } = useUser();
 
   useEffect(() => {
     setAllCheck(allCheckValue());
   }, [allCheckValue()])
+
+  const renderOrderButton = () => {
+    if (cartCheckedCount() > 0) {
+      return <>
+        <S.OrderButton>
+          <S.OrderButtonCount>{cartCheckedCount()}</S.OrderButtonCount>
+          <S.OrderButtonText>
+            {` ${comma(cartCheckedCost())}`}원 배달 주문 하기
+        </S.OrderButtonText>
+        </S.OrderButton>
+        <S.BottomConcealer />
+      </>
+    } else {
+      return <>
+        <S.EmptyButton>
+          <S.OrderButtonText>
+            최소주문금액을 채워주세요
+      </S.OrderButtonText >
+        </S.EmptyButton >
+        <S.BottomConcealer />
+      </>
+    }
+  }
+
+  const renderDeleteAllButton = () => {
+    if (cartCheckedCount() > 0) {
+      return <S.DeleteAllButton
+        color="main"
+        onClick={() => user && deleteAllCheck(user.token)}>
+        선택 비우기</S.DeleteAllButton>
+    } else {
+      <S.DeleteAllButton color="#ddd" disabled>
+        선택 비우기
+      </S.DeleteAllButton>
+    }
+  }
 
   return (
     <>
@@ -59,21 +105,10 @@ const CartPage = () => {
                       allCheck === TRUE ? updateAllCheck(FALSE) : updateAllCheck(TRUE)
                     }
                   ></S.AllCheckBox>
-                  <S.CheckboxContents>전체 선택</S.CheckboxContents>
+                  <S.CheckboxContents>{allCheck === TRUE ? '선택 해제' : '전체 선택'}</S.CheckboxContents>
                 </label>
               </S.SelectCheckbox>
-              {cartCheckedCount() > 0 ? (
-                <S.DeleteAllButton
-                  color="main"
-                  onClick={() => deleteAllCheck()}
-                >
-                  선택 비우기
-                </S.DeleteAllButton>
-              ) : (
-                  <S.DeleteAllButton color="#ddd" disabled>
-                    선택 비우기
-                  </S.DeleteAllButton>
-                )}
+              {renderDeleteAllButton()}
             </S.SelectWrapper>
             <S.TitleWrapper>
               <S.Title>일반상품</S.Title>
@@ -85,7 +120,7 @@ const CartPage = () => {
             <S.MoreButtonWrapper>
               <Link href="/">
                 <S.TextButton>
-                  + 더 담으러 가기
+                  <FontAwesomeIcon icon={faPlus} /> <span>더 담으러 가기</span>
                 </S.TextButton>
               </Link>
             </S.MoreButtonWrapper>
@@ -94,30 +129,7 @@ const CartPage = () => {
               center={`주문금액 : ${comma(cartCheckedCost())} 원`}
             ></HorizontalBar>
             <S.EmptySpace></S.EmptySpace>
-            <HorizontalBar
-              start={
-                cartCheckedCount() > 0 ? (
-                  <>
-                    <S.OrderButton>
-                      <S.OrderButtonCount>{cartCheckedCount()}</S.OrderButtonCount>
-                      <S.OrderButtonText>
-                        {` ${comma(cartCheckedCost())}`}원 배달 주문 하기
-                      </S.OrderButtonText>
-                    </S.OrderButton>
-                    <S.BottomConcealer />
-                  </>
-                ) : (
-                    <>
-                      <S.EmptyButton>
-                        <S.OrderButtonText>
-                          최소주문금액을 채워주세요
-                      </S.OrderButtonText>
-                      </S.EmptyButton>
-                      <S.BottomConcealer />
-                    </>
-                  )
-              }
-            ></HorizontalBar>
+            <HorizontalBar start={renderOrderButton()} />
           </S.BodyContainer>
         ) : (
             <S.EmptyContainer>
@@ -125,7 +137,7 @@ const CartPage = () => {
                 <S.Img src={Images.EMPTY_CART}></S.Img>
                 <div>장바구니가 텅 비어있어요</div>
               </S.EmptyWrapper>
-              <S.OrderButton onClick={() => createTestCart(3)}>
+              <S.OrderButton onClick={() => (user && createTestCart(user.token))}>
                 <S.OrderButtonText>테스트 장바구니 추가</S.OrderButtonText>
               </S.OrderButton>
             </S.EmptyContainer>
@@ -133,6 +145,21 @@ const CartPage = () => {
       </S.Container>
     </>
   );
+};
+
+
+export const getServerSideProps = async ({
+  req,
+}: GetServerSidePropsContext) => {
+  const token = getToken(req.headers.cookie);
+  const cartListProps = token
+    ? await API.Cart.getAll(token as string)
+    : [];
+  return {
+    props: {
+      cartListProps
+    },
+  };
 };
 
 export default CartPage;

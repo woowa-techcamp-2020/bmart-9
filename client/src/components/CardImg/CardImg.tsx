@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import * as S from './CardImgStyle';
 import { faHeart, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+import { Product } from '../../../../shared';
+import { useCartAdd } from '../../hooks/useCartAdd';
 import { useFavorite } from '../../hooks/useFavorite';
 import { useUser } from '../../hooks/useUser';
 
 type Props = {
-  id: number;
-  imgSrc: string;
-  viewportWidth: number;
+  viewportWidth: number
+  product: Product;
 };
 
-export const CardImg: React.FC<Props> = ({
-  id,
-  imgSrc,
-  viewportWidth,
-}: Props) => {
+export const CardImg: React.FC<Props> = (props: Props) => {
   const { isFavorite, onClickFavoriteHandler } = useFavorite();
   const { user, isLoggedIn, notLogggedInHandler } = useUser();
+  const { viewportWidth, product } = props;
+  const { openCartAdd } = useCartAdd();
+  const [like, setLike] = useState(false);
 
   const toggleLike = async (
     event: React.MouseEvent<SVGSVGElement, MouseEvent>
@@ -27,21 +27,27 @@ export const CardImg: React.FC<Props> = ({
       return notLogggedInHandler();
     }
 
-    await onClickFavoriteHandler(id, user!.token);
+    await onClickFavoriteHandler(product.id, user!.token);
   };
+
+  const openCartAction = async (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    event.stopPropagation();
+
+    if (!isLoggedIn) {
+      return notLogggedInHandler();
+    }
+
+    openCartAdd(product);
+  }
 
   return (
     <>
       <S.Container>
         <S.ImgWrapper>
-          <S.Img src={imgSrc} viewportWidth={viewportWidth} />
+          <S.Img src={product.img} viewportWidth={viewportWidth} />
         </S.ImgWrapper>
-        <S.HeartIcon
-          onClick={toggleLike}
-          icon={faHeart}
-          like={isFavorite(id) ? 'red' : 'white'}
-        />
-        <S.ShoppingBagIcon icon={faShoppingBag} />
+        <S.HeartIcon onClick={toggleLike} icon={faHeart} like={isFavorite(product.id) ? 'red' : 'white'} />
+        <S.ShoppingBagIcon icon={faShoppingBag} onClick={openCartAction} />
       </S.Container>
     </>
   );
