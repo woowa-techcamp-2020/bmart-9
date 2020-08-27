@@ -18,13 +18,8 @@ export const connectSocket = (app: Express): http.Server => {
   };
 
   io.on('connection', (socket) => {
-    console.log('New client connected', socket.id);
+    // console.log('New client connected', socket.id);
     setUser(socket);
-
-    if (interval) {
-      clearInterval(interval);
-    }
-    interval = setInterval(() => getApiAndEmit(socket), 1000);
 
     socket.on(
       'ADMIN_SEND_MESSAGE',
@@ -49,16 +44,8 @@ export const connectSocket = (app: Express): http.Server => {
       socket.broadcast.emit('sayHello', data);
     });
 
-    socket.on('disconnect', () => {
-      clearInterval(interval);
-    });
+    socket.on('disconnect', () => {});
   });
-
-  const getApiAndEmit = (socket) => {
-    const response = new Date();
-    // Emitting a new message. Will be consumed by the client
-    socket.emit('FromAPI', response);
-  };
 
   return server;
 };
