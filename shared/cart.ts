@@ -42,7 +42,6 @@ export type CartQuantity = {
 };
 
 export type CreateCartBody = {
-  userId: number;
   productId: number;
   quantity: number;
 };

@@ -4,7 +4,7 @@ import comma from '../../utils/numberComma';
 import { ClientCart } from '../../../../shared'
 import { $str } from "../../utils/localization";
 import { useCart } from "../../hooks/useCart";
-import { constants } from 'os';
+import { useUser } from "../../hooks/useUser";
 
 import { Checkbox } from '../Checkbox';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,6 +30,7 @@ const CartItem: React.FC<ClientCart> = ({
   const [tempQuantity, setTempQuantity] = useState<number>(initQuantity);
 
   const { updateCartQuantity, deleteCart, updateCartCheck } = useCart();
+  const { user } = useUser();
   let description: string[] = [
     '',
     '1개 이하로 선택할 수 없습니다.',
@@ -37,7 +38,7 @@ const CartItem: React.FC<ClientCart> = ({
   ];
 
   useEffect(() => {
-    updateCartQuantity(id, tempQuantity);
+    if (user !== null) updateCartQuantity(user.token, id, tempQuantity);
   }, [tempQuantity])
 
   const renderCartPrice = () => {
@@ -66,36 +67,11 @@ const CartItem: React.FC<ClientCart> = ({
     }
   }
 
-  const renderMinusButton = () => {
-    if (tempQuantity > 1) {
-      return <><S.CartQuantityMinus count={tempQuantity} onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
-        <FontAwesomeIcon icon={faMinus} />
-      </S.CartQuantityMinus></>
-    } else {
-      return <><S.CartQuantityMinus disabled count={tempQuantity}>
-        <FontAwesomeIcon icon={faMinus} />
-      </S.CartQuantityMinus></>
-    }
-  }
-  const renderPlusButton = () => {
-    if (tempQuantity < 99) {
-      return <>
-        <S.CartQuantityPlus count={tempQuantity} onClick={() => tempQuantity < 99 && setTempQuantity(tempQuantity + 1)}>
-          <FontAwesomeIcon icon={faPlus} />
-        </S.CartQuantityPlus></>
-    } else {
-      return <>
-        <S.CartQuantityPlus count={tempQuantity} disabled>
-          <FontAwesomeIcon icon={faPlus} />
-        </S.CartQuantityPlus></>
-    }
-  }
-
   return (
     <S.Container>
       <S.cartHeader>
         <Checkbox checkboxId={id} isCheck={check} contents={name}></Checkbox>
-        <S.deleteButton onClick={() => deleteCart(id)}>삭제</S.deleteButton>
+        <S.deleteButton onClick={() => (user && deleteCart(user.token, id))}>삭제</S.deleteButton>
       </S.cartHeader>
       <S.cartBody>
         <S.cartImage src={image}></S.cartImage>
@@ -103,9 +79,13 @@ const CartItem: React.FC<ClientCart> = ({
           {renderCartPrice()}
           <S.cartDescription>{description[currDisc]}</S.cartDescription>
           <S.cartQuantityWrapper>
-            {renderMinusButton()}
+            <S.CartQuantityMinus disabled={tempQuantity === 1} count={tempQuantity} onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
+              <FontAwesomeIcon icon={faMinus} />
+            </S.CartQuantityMinus>
             <S.CartQuantity>{tempQuantity}</S.CartQuantity>
-            {renderPlusButton()}
+            <S.CartQuantityPlus disabled={tempQuantity === 99} count={tempQuantity} onClick={() => tempQuantity < 99 && setTempQuantity(tempQuantity + 1)}>
+              <FontAwesomeIcon icon={faPlus} />
+            </S.CartQuantityPlus>
           </S.cartQuantityWrapper>
         </S.cartPriceWrapper>
       </S.cartBody>

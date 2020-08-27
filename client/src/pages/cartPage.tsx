@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import * as S from '../styles/cartPageStyle';
-import { Cart, ClientCart } from '../../../shared';
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import Link from 'next/link';
+
+import { ClientCart } from '../../../shared';
 import { useCart } from '../hooks/useCart';
+import { useUser } from '../hooks/useUser';
+
+import API from '../api';
+import { getToken } from '../utils/cookieParser';
+import comma from '../utils/numberComma';
 
 import { CartItem } from '../components/CartItem';
-import { Checkbox } from '../components/Checkbox';
 import { HorizontalBar } from '../components/HorizontalBar';
 import { Images } from '../images';
-import comma from '../utils/numberComma';
-import Link from 'next/link';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +21,9 @@ import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 const TRUE = 1;
 const FALSE = 0;
 
-const CartPage = () => {
+const CartPage = ({
+  cartListProps,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const {
     cartList,
     setCartList,
@@ -27,9 +34,12 @@ const CartPage = () => {
 
   const { updateAllCheck, allCheckValue, deleteAllCheck } = useCart();
   const [allCheck, setAllCheck] = useState<number>(allCheckValue());
+
   useEffect(() => {
-    setCartList();
+    setCartList(cartListProps);
   }, []);
+
+  const { user } = useUser();
 
   useEffect(() => {
     setAllCheck(allCheckValue());
@@ -62,7 +72,7 @@ const CartPage = () => {
     if (cartCheckedCount() > 0) {
       return <S.DeleteAllButton
         color="main"
-        onClick={() => deleteAllCheck()}>
+        onClick={() => user && deleteAllCheck(user.token)}>
         선택 비우기</S.DeleteAllButton>
     } else {
       <S.DeleteAllButton color="#ddd" disabled>
@@ -127,7 +137,7 @@ const CartPage = () => {
                 <S.Img src={Images.EMPTY_CART}></S.Img>
                 <div>장바구니가 텅 비어있어요</div>
               </S.EmptyWrapper>
-              <S.OrderButton onClick={() => createTestCart(3)}>
+              <S.OrderButton onClick={() => (user && createTestCart(user.token))}>
                 <S.OrderButtonText>테스트 장바구니 추가</S.OrderButtonText>
               </S.OrderButton>
             </S.EmptyContainer>
@@ -135,6 +145,21 @@ const CartPage = () => {
       </S.Container>
     </>
   );
+};
+
+
+export const getServerSideProps = async ({
+  req,
+}: GetServerSidePropsContext) => {
+  const token = getToken(req.headers.cookie);
+  const cartListProps = token
+    ? await API.Cart.getAll(token as string)
+    : [];
+  return {
+    props: {
+      cartListProps
+    },
+  };
 };
 
 export default CartPage;

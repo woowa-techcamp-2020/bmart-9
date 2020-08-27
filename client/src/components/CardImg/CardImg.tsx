@@ -32,6 +32,11 @@ export const CardImg: React.FC<Props> = (props: Props) => {
 
   const openCartAction = async (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     event.stopPropagation();
+
+    if (!isLoggedIn) {
+      return notLogggedInHandler();
+    }
+
     openCartAdd(product);
   }
 
@@ -41,7 +46,7 @@ export const CardImg: React.FC<Props> = (props: Props) => {
         <S.ImgWrapper>
           <S.Img src={product.img} viewportWidth={viewportWidth} />
         </S.ImgWrapper>
-        <S.HeartIcon onClick={toggleLike} icon={faHeart} like={like ? 'red' : 'white'} />
+        <S.HeartIcon onClick={toggleLike} icon={faHeart} like={isFavorite(product.id) ? 'red' : 'white'} />
         <S.ShoppingBagIcon icon={faShoppingBag} onClick={openCartAction} />
       </S.Container>
     </>
