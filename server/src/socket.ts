@@ -32,6 +32,7 @@ export const connectSocket = (app: Express): http.Server => {
           console.error('Receiver is not logged in now');
         }
 
+        console.log(message);
         socket.to(socketUser[receiverId]).emit('RECEIVE_MESSAGE', message);
       }
     );
