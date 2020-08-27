@@ -15,9 +15,6 @@ type CategorizedCardContainerProps = {
   categories: Category[];
 };
 
-const cardContainerElements: any[] = [];
-let navBarOffsetTop: any;
-
 const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   start,
   end,
@@ -26,20 +23,12 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
 }: CategorizedCardContainerProps) => {
   const { getFilteredProductByCategory } = useProduct();
   const [categoryTab, setCategoryTab] = useState();
+  const [navBarFixed, setNavBarFixed] = useState(false);
+  const [navBarInitialOffsetTop, setNavBarInitialOffsetTop] = useState(0);
 
-  const categoryClickHandler = (e: any, cat: any) => {
-    setCategoryTab(cat);
-
-    cardContainerElements
-      .find(
-        (element) => element.dataset.categoryId === e.target.dataset.categoryId
-      )
-      .scrollIntoView({
-        behavior: 'smooth',
-      });
-  };
-
+  const cardContainerElements: any[] = [];
   const PRODUCTS_PER_CATEGORY = 6;
+
   const filteredProducts = categories
     .map((category) => category.id)
     .map((category) =>
@@ -50,24 +39,34 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
     )
     .sort((a, b) => a[0] && a[0].category1_id - b[0].category1_id);
 
+  const categoryClickHandler = (e: any, cat: any) => {
+    setCategoryTab(cat);
+
+    const selectedElement = cardContainerElements.find(
+      (element) => element.dataset.categoryId === e.target.dataset.categoryId
+    );
+
+    window.scrollTo({
+      top: selectedElement.offsetTop - 155,
+      behavior: 'smooth',
+    });
+  };
+
   const getCategoryNameByCategoryId = (categoryId: number) =>
     categories.filter((category) => category.id === categoryId)[0].name;
 
-  // console.log(navBarOffsetTop)
-  // console.log(window.pageYOffset)
-
-  const [navBarFixed, setNavBarFixed] = useState(false);
-
   useEffect(() => {
     window.onscroll = () => {
-      if (window.pageYOffset >= navBarOffsetTop - 100) {
-        console.log(window.pageYOffset)
-        console.log(navBarOffsetTop)
-
+      if (window.pageYOffset >= navBarInitialOffsetTop) {
         setNavBarFixed(true);
-      } else if(window.pageYOffset < navBarOffsetTop +200){
-        
-        setNavBarFixed(false)
+
+        if(window.pageYOffset >= 3000) {
+          // setCategoryTab()
+        }
+
+      }
+      if (window.pageYOffset < navBarInitialOffsetTop) {
+        setNavBarFixed(false);
       }
     };
   });
@@ -75,10 +74,14 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   return (
     <>
       <MainContainer>
-        <S.Container>
+        <S.Container navBarFixed={navBarFixed}>
           <S.CategoryNavBarWrapper
-            ref={(element) => (navBarOffsetTop = element?.offsetTop)}
+            ref={(element: any) => {
+              element?.offsetTop > 500 &&
+                setNavBarInitialOffsetTop(element?.offsetTop - 97);
+            }}
             navBarFixed={navBarFixed}
+            navBarInitialOffsetTop={navBarInitialOffsetTop}
           >
             <CategoryNavBar
               categories={categories}

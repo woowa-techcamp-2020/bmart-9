@@ -12,7 +12,6 @@ export const Container = styled.div`
   background: white;
   padding-bottom: 4px;
   border-bottom: 0.1px solid ${GRAY_002};
-  /* box-shadow: 0 2px 1.5px -1px black; */
 `;
 
 export const Image = styled.img`
