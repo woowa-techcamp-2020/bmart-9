@@ -13,7 +13,7 @@
 
 ### 이렇게 했습니다
 - [우리의 활동 로그](https://github.com/woowa-techcamp-2020/bmart-9/wiki) ~~눈물 주의~~
-- [**리뷰**](https://github.com/woowa-techcamp-2020/bmart-9/pulls?q=is%3Apr+is%3Aclosed) 중심의 협업
+- [**리뷰**](https://github.com/woowa-techcamp-2020/bmart-9/pulls?q=is%3Apr+is%3Aclosed) 중심의 협업 ~~댓글 확인 필수 졸잼~~ 
 
 ## 기술 스택
 
