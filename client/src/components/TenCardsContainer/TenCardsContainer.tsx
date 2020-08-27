@@ -12,7 +12,7 @@ type TenCardsContainerProps = {
 };
 
 const TEN_CARDS_CONTAINER_CARD_VIEWPORT_WIDTH = 48;
-const SIX_CARDS_CONTAINER_CARD_FONT_SIZE_PERCENTAGE = 80;
+const SIX_CARDS_CONTAINER_CARD_FONT_SIZE_PERCENTAGE = 85;
 
 const TenCardsContainer: React.FC<TenCardsContainerProps> = ({
   start,
