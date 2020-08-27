@@ -118,3 +118,8 @@ export const Price = styled.span`
   font-size: 3vh;
   font-weight: bold;
 `
+
+export const EmptySpace = styled.div`
+  width:100vw;
+  height:8vh;
+`
