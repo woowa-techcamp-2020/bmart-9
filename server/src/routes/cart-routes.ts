@@ -21,16 +21,4 @@ router.delete('/:id', decodeJWT, deleteCart);
 // 추가
 router.post('/', decodeJWT, validateBody<CreateCartBody>(['productId', 'quantity']), createCart);
 
-
-
-
-// router.get('/category/:category2_id', getProductByCategory2Id);
-// router.get('/:id', getProductById);
-// // Cart update
-// // router.put('/', updateProduct);
-
-// // Cart create
-// router.post('/', validateBody<CreateCartBody>(["name", 'discount', 'image', 'price', 'basePrice', 'stock', 'createdAt', 'updatedAt', 'category2Id']), createProduct);
-
-
 export default router;

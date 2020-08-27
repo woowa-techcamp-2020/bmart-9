@@ -79,11 +79,11 @@ const CartItem: React.FC<ClientCart> = ({
           {renderCartPrice()}
           <S.cartDescription>{description[currDisc]}</S.cartDescription>
           <S.cartQuantityWrapper>
-            <S.CartQuantityMinus disabled={tempQuantity === 1} count={tempQuantity} onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
+            <S.CartQuantityMinus disabled={tempQuantity <= 1} count={tempQuantity} onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
               <FontAwesomeIcon icon={faMinus} />
             </S.CartQuantityMinus>
             <S.CartQuantity>{tempQuantity}</S.CartQuantity>
-            <S.CartQuantityPlus disabled={tempQuantity === 99} count={tempQuantity} onClick={() => tempQuantity < 99 && setTempQuantity(tempQuantity + 1)}>
+            <S.CartQuantityPlus disabled={tempQuantity >= 99} count={tempQuantity} onClick={() => tempQuantity < 99 && setTempQuantity(tempQuantity + 1)}>
               <FontAwesomeIcon icon={faPlus} />
             </S.CartQuantityPlus>
           </S.cartQuantityWrapper>

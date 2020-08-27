@@ -5,6 +5,7 @@ import User from './user';
 import Image from './image';
 import Search from './search';
 import Favorite from './favorite';
+import Order from './order';
 
 export * from './bmart';
 
@@ -16,4 +17,5 @@ export default {
   Image,
   Search,
   Favorite,
+  Order
 };
