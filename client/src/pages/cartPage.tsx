@@ -11,7 +11,7 @@ import comma from '../utils/numberComma';
 import Link from 'next/link';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const TRUE = 1;
 const FALSE = 0;
@@ -34,6 +34,42 @@ const CartPage = () => {
   useEffect(() => {
     setAllCheck(allCheckValue());
   }, [allCheckValue()])
+
+  const renderOrderButton = () => {
+    if (cartCheckedCount() > 0) {
+      return <>
+        <S.OrderButton>
+          <S.OrderButtonCount>{cartCheckedCount()}</S.OrderButtonCount>
+          <S.OrderButtonText>
+            {` ${comma(cartCheckedCost())}`}원 배달 주문 하기
+        </S.OrderButtonText>
+        </S.OrderButton>
+        <S.BottomConcealer />
+      </>
+    } else {
+      return <>
+        <S.EmptyButton>
+          <S.OrderButtonText>
+            최소주문금액을 채워주세요
+      </S.OrderButtonText >
+        </S.EmptyButton >
+        <S.BottomConcealer />
+      </>
+    }
+  }
+
+  const renderDeleteAllButton = () => {
+    if (cartCheckedCount() > 0) {
+      return <S.DeleteAllButton
+        color="main"
+        onClick={() => deleteAllCheck()}>
+        선택 비우기</S.DeleteAllButton>
+    } else {
+      <S.DeleteAllButton color="#ddd" disabled>
+        선택 비우기
+      </S.DeleteAllButton>
+    }
+  }
 
   return (
     <>
@@ -59,21 +95,10 @@ const CartPage = () => {
                       allCheck === TRUE ? updateAllCheck(FALSE) : updateAllCheck(TRUE)
                     }
                   ></S.AllCheckBox>
-                  <S.CheckboxContents>전체 선택</S.CheckboxContents>
+                  <S.CheckboxContents>{allCheck === TRUE ? '선택 해제' : '전체 선택'}</S.CheckboxContents>
                 </label>
               </S.SelectCheckbox>
-              {cartCheckedCount() > 0 ? (
-                <S.DeleteAllButton
-                  color="main"
-                  onClick={() => deleteAllCheck()}
-                >
-                  선택 비우기
-                </S.DeleteAllButton>
-              ) : (
-                  <S.DeleteAllButton color="#ddd" disabled>
-                    선택 비우기
-                  </S.DeleteAllButton>
-                )}
+              {renderDeleteAllButton()}
             </S.SelectWrapper>
             <S.TitleWrapper>
               <S.Title>일반상품</S.Title>
@@ -85,7 +110,7 @@ const CartPage = () => {
             <S.MoreButtonWrapper>
               <Link href="/">
                 <S.TextButton>
-                  + 더 담으러 가기
+                  <FontAwesomeIcon icon={faPlus} /> <span>더 담으러 가기</span>
                 </S.TextButton>
               </Link>
             </S.MoreButtonWrapper>
@@ -94,30 +119,7 @@ const CartPage = () => {
               center={`주문금액 : ${comma(cartCheckedCost())} 원`}
             ></HorizontalBar>
             <S.EmptySpace></S.EmptySpace>
-            <HorizontalBar
-              start={
-                cartCheckedCount() > 0 ? (
-                  <>
-                    <S.OrderButton>
-                      <S.OrderButtonCount>{cartCheckedCount()}</S.OrderButtonCount>
-                      <S.OrderButtonText>
-                        {` ${comma(cartCheckedCost())}`}원 배달 주문 하기
-                      </S.OrderButtonText>
-                    </S.OrderButton>
-                    <S.BottomConcealer />
-                  </>
-                ) : (
-                    <>
-                      <S.EmptyButton>
-                        <S.OrderButtonText>
-                          최소주문금액을 채워주세요
-                      </S.OrderButtonText>
-                      </S.EmptyButton>
-                      <S.BottomConcealer />
-                    </>
-                  )
-              }
-            ></HorizontalBar>
+            <HorizontalBar start={renderOrderButton()} />
           </S.BodyContainer>
         ) : (
             <S.EmptyContainer>

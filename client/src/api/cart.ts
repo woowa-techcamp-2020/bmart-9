@@ -1,10 +1,15 @@
 import { bmart } from './bmart';
-import { Cart, CartQuantity } from '../../../shared';
+import { Cart, CartQuantity, CreateCartBody, CartDB } from '../../../shared';
 
 const getAll = async () => {
     const { data } = await bmart.get<Cart[]>(`/cart`);
     return data;
 };
+
+const getByProductId = async (productId: number) => {
+    const { data } = await bmart.get<CartDB[]>(`/cart/one/${productId}`);
+    return data;
+}
 
 const update = async (updatedCart: Cart) => {
     const { data } = await bmart.put<Cart>(`/cart`, updatedCart);
@@ -28,11 +33,11 @@ const deleteCart = async (id: number) => {
     return data;
 }
 
-const create = async () => {
-    const { data } = await bmart.post<Cart[]>(`/cart`);
-
+const create = async (cartParams: CreateCartBody) => {
+    const { data } = await bmart.post<Cart>(`/cart`, cartParams);
     return data;
 }
+
 
 export default {
     getAll,
@@ -41,4 +46,5 @@ export default {
     create,
     updateQuantity,
     createTestCart,
+    getByProductId
 }

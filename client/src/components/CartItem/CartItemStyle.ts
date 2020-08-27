@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MAIN_COLOR1, FONT_SIZE_LARGE, FONT_SIZE_MIDEUM, FONT_SIZE_SMALL, MAIN_RED } from '../../styles/GlobalStyle';
+import { MAIN_COLOR1, FONT_SIZE_LARGE, FONT_SIZE_MIDEUM, FONT_SIZE_SMALL, MAIN_RED, GRAY_003 } from '../../styles/GlobalStyle';
 
 
 export const Container = styled.div`
@@ -69,7 +69,7 @@ export const cartImage = styled.img`
     border-radius:5px;
 `;
 export const cartDiscount = styled.span`
-    color:red;
+    color: ${MAIN_RED};
     font-weight: bold;
     font-size: ${FONT_SIZE_MIDEUM};
 `;
@@ -110,19 +110,25 @@ export const cartQuantityWrapper = styled.div`
     justify-self: start;
     align-self: center;
     margin: 5px;
-    text-align: justify;
+    text-align: center;
 `;
 
-export const cartQuantityMinus = styled.button`
+type countButtonProps = {
+    count: number
+}
+export const CartQuantityMinus = styled.button<countButtonProps>`
+    font-size: 2vh;
     outline: none;
     transition: 0.1s;
-    color:${MAIN_RED};
+    color:${(props) => props.count > 1 ? MAIN_RED : GRAY_003};
 `;
-export const cartQuantity = styled.span`
-
+export const CartQuantity = styled.span`
+    font-size: 2.4vh;
+    width: 6vw;
 `;
-export const cartQuantityPlus = styled.button`
+export const CartQuantityPlus = styled.button<countButtonProps>`
+    font-size: 2vh;
     outline: none;
     transition: 0.1s;
-    color:${MAIN_COLOR1};
+    color:${(props) => props.count < 99 ? MAIN_COLOR1 : GRAY_003};
 `;

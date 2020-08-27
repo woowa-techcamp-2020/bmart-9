@@ -14,12 +14,12 @@ const Card: React.FC<CardProps> = ({ viewportWidth, product }: CardProps) => {
   if (!product) {
     return null;
   }
-  const { img, id } = product;
+  const { id } = product;
 
   return (
     <Link href="/product/[id]" as={`/product/${id}`}>
       <S.Container viewportWidth={viewportWidth}>
-        <CardImg id={id} imgSrc={img} viewportWidth={viewportWidth} />
+        <CardImg viewportWidth={viewportWidth} product={product} />
         <CardContent {...product} />
       </S.Container>
     </Link>

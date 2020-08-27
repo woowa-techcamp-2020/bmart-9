@@ -40,6 +40,57 @@ const CartItem: React.FC<ClientCart> = ({
     updateCartQuantity(id, tempQuantity);
   }, [tempQuantity])
 
+  const renderCartPrice = () => {
+    if (discount > 0) {
+      return <>
+        <S.cartPriceFristLine>
+          <S.cartDiscount>{discount}%</S.cartDiscount>
+          <S.cartPrice> ({comma(price)}원)</S.cartPrice>
+        </S.cartPriceFristLine>
+        <S.cartPriceSecondLine>
+          <S.cartTotalBasePrice>
+            {comma(basePrice * tempQuantity)}원
+        </S.cartTotalBasePrice>
+          <S.cartTotalPrice> {comma(price * tempQuantity)}원</S.cartTotalPrice>
+        </S.cartPriceSecondLine>
+      </>
+    } else {
+      return <>
+        <S.cartPriceFristLine>
+          <S.cartPrice> ({comma(price)}원)</S.cartPrice>
+        </S.cartPriceFristLine>
+        <S.cartPriceSecondLine>
+          <S.cartTotalPrice> {comma(price * tempQuantity)}원</S.cartTotalPrice>
+        </S.cartPriceSecondLine>
+      </>
+    }
+  }
+
+  const renderMinusButton = () => {
+    if (tempQuantity > 1) {
+      return <><S.CartQuantityMinus count={tempQuantity} onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
+        <FontAwesomeIcon icon={faMinus} />
+      </S.CartQuantityMinus></>
+    } else {
+      return <><S.CartQuantityMinus disabled count={tempQuantity}>
+        <FontAwesomeIcon icon={faMinus} />
+      </S.CartQuantityMinus></>
+    }
+  }
+  const renderPlusButton = () => {
+    if (tempQuantity < 99) {
+      return <>
+        <S.CartQuantityPlus count={tempQuantity} onClick={() => tempQuantity < 99 && setTempQuantity(tempQuantity + 1)}>
+          <FontAwesomeIcon icon={faPlus} />
+        </S.CartQuantityPlus></>
+    } else {
+      return <>
+        <S.CartQuantityPlus count={tempQuantity} disabled>
+          <FontAwesomeIcon icon={faPlus} />
+        </S.CartQuantityPlus></>
+    }
+  }
+
   return (
     <S.Container>
       <S.cartHeader>
@@ -49,38 +100,12 @@ const CartItem: React.FC<ClientCart> = ({
       <S.cartBody>
         <S.cartImage src={image}></S.cartImage>
         <S.cartPriceWrapper>
-          {discount > 0 ?
-            <>
-              <S.cartPriceFristLine>
-                <S.cartDiscount>{discount}%</S.cartDiscount>
-                <S.cartPrice> ({comma(price)}원)</S.cartPrice>
-              </S.cartPriceFristLine>
-              <S.cartPriceSecondLine>
-                <S.cartTotalBasePrice>
-                  {comma(basePrice * tempQuantity)}원
-                </S.cartTotalBasePrice>
-                <S.cartTotalPrice> {comma(price * tempQuantity)}원</S.cartTotalPrice>
-              </S.cartPriceSecondLine>
-            </> :
-            <>
-              <S.cartPriceFristLine>
-                <S.cartPrice> ({comma(price)}원)</S.cartPrice>
-              </S.cartPriceFristLine>
-              <S.cartPriceSecondLine>
-                <S.cartTotalPrice> {comma(price * tempQuantity)}원</S.cartTotalPrice>
-              </S.cartPriceSecondLine>
-            </>
-          }
-
+          {renderCartPrice()}
           <S.cartDescription>{description[currDisc]}</S.cartDescription>
           <S.cartQuantityWrapper>
-            <S.cartQuantityMinus onClick={() => tempQuantity > 1 && setTempQuantity(tempQuantity - 1)}>
-              <FontAwesomeIcon icon={faMinus} />
-            </S.cartQuantityMinus>
-            <S.cartQuantity>{tempQuantity}</S.cartQuantity>
-            <S.cartQuantityPlus onClick={() => tempQuantity < 100 && setTempQuantity(tempQuantity + 1)}>
-              <FontAwesomeIcon icon={faPlus} />
-            </S.cartQuantityPlus>
+            {renderMinusButton()}
+            <S.CartQuantity>{tempQuantity}</S.CartQuantity>
+            {renderPlusButton()}
           </S.cartQuantityWrapper>
         </S.cartPriceWrapper>
       </S.cartBody>

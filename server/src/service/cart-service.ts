@@ -7,6 +7,11 @@ export const getAllCart = async (req: Request, res: Response) => {
   res.json(CartList);
 };
 
+export const getCartByProductId = async (req: Request, res: Response) => {
+  const cartDB = await CartRepo.findByProductId(Number(req.params.id));
+  res.json(cartDB);
+};
+
 export const updateQuantity = async (req: Request, res: Response) => {
   const updatedRows = await CartRepo.updateQuantity(req.body);
   const updatedCart = await CartRepo.findOne(req.body.id);
@@ -34,15 +39,14 @@ export const createTestCart = async (req: Request, res: Response) => {
   res.json(result);
 };
 
-// export const createCart = async (req: Request, res: Response) => {
-//   const newCartId = await CartRepo.create(req.body);
+export const createCart = async (req: Request, res: Response) => {
+  const newCartId = await CartRepo.create(req.body);
 
-//   // error 처리 해야함 
+  // error 처리 해야함 
+  const newCart = await CartRepo.findOne(newCartId);
 
-//   const newCart = await CartRepo.findOne(newCartId);
-
-//   res.json(newCart);
-// };
+  res.json(newCart[0]);
+};
 
 // export const updateCart = async (req: Request, res: Response) => {
 //   const CartList = await CartRepo.update();

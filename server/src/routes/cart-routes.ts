@@ -3,12 +3,14 @@ import { validateBody } from '../middlewares/validate-body';
 
 import { CreateCartBody, CartQuantity } from '../../../shared';
 
-import { getAllCart, updateQuantity, deleteCart, createTestCart } from '../service/cart-service';
+import { getAllCart, getCartByProductId, updateQuantity, deleteCart, createTestCart, createCart } from '../service/cart-service';
 
 const router = Router();
 
 // get all product
 router.get('/', getAllCart);
+
+router.get('/one/:id', getCartByProductId);
 
 // update cart quantity
 router.put('/quantity', validateBody<CartQuantity>(['id', 'quantity']), updateQuantity);
@@ -17,6 +19,9 @@ router.put('/quantity', validateBody<CartQuantity>(['id', 'quantity']), updateQu
 router.delete('/:id', deleteCart);
 
 router.get('/test/:id', createTestCart);
+
+// create cart
+router.post('/', validateBody<CreateCartBody>(['userId', 'productId', 'quantity']), createCart);
 
 
 
