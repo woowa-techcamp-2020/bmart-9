@@ -8,6 +8,7 @@ import { SearchProvider } from './SearchContext';
 import { CartAddProvider } from './CartAddContext';
 import { FavoriteProvider } from './FavoriteContext';
 import { OrderProvider } from './OrderContext';
+import { MapProvider } from './MapContext';
 
 export const CombinedProviders = CombineProviderApp(
   CategoryProvider,
@@ -18,5 +19,6 @@ export const CombinedProviders = CombineProviderApp(
   SearchProvider,
   CartAddProvider,
   FavoriteProvider,
-  OrderProvider
+  OrderProvider,
+  MapProvider
 );
