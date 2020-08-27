@@ -9,10 +9,13 @@ import { useCategory } from '../hooks/useCategory';
 import { useProduct } from '../hooks/useProduct';
 import { useSnackbar } from '../hooks/useSnackbar';
 import { useUser } from '../hooks/useUser';
+import { useCart } from '../hooks/useCart';
 
 import { useCartAdd } from '../hooks/useCartAdd';
 import { Snackbar } from '../components/Snackbar';
 import { CartAdd } from '../components/CartAdd';
+import { CartButton } from '../components/CartButton';
+
 import { onReceiveHandler } from '../utils/socket';
 
 type InitialProps = {
@@ -30,6 +33,8 @@ const InitializeStore: React.FC<InitialProps> = ({
   useProduct(products);
   useSnackbar();
   useCartAdd();
+
+  const { fetchCartList } = useCart();
   const { openSnackbar } = useSnackbar();
 
   user && onReceiveHandler(user.id, openSnackbar);
@@ -37,6 +42,7 @@ const InitializeStore: React.FC<InitialProps> = ({
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
+      fetchCartList(token);
       signIn(token);
     }
 
@@ -61,6 +67,7 @@ const MyApp = ({
           <GlobalStyle />
           <Snackbar />
           <CartAdd />
+          <CartButton />
           <Component {...pageProps} />
         </InitializeStore>
       )}

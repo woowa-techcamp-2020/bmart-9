@@ -7,7 +7,7 @@ import { CategoryContainer } from '../components/CategoryContainer';
 import { HorizontalSlider } from '../components/HorizontalSlider';
 import { FourCardsContainer } from '../components/FourCardsContainer';
 import { useProduct } from '../hooks/useProduct';
-import { CartButton } from '../components/CartButton';
+
 import { SixCardsContainer } from '../components/SixCardsContainer';
 import { CategorizedCardContainer } from '../components/CategorizedCardContainer';
 import { ProductDetail } from '../components/ProductDetail';
@@ -58,7 +58,7 @@ const IndexPage = ({
           </>
         )}
       </div>
-      <CartButton />
+      
     </>
   );
 };

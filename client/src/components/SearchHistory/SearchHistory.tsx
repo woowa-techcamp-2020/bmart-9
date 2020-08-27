@@ -3,13 +3,16 @@ import * as S from './SearchHistoryStyle';
 import { useSearch } from '../../hooks/useSearch';
 import { HorizontalBar } from '../HorizontalBar';
 import { Search } from '../../../../shared';
+import { Card } from '../Card';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type Props = {
   searchedHistory: Search[];
 };
 
 const SearchHistory: React.FC<Props> = ({ searchedHistory }: Props) => {
-  const { history, removeSearch } = useSearch();
+  const { history, removeSearch, searchByKeyword } = useSearch();
   const data = history.length > 0 ? history : searchedHistory;
 
   const removeAll = async () => {
@@ -22,6 +25,10 @@ const SearchHistory: React.FC<Props> = ({ searchedHistory }: Props) => {
     );
   };
 
+  const onSubmitHandler = async (keyword: string) => {
+    await searchByKeyword(keyword);
+  };
+
   return (
     <>
       <S.Container>
@@ -32,8 +39,10 @@ const SearchHistory: React.FC<Props> = ({ searchedHistory }: Props) => {
         {data.map((search) => (
           <HorizontalBar
             key={search.id}
-            start={search.keyword}
-            end={<button onClick={() => removeSearch(search.id)}>X</button>}
+            start={<button onClick={() => onSubmitHandler(search.keyword)}>{search.keyword}</button>}
+            end={<button onClick={() => removeSearch(search.id)}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>}
           />
         ))}
       </S.Container>

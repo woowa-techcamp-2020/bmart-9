@@ -7,6 +7,12 @@ const getAll = async (token: string) => {
   return data;
 };
 
+const getByKeyword = async (token: string, keyword: string) => {
+  const { data } = await bmartAuth(token).get<Search>(`/search/${keyword}`);
+
+  return data;
+};
+
 const removeOne = async (token: string, id: number) => {
   const { data } = await bmartAuth(token).delete(`/search/${id}`);
 

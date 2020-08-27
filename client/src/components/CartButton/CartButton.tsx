@@ -2,23 +2,24 @@ import React, { useEffect } from 'react';
 import * as S from './CartButtonStyle';
 import { useCart } from "../../hooks/useCart";
 import { useUser } from "../../hooks/useUser";
-import Link from "next/link"
-import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from 'next/router';
 
+import Link from "next/link"
+import { Images } from '../../images';
 type Props = {}
 
 const CartButton: React.FC<Props> = ({ }: Props) => {
 	const { cartTotalCount } = useCart();
 	const { isLoggedIn } = useUser();
+	const { pathname } = useRouter();
 
 	const renderButton = () => {
 		if (isLoggedIn) {
-			return <S.Container>
+			return <S.Container >
 				<Link href="/cartPage">
-					<S.Button>
-						<FontAwesomeIcon icon={faShoppingBag}></FontAwesomeIcon>
+					<S.Button pathname={pathname}>
 						<S.CartCount>{cartTotalCount()}</S.CartCount>
+						<S.Img src={Images.CART_ICON_WHITE} />
 					</S.Button>
 				</Link>
 			</S.Container>
