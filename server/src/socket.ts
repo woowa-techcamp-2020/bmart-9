@@ -10,7 +10,6 @@ export const connectSocket = (app: Express): http.Server => {
   const server = http.createServer(app);
 
   const io = socketIo(server); // < Interesting!
-  let interval;
 
   const setUser = (socket: socketIo.Socket) => {
     const userId = socket.handshake.query.userId;
