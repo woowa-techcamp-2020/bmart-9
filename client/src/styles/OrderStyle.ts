@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MAIN_COLOR1, MAIN_RED, GRAY_004, GRAY_005 } from '../../styles/GlobalStyle';
+import { MAIN_COLOR1, MAIN_RED, GRAY_004, GRAY_005 } from './GlobalStyle';
 
 const HEADER_HEIGHT = '43px';
 
@@ -9,5 +9,5 @@ export const Container = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-  background-color:#eee;
+  background-color: #eee;
 `;

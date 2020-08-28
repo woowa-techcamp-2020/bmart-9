@@ -2,7 +2,7 @@ import React from 'react';
 import API from '../../api';
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
 import { Header } from '../../components/Header';
-import * as S from './ProductStyle';
+import * as S from '../../styles/ProductStyle';
 
 import { ProductDetail } from '../../components/ProductDetail';
 
@@ -36,17 +36,17 @@ const ProductDetailPage = ({
     await onClickFavoriteHandler(productInfo.id, user!.token);
   };
 
-  const openCartAction = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const openCartAction = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.stopPropagation();
-
 
     if (!isLoggedIn) {
       return notLogggedInHandler();
     }
 
     openCartAdd(productInfo);
-
-  }
+  };
 
   return (
     <>
@@ -56,21 +56,22 @@ const ProductDetailPage = ({
         <S.Img src={productInfo.img} />
         <S.InfoWrapper>
           <S.ProductInfoWrapper>
-            <S.Name>
-              {productInfo.name}
-            </S.Name>
+            <S.Name>{productInfo.name}</S.Name>
             <S.PriceWrapper>
-              {productInfo.discount > 0 &&
+              {productInfo.discount > 0 && (
                 <>
                   <S.Discount>{productInfo.discount}% </S.Discount>
                   <S.BasePrice>{COMMA(productInfo.base_price)}원</S.BasePrice>
                 </>
-              }
+              )}
               <S.Price> {COMMA(productInfo.price)}원</S.Price>
             </S.PriceWrapper>
           </S.ProductInfoWrapper>
           <S.LikeIconWrapper like={isFavorite(productInfo.id) ? 'red' : '#ddd'}>
-            <FontAwesomeIcon icon={faHeart} onClick={toggleLike} ></FontAwesomeIcon>
+            <FontAwesomeIcon
+              icon={faHeart}
+              onClick={toggleLike}
+            ></FontAwesomeIcon>
           </S.LikeIconWrapper>
         </S.InfoWrapper>
 
@@ -78,9 +79,7 @@ const ProductDetailPage = ({
 
         <S.EmptySpace></S.EmptySpace>
         <S.OrderButton onClick={(e) => openCartAction(e)}>
-          <S.OrderButtonText>
-            구매하기
-            </S.OrderButtonText>
+          <S.OrderButtonText>구매하기</S.OrderButtonText>
         </S.OrderButton>
         <S.BottomConcealer />
       </S.Container>

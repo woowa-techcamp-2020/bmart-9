@@ -6,7 +6,7 @@ import { getToken } from '../../utils/cookieParser';
 import { Order } from '../../../../shared';
 import { OrderItem } from '../../components/OrderItem';
 import { MainContainer } from '../../components/MainContainer';
-import * as S from './OrderStyle';
+import * as S from '../../styles/OrderStyle';
 
 const OrderPage = ({
   orderList,
