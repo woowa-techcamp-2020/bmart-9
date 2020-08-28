@@ -4,9 +4,7 @@
 
 ### 다양한 형태의 메뉴 구성
 
-### 좋아요부터 장바구니 추가까지
-
-#### 장바구니에 담고 주문 할 수 있어요
+### 장바구니에 담고 주문 할 수 있어요
 <p align="center">
   <kbd><img width="250" alt="장바구니담기_상품디테일" src="https://user-images.githubusercontent.com/19217576/91518160-8e172080-e92a-11ea-870c-cf64901bd970.gif"></kbd>
   <kbd><img width="250" alt="장바구니_주문하기" src="https://user-images.githubusercontent.com/19217576/91518113-6031dc00-e92a-11ea-9159-6ee8148b8264.gif"></kbd>
@@ -14,16 +12,18 @@
 </p>
 
 
-#### 장바구니 수량 변경과 삭제도 가능해요
+### 장바구니 수량 변경과 삭제도 가능해요
 <p align="center">
   <kbd><img width="250" alt="장바구니_수정_삭제" src="https://user-images.githubusercontent.com/19217576/91518108-5dcf8200-e92a-11ea-9a5d-8f1eb394db0c.gif"></kbd>
   <kbd><img width="250" alt="장바구니_전체석택_삭제" src="https://user-images.githubusercontent.com/19217576/91518109-5e681880-e92a-11ea-8476-0c2301134f1a.gif"></kbd>
 </p>
 
-#### 테스트용 데이터도 넣을 수 있어요
+### 테스트용 데이터도 넣을 수 있어요
 <p align="center">
 <kbd><img width="250" alt="장바구니_테스트데이터" src="https://user-images.githubusercontent.com/19217576/91518114-61fb9f80-e92a-11ea-92be-69ec68cffb71.gif"></kbd>
   </p>
+  
+> 텅 빈 장바구니를 한번에 채워드릴게요
 
 ### 알람을 해주는 귀여운 스낵바도 있어요 
 <p align="center">
@@ -31,6 +31,7 @@
   <kbd><img width="250" alt="스낵바_알림" src="https://user-images.githubusercontent.com/19217576/91518106-5c05be80-e92a-11ea-945a-3d1396b7d4af.gif"></kbd>
 </p>
 
+> 스낵바는 context API를 이용해서 전역에서 상황에 맞게 사용할 수 있도록 구현했어요
 
 
 ### 주문부터 배송까지
