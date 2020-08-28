@@ -2,6 +2,8 @@
 
 ## Project Description
 
+> Bmart의 **모바일 웹 버전**을 만나보세요
+
 ### 다양한 형태의 메뉴 구성
 
 <p align="center">
