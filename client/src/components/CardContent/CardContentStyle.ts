@@ -8,6 +8,7 @@ type FontSizePercentageProps = {
 export const Container = styled.div`
   background-color: white;
   padding: 0 5px;
+  margin: 0 1vw;
 `;
 
 export const ProductName = styled.div<FontSizePercentageProps>`

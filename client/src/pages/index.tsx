@@ -43,11 +43,11 @@ const IndexPage = ({
             />
             <FourCardsContainer
               start={'지금사면 ⚡️ 번쩍할인'}
-              end={'더보기 〉'}
               products={products.filter(product=> product.discount).slice(10, 14)}
             />
             <SixCardsContainer
               start={'지금 뭐 먹지?'}
+              fontWeight={'normal'}
               products={products.slice(44, 68)}
             />
             <HorizontalSlider
@@ -56,12 +56,10 @@ const IndexPage = ({
             />
             <HorizontalSlider
               start={'오늘만 하는 세일'}
-              products={products.slice(20, 30)}
+              products={products.filter(product=> product.discount).slice(14, 24)}
             />
             <SmallBanners />
             <CategorizedCardContainer
-              start={'카테고리 이름'}
-              end={'더보기 〉'}
               products={products}
               categories={categories}
             />

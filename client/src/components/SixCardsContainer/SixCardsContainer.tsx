@@ -9,15 +9,17 @@ type SixCardsContainerProps = {
   start?: any;
   end?: any;
   products: Product[];
+  fontWeight?: string;
 };
 
-const SIX_CARDS_CONTAINER_CARD_VIEWPORT_WIDTH = 32;
+const SIX_CARDS_CONTAINER_CARD_VIEWPORT_WIDTH = 30;
 const SIX_CARDS_CONTAINER_CARD_FONT_SIZE_PERCENTAGE = 70;
 
 const SixCardsContainer: React.FC<SixCardsContainerProps> = ({
   start,
   end,
   products,
+  fontWeight
 }: SixCardsContainerProps) => {
   const [pageIndex, setPageIndex] = useState(1);
   const PRODUCT_PER_PAGE = 6;
@@ -50,6 +52,7 @@ const SixCardsContainer: React.FC<SixCardsContainerProps> = ({
         </S.Container>
         <HorizontalBar
           displayNextProducts={displayNextProducts}
+          fontWeight={fontWeight}
           center={`↻ 지금 뭐 먹지? 다른 상품 보기 ${pageIndex}/4`}
         />
       </MainContainer>
