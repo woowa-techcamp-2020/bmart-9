@@ -46,7 +46,7 @@
 
 ### 주문부터 배송까지
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/30615804/91517818-b2bec880-e929-11ea-847b-1115d700a36b.gif" width="600"/>
+  <kbd><img src="https://user-images.githubusercontent.com/30615804/91517818-b2bec880-e929-11ea-847b-1115d700a36b.gif" width="600"/></kbd>
 </p>
 
 > 귀여운 **새달원**과 함께 전국팔도 어디든 10초만에 배송되는 업그레이드된 Bmart를 만나세요!
