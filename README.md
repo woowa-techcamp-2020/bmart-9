@@ -4,6 +4,12 @@
 
 ### 다양한 형태의 메뉴 구성
 
+<p align="center">
+<kbd><img width="250" alt="메인화면 상단" src="https://user-images.githubusercontent.com/34447105/91519078-9708f180-e92c-11ea-8ee6-00be228b5de7.gif"></kbd>
+<kbd><img width="250" alt="메인화면 중간" src="https://user-images.githubusercontent.com/34447105/91519091-9cfed280-e92c-11ea-8f67-56e2ef78fea0.gif"></kbd>
+<kbd><img width="250" alt="a메인화면 하단" src="https://user-images.githubusercontent.com/34447105/91519055-88bad580-e92c-11ea-8bf8-764d32da22dc.gif"></kbd>
+</p>
+
 ### 장바구니에 담고 주문 할 수 있어요
 <p align="center">
   <kbd><img width="250" alt="장바구니담기_상품디테일" src="https://user-images.githubusercontent.com/19217576/91518160-8e172080-e92a-11ea-870c-cf64901bd970.gif"></kbd>
