@@ -14,7 +14,6 @@
 <p align="center">
   <kbd><img width="250" alt="장바구니담기_상품디테일" src="https://user-images.githubusercontent.com/19217576/91518160-8e172080-e92a-11ea-870c-cf64901bd970.gif"></kbd>
   <kbd><img width="250" alt="장바구니_주문하기" src="https://user-images.githubusercontent.com/19217576/91518113-6031dc00-e92a-11ea-9159-6ee8148b8264.gif"></kbd>
-
 </p>
 
 
@@ -29,7 +28,8 @@
 <kbd><img width="250" alt="장바구니_테스트데이터" src="https://user-images.githubusercontent.com/19217576/91518114-61fb9f80-e92a-11ea-92be-69ec68cffb71.gif"></kbd>
   </p>
   
-> 텅 빈 장바구니를 한번에 채워드릴게요
+> 텅 빈 장바구니를 한번에 채워드릴게요. ~~맘껏 테스트 해 보시죠~~
+
 
 ### 알람을 해주는 귀여운 스낵바도 있어요 
 <p align="center">
@@ -37,7 +37,9 @@
   <kbd><img width="250" alt="스낵바_알림" src="https://user-images.githubusercontent.com/19217576/91518106-5c05be80-e92a-11ea-945a-3d1396b7d4af.gif"></kbd>
 </p>
 
-> 스낵바는 context API를 이용해서 전역에서 상황에 맞게 사용할 수 있도록 구현했어요
+> 어디서든 불러오는 스낵바! 다양한 용도로 이용할 수 있어요!
+
+- **Context API**를 이용해서 전역에서 상황에 맞게 사용할 수 있도록 구현
 
 
 ### 주문부터 배송까지
