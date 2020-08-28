@@ -54,6 +54,9 @@ export class OrderRepo {
       user
     on
       bmart.order.user_id = user.id
+    order by
+      bmart.order.created_at desc;
+
     `;
 
     const OrderList: Order[] = await selectQueryExecuter<Order>(

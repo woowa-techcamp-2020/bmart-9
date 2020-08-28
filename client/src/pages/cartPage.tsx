@@ -20,6 +20,7 @@ import { Images } from '../images';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { getSocket } from '../utils/socket';
 
 const TRUE = 1;
 const FALSE = 0;
@@ -27,7 +28,6 @@ const FALSE = 0;
 const CartPage = ({
   cartListProps,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-
   const {
     cartList,
     setCartList,
@@ -50,53 +50,58 @@ const CartPage = ({
 
   useEffect(() => {
     setAllCheck(allCheckValue());
-  }, [allCheckValue()])
+  }, [allCheckValue()]);
 
   const deleteAllCheckAction = () => {
-    deleteAllCheck(user!.token)
-    openSnackbar("success", `선택된 상품을 삭제했습니다.`);
-  }
+    deleteAllCheck(user!.token);
+    openSnackbar('success', `선택된 상품을 삭제했습니다.`);
+  };
 
-  const createOrderAction = () => {
-    push("/");
-    createOrder(user!.token, cartList)
-  }
+  const createOrderAction = async () => {
+    push('/');
+    await createOrder(user!.token, cartList);
+    const socket = getSocket(user!.id);
+    socket.emit('ORDER_REQUESTED', `${user!.name}님이 주문을 완료했습니다.`);
+  };
 
   const renderOrderButton = () => {
     if (cartCheckedCount() > 0) {
-      return <>
-        <S.OrderButton onClick={() => createOrderAction()}>
-          <S.OrderButtonCount>{cartCheckedCount()}</S.OrderButtonCount>
-          <S.OrderButtonText>
-            {` ${comma(cartCheckedCost())}`}원 배달 주문 하기
-        </S.OrderButtonText>
-        </S.OrderButton>
-        <S.BottomConcealer />
-      </>
+      return (
+        <>
+          <S.OrderButton onClick={() => createOrderAction()}>
+            <S.OrderButtonCount>{cartCheckedCount()}</S.OrderButtonCount>
+            <S.OrderButtonText>
+              {` ${comma(cartCheckedCost())}`}원 배달 주문 하기
+            </S.OrderButtonText>
+          </S.OrderButton>
+          <S.BottomConcealer />
+        </>
+      );
     } else {
-      return <>
-        <S.EmptyButton>
-          <S.OrderButtonText>
-            최소주문금액을 채워주세요
-      </S.OrderButtonText >
-        </S.EmptyButton >
-        <S.BottomConcealer />
-      </>
+      return (
+        <>
+          <S.EmptyButton>
+            <S.OrderButtonText>최소주문금액을 채워주세요</S.OrderButtonText>
+          </S.EmptyButton>
+          <S.BottomConcealer />
+        </>
+      );
     }
-  }
+  };
 
   const renderDeleteAllButton = () => {
     if (cartCheckedCount() > 0) {
-      return <S.DeleteAllButton
-        color="main"
-        onClick={() => deleteAllCheckAction()}>
-        선택 비우기</S.DeleteAllButton>
+      return (
+        <S.DeleteAllButton color="main" onClick={() => deleteAllCheckAction()}>
+          선택 비우기
+        </S.DeleteAllButton>
+      );
     } else {
       <S.DeleteAllButton color="#ddd" disabled>
         선택 비우기
-      </S.DeleteAllButton>
+      </S.DeleteAllButton>;
     }
-  }
+  };
 
   return (
     <>
@@ -119,10 +124,14 @@ const CartPage = ({
                     type="checkbox"
                     checked={allCheck === TRUE}
                     onChange={() =>
-                      allCheck === TRUE ? updateAllCheck(FALSE) : updateAllCheck(TRUE)
+                      allCheck === TRUE
+                        ? updateAllCheck(FALSE)
+                        : updateAllCheck(TRUE)
                     }
                   ></S.AllCheckBox>
-                  <S.CheckboxContents>{allCheck === TRUE ? '선택 해제' : '전체 선택'}</S.CheckboxContents>
+                  <S.CheckboxContents>
+                    {allCheck === TRUE ? '선택 해제' : '전체 선택'}
+                  </S.CheckboxContents>
                 </label>
               </S.SelectCheckbox>
               {renderDeleteAllButton()}
@@ -148,32 +157,29 @@ const CartPage = ({
             <HorizontalBar start={renderOrderButton()} />
           </S.BodyContainer>
         ) : (
-            <S.EmptyContainer>
-              <S.EmptyWrapper>
-                <S.Img src={Images.EMPTY_CART}></S.Img>
-                <div>장바구니가 텅 비어있어요</div>
-              </S.EmptyWrapper>
-              <S.OrderButton onClick={() => (user && createTestCart(user.token))}>
-                <S.OrderButtonText>테스트 장바구니 추가</S.OrderButtonText>
-              </S.OrderButton>
-            </S.EmptyContainer>
-          )}
+          <S.EmptyContainer>
+            <S.EmptyWrapper>
+              <S.Img src={Images.EMPTY_CART}></S.Img>
+              <div>장바구니가 텅 비어있어요</div>
+            </S.EmptyWrapper>
+            <S.OrderButton onClick={() => user && createTestCart(user.token)}>
+              <S.OrderButtonText>테스트 장바구니 추가</S.OrderButtonText>
+            </S.OrderButton>
+          </S.EmptyContainer>
+        )}
       </S.Container>
     </>
   );
 };
 
-
 export const getServerSideProps = async ({
   req,
 }: GetServerSidePropsContext) => {
   const token = getToken(req.headers.cookie);
-  const cartListProps = token
-    ? await API.Cart.getAll(token as string)
-    : [];
+  const cartListProps = token ? await API.Cart.getAll(token as string) : [];
   return {
     props: {
-      cartListProps
+      cartListProps,
     },
   };
 };
