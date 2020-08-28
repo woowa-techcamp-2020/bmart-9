@@ -82,7 +82,9 @@ const SideMenu: React.FC<Props> = ({ open, toggleOpen }: Props) => {
       <BoxCategory categories={category} />
       {renderCategory()}
 
-      {isLoggedIn && <BoxButton title={'로그아웃'} width={'70%'} />}
+      {isLoggedIn && (
+        <BoxButton title={'로그아웃'} width={'70%'} onClickHandler={signOut} />
+      )}
     </S.Container>
   );
 };
