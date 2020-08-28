@@ -2,6 +2,21 @@
 
 ## Project Description
 
+### 다양한 형태의 메뉴 구성
+
+### 좋아요부터 장바구니 추가까지
+
+### 주문부터 배송까지
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/30615804/91517818-b2bec880-e929-11ea-847b-1115d700a36b.gif" width="600"/>
+</p>
+
+> 귀여운 **새달원**과 함께 전국팔도 어디든 10초만에 배송되는 업그레이드된 Bmart를 만나세요!
+
+- **Socket**을 이용한 관리자와 일반 유저간의 실시간 통신!
+- Mapbox API를 이용한 실시간 위치 반영 배송 서비스!
+- 일반 사용자와 관리자 유저를 나눠서 운영!
+
 ## 👨‍👨‍👦 우리는
 <p align="center">
   <img src="https://user-images.githubusercontent.com/34447105/90772561-b2be3780-e32f-11ea-9ae3-04bd46ea2144.png" width="300"/>
