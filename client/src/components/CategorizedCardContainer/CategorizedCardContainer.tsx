@@ -28,10 +28,9 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
 
   const cardContainerElements: any[] = [];
   const PRODUCTS_PER_CATEGORY = 6;
+  const categoryWithoutBird = categories.filter(({ id }) => id !== 1);
 
-  // console.log(categories);
-  const filteredProducts = categories
-    .filter(({ id }) => id !== 1)
+  const filteredProducts = categoryWithoutBird
     .map((category) => category.id)
     .map((category) =>
       getFilteredProductByCategory(category, false).slice(
@@ -53,7 +52,8 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   };
 
   const getCategoryNameByCategoryId = (categoryId: number) =>
-    categories.filter((category) => category.id === categoryId)[0].name;
+    categoryWithoutBird.filter((category) => category.id === categoryId)[0]
+      .name;
 
   // const document = typeof document === 'undefined' ? '' : document;
 
@@ -85,7 +85,7 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
             navBarInitialOffsetTop={navBarInitialOffsetTop}
           >
             <CategoryNavBar
-              categories={categories}
+              categories={categoryWithoutBird}
               categoryTab={categoryTab}
               setCategoryTab={setCategoryTab}
               categoryClickHandler={categoryClickHandler}
