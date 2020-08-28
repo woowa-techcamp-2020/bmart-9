@@ -2,11 +2,14 @@ import { useCreator } from '../utils/createContext';
 import { OrderContexts } from '../context/OrderContext';
 import { Order, CreateOrderBody, ClientCart } from '../../../shared';
 import { useCart } from './useCart'
+import { useSnackbar } from './useSnackbar'
+import MOMENT from 'moment';
 import API from '../api';
 
 export const useOrder = () => {
   const [orderList, dispatch] = useCreator(OrderContexts);
   const { deleteAllCheck } = useCart();
+  const { openSnackbar } = useSnackbar();
 
   const setOrderList = (orderList: Order[]) => {
     dispatch({ type: "SET_ORDER_LIST", newOrderList: orderList });
@@ -16,23 +19,18 @@ export const useOrder = () => {
     const checkedCartLiat = cartList.filter((cart) => cart.check && cart);
 
     const createOrderParams: CreateOrderBody = {
-      createdAt: '2020-08-27 21:08:00',
-      latitude: 134,
-      longitude: 25,
+      createdAt: MOMENT(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+      latitude: 37.5,
+      longitude: 127.5,
       cartList: checkedCartLiat
     }
 
     const payloadOrder = await API.Order.create(token, createOrderParams);
     dispatch({ type: 'ADD_ORDER_TO_LIST', newOrder: payloadOrder });
 
-    deleteAllCheck(token);
-  }
+    openSnackbar("success", `${checkedCartLiat[0].name}외 ${checkedCartLiat.length - 1}개 상품을 주문했습니다.`);
 
-  // 주문 상세 내역에서 주문내역 볼때,
-  // 상세 내역에 있는 item들은 context에 저장해두고 관리할 필요가있는가?
-  // 누를때마다 api요청 보내서 가져와서 보여주고 끝나면 안됨?
-  const getOrderProductList = async (token: string, cartList: ClientCart[]) => {
-    
+    deleteAllCheck(token);
   }
 
   return { orderList, dispatch, setOrderList, createOrder };

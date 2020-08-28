@@ -27,7 +27,8 @@ export class OrderRepo {
       from bmart.order
       left join user
         on bmart.order.user_id = user.id
-        where bmart.order.user_id = ${userId};
+          where bmart.order.user_id = ${userId}
+        order by bmart.order.created_at desc;
     `;
     const OrderList: Order[] = await selectQueryExecuter<Order>(
       findAllOrderQuery

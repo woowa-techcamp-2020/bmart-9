@@ -8,6 +8,7 @@ import { useCart } from '../hooks/useCart';
 import { useUser } from '../hooks/useUser';
 import { useOrder } from '../hooks/useOrder';
 import { useSnackbar } from '../hooks/useSnackbar';
+import { useRouter } from 'next/router';
 
 import API from '../api';
 import { getToken } from '../utils/cookieParser';
@@ -37,6 +38,7 @@ const CartPage = ({
 
   const { createOrder } = useOrder();
   const { openSnackbar } = useSnackbar();
+  const { push } = useRouter();
   const { updateAllCheck, allCheckValue, deleteAllCheck } = useCart();
   const [allCheck, setAllCheck] = useState<number>(allCheckValue());
 
@@ -54,10 +56,16 @@ const CartPage = ({
     deleteAllCheck(user!.token)
     openSnackbar("success", `선택된 상품을 삭제했습니다.`);
   }
+
+  const createOrderAction = () => {
+    push("/");
+    createOrder(user!.token, cartList)
+  }
+
   const renderOrderButton = () => {
     if (cartCheckedCount() > 0) {
       return <>
-        <S.OrderButton onClick={() => createOrder(user!.token, cartList)}>
+        <S.OrderButton onClick={() => createOrderAction()}>
           <S.OrderButtonCount>{cartCheckedCount()}</S.OrderButtonCount>
           <S.OrderButtonText>
             {` ${comma(cartCheckedCost())}`}원 배달 주문 하기
