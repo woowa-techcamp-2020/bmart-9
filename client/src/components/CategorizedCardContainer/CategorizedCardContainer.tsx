@@ -29,7 +29,9 @@ const CategorizedCardContainer: React.FC<CategorizedCardContainerProps> = ({
   const cardContainerElements: any[] = [];
   const PRODUCTS_PER_CATEGORY = 6;
 
+  // console.log(categories);
   const filteredProducts = categories
+    .filter(({ id }) => id !== 1)
     .map((category) => category.id)
     .map((category) =>
       getFilteredProductByCategory(category, false).slice(
