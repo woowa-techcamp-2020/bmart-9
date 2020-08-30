@@ -70,19 +70,12 @@
 
 ## 기술 스택
 
-![title](https://img.shields.io/badge/-React-61DAFB?&logo=React&logoColor=white)
-![title](https://img.shields.io/badge/-Typescript-4075bb?&logo=TypeScript&logoColor=white)
-![title](https://img.shields.io/badge/-Next.js-000000?&logo=Next.js&logoColor=white)
-![title](https://img.shields.io/badge/-Prettier-F7B93E?&logo=Prettier&logoColor=white)
-![title](https://img.shields.io/badge/-StyledComponent-CF7692?&logo=styled-components&logoColor=white)
-![title](https://img.shields.io/badge/-Node.js-339933?&logo=Node.js&logoColor=white)
-![title](https://img.shields.io/badge/-Express-191919?&logo=Node.js&logoColor=white)
-![title](https://img.shields.io/badge/-JWT-000000?&logo=JSON-Web-Tokens&logoColor=white)
-![title](https://img.shields.io/badge/-Passport-32dd65?&logo=&logoColor=white)
-![title](https://img.shields.io/badge/-MySQL-4479A1?&logo=MySQL&logoColor=white)
-![title](https://img.shields.io/badge/-EC2-232F3E?&logo=Amazon-AWS&logoColor=white)
-![title](https://img.shields.io/badge/-Github-181717?&logo=Github&logoColor=white)
-![title](https://img.shields.io/badge/-Slack-4A154B?&logo=Slack&logoColor=white)
+| Area         | Tech Stack                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Frontend     | ![](https://img.shields.io/badge/Typescript-blue?color=007ACC&longCache=true&logo=Typescript&logoColor=white) ![](https://img.shields.io/badge/React-blue?longCache=true&logo=React) ![title](https://img.shields.io/badge/-Next.js-000000?&logo=Next.js&logoColor=white)  ![](https://img.shields.io/badge/Styled_Compoenent-blue?color=b80742&longCache=true&logo=styled-components&logoColor=white) ![](https://img.shields.io/badge/Github_OAuth_2.0-blue?color=4285F4&longCache=true&logo=Google&logoColor=white) | 
+| Backend      | ![](https://img.shields.io/badge/Typescript-blue?color=007ACC&longCache=true&logo=Typescript&logoColor=white) ![title](https://img.shields.io/badge/-Node.js-339933?&logo=Node.js&logoColor=white) ![title](https://img.shields.io/badge/-Express-191919?&logo=Node.js&logoColor=white) ![title](https://img.shields.io/badge/-JWT-000000?&logo=JSON-Web-Tokens&logoColor=white) ![title](https://img.shields.io/badge/-Passport-32dd65?&logo=&logoColor=white) ![title](https://img.shields.io/badge/-MySQL-4479A1?&logo=MySQL&logoColor=white) ![title](https://img.shields.io/badge/-EC2-232F3E?&logo=Amazon-AWS&logoColor=white)   |
+| Infra        |  ![title](https://img.shields.io/badge/-Github-181717?&logo=Github&logoColor=white) ![title](https://img.shields.io/badge/-Slack-4A154B?&logo=Slack&logoColor=white) ![](https://img.shields.io/badge/AWS_EC2-blue?color=232F3E&longCache=true&logo=Amazon-AWS&logoColor=white)|
+
 
 ## Quick Start
 
