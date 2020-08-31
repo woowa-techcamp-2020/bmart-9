@@ -57,7 +57,8 @@
 
 ## 👨‍👨‍👦 우리는
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/34447105/90772561-b2be3780-e32f-11ea-9ae3-04bd46ea2144.png" width="300"/>
+  <kbd><img src="https://user-images.githubusercontent.com/34447105/90772561-b2be3780-e32f-11ea-9ae3-04bd46ea2144.png" width="350" height="200"/></kbd>
+  <kbd><img src="https://user-images.githubusercontent.com/30615804/91693847-9aa7ad00-eba6-11ea-8408-051febbef24a.JPG" width="350" height="200"/></kbd>
 </p>
 
 - <a href="https://github.com/naamoonoo"><img src="https://img.shields.io/badge/DEVELOPER-남현우-informational"/></a>   [퀸(구 저글링)](https://github.com/woowa-techcamp-2020/bmart-9/wiki/%EB%82%A8%ED%98%84%EC%9A%B0)
